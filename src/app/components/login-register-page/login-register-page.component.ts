@@ -100,13 +100,16 @@ export class LoginRegisterPageComponent implements OnInit {
       this.user.email = value.email;
       this.user.password = value.password;
 
-      this.authService.login(this.user).subscribe((data) => {
-        console.log(data);
-        this.authService.addToken(data);
-        this.showSpinner = !this.showSpinner;
-        this.router.navigate(['/dashboard']);
-      }),
-        (error) => {};
+      this.authService.login(this.user).subscribe(
+        (data) => {
+          this.authService.addToken(data);
+          this.showSpinner = !this.showSpinner;
+          this.router.navigate(['/dashboard']);
+        },
+        (error) => {
+          this.displayServerMessage('error', 'משהו השתבש, נסה שוב בבקשה');
+        }
+      );
     }, 3000);
   }
 
@@ -141,21 +144,23 @@ export class LoginRegisterPageComponent implements OnInit {
       this.user.email = value.email;
       this.user.password = value.password;
 
-      this.authService.register(this.user).subscribe((data) => {
-        this.authService.addToken(data);
+      this.authService.register(this.user).subscribe(
+        (data) => {
+          this.authService.addToken(data);
 
-        this.loginForm.controls.email.setValue(this.user.email);
-        this.loginForm.controls.password.setValue(this.user.password);
+          this.loginForm.controls.email.setValue(this.user.email);
+          this.loginForm.controls.password.setValue(this.user.password);
 
-        this.displayServerMessage('success', 'נרשמת בהצלחה!');
+          this.displayServerMessage('success', 'נרשמת בהצלחה!');
 
-        this.showPassword = !this.showPassword;
-        this.registerActive = !this.registerActive;
-      }),
+          this.showPassword = !this.showPassword;
+          this.registerActive = !this.registerActive;
+        },
         (error) => {
           console.log(error);
           this.displayServerMessage('error', 'משהו השתבש, נסה שוב בבקשה');
-        };
+        }
+      );
     }, 3000);
   }
 
