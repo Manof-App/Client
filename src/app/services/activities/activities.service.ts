@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Activity } from '../../models/Activity';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -59,17 +55,14 @@ export class ActivitiesService {
     ));
   }
 
-  getAllActivities(): Observable<any> {
-    return this.httpClient.get<any>(this.baseUrl + '/allActivities');
+  getAllActivities(): Observable<Activity[]> {
+    return this.httpClient.get<Activity[]>(this.baseUrl + '/allActivities');
   }
 
-  getActivitiesByCategoryState(
-    category: string,
-    categoryState: string
-  ): Observable<Activity> {
+  getActivitiesByCategoryState(category: string, categoryState: string): Observable<Activity[]> {
     let params = new HttpParams().set('sortBy', `${category}:${categoryState}`);
     console.log(params);
-    return this.httpClient.get<Activity>(`${this.baseUrl}/activities`, {
+    return this.httpClient.get<Activity[]>(`${this.baseUrl}/activities`, {
       params: params,
     });
   }

@@ -27,9 +27,7 @@ export class ActivityCardsComponent implements OnInit {
     this.activities = [];
 
     this.activitiesService.getAllActivities().subscribe((data) => {
-      data.forEach((activity) => {
-        this.activities.push(activity);
-      });
+      this.activities = data;
     });
   }
 
@@ -38,14 +36,12 @@ export class ActivityCardsComponent implements OnInit {
 
     finder.forEach((key) => {
       if (this.key_finder[key] === event.target.value) {
-        this.activitiesService
-          .getActivitiesByCategoryState(key, 'asc')
-          .subscribe((data) => {
-            console.log(data);
-          }),
-          (error) => {
-            console.log(error);
-          };
+        this.activitiesService.getActivitiesByCategoryState(key, 'asc').subscribe(
+          (data: Activity[]) => {
+            this.activities = data;
+          },
+          (error) => {}
+        );
       }
     });
   }
