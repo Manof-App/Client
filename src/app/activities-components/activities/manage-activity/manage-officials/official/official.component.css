@@ -1,0 +1,118 @@
+.mat-toolbar-row, .mat-toolbar-single-row {
+    padding: 0;
+    justify-content: space-between;
+}
+
+mat-toolbar span {
+    padding: 5px;
+}
+
+::ng-deep mat-toolbar button.exit-button {
+    margin: 5px 10px;
+    width: 50px;
+    font-size: 25px;
+    font-weight: bold;
+    background: #fff !important;
+    border: 2px solid #333 !important;
+}
+
+::ng-deep mat-toolbar button.exit-button:hover {
+    color: #fff;
+    background: #333 !important;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+    align-items: flex-start !important;
+}
+
+form.normal-form {
+    margin: 10px;
+}
+
+.controles-container {
+    width: 100%;
+    padding: 5%;
+}
+
+.controles-container>* {
+    width: 100%;
+}
+
+.add-bottom-padding {
+    display: flex;
+    padding-bottom: 10px;
+    text-align: right;
+    justify-content: space-between;
+}
+
+mat-form-field {
+    text-align: right;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding-top: .75em !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #fff;
+    padding: .75em 0 0 0 !important;
+    align-items: center;
+}
+
+::ng-deep .mat-form-field-infix:hover {
+    border-bottom: 1px solid #333;
+}
+
+::ng-deep div.controles-container .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon {
+    margin: 0 auto 0 0 !important;
+    font-size: 30px;
+    color: #06cb77 !important;
+}
+
+::ng-deep div.controles-container .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon:hover {
+    color: #333!important;
+}
+
+::ng-deep .mat-radio-label-content {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+::ng-deep input.mat-input-element {
+    background-color: #fff !important;
+    margin: 0 !important;
+}
+
+.button-row {
+    text-align: right;
+}
+
+.button-row button {
+    margin-left: 5px;
+}
+
+@media(max-width: 599px) {
+    ::ng-deep .mat-dialog-container {
+        padding: 0 !important;
+    }
+    ::ng-deep .mat-grid-tile.col-b {
+        bottom: 10%;
+    }
+    ::ng-deep .controles-container {
+        padding: 0 !important;
+    }
+    .container {
+        padding: 0 10px !important;
+    }
+    div.button-row {
+        text-align: center;
+    }
+    mat-toolbar {
+        background: none !important;
+        justify-content: center !important;
+        align-items: center;
+    }
+    mat-toolbar span {
+        display: none;
+    }
+}

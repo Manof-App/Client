@@ -1,0 +1,27 @@
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: red;
+	color: white;
+	text-align: center;
+	background-color: #222;
+	color: #fff;
+	font-size: 14px;
+	z-index: 5;
+}
+
+footer p {
+	margin: 10px 0;
+	text-align: center;
+}
+
+footer i {
+	color: red;
+}
+
+footer a {
+	color: #3c97bf;
+	text-decoration: none;
+}

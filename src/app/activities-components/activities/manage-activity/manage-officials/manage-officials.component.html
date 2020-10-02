@@ -1,0 +1,122 @@
+<app-confirm-box
+  [data]="content"
+  *ngIf="showConfirmBox"
+  (userAnswer)="handleUserAnswer($event)"
+></app-confirm-box>
+
+<div class="wrap-add-button">
+  <button
+    mat-icon-button
+    class="add-button"
+    id="add-button"
+    aria-label="Example icon button with a home icon"
+    (click)="onCreate()"
+  >
+    <mat-icon class="add-icon-button">add</mat-icon>
+  </button>
+  <span style="font-size: 22px; font-weight: bold">הוספת בעל תפקיד</span>
+</div>
+
+<table mat-table [dataSource]="dataSource">
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="index">
+    <th mat-header-cell *matHeaderCellDef>מיקום</th>
+    <td mat-cell *matCellDef="let element; index as i">{{ i + 1 }}</td>
+  </ng-container>
+
+  <!-- Job Column -->
+  <ng-container matColumnDef="job">
+    <th mat-header-cell *matHeaderCellDef>תפקיד</th>
+    <td mat-cell *matCellDef="let element">{{ element.job }}</td>
+  </ng-container>
+
+  <!-- Job Description Column -->
+  <ng-container matColumnDef="jobTitle">
+    <th mat-header-cell *matHeaderCellDef>הגדרת תפקיד</th>
+    <td mat-cell *matCellDef="let element">{{ element.jobTitle }}</td>
+  </ng-container>
+
+  <!-- Required Date Column -->
+  <ng-container matColumnDef="requiredDate">
+    <th mat-header-cell *matHeaderCellDef>באיזה מועדים נדרש</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.requiredDate.day }}/{{ element.requiredDate.month }}/{{
+        element.requiredDate.year
+      }}
+    </td>
+  </ng-container>
+
+  <!-- Extra Hours required Column -->
+  <ng-container matColumnDef="extraHoursNeeded">
+    <th mat-header-cell *matHeaderCellDef>מס' שעות נוספות דרושות</th>
+    <td mat-cell *matCellDef="let element">{{ element.extraHoursNeeded }}</td>
+  </ng-container>
+
+  <!-- Local Manager Approval Column -->
+  <ng-container matColumnDef="managerApproval">
+    <th mat-header-cell *matHeaderCellDef>אישור מנהל משרד</th>
+    <td mat-cell *matCellDef="let element">{{ element.managerApproval }}</td>
+  </ng-container>
+
+  <!-- Manager Department Approval Column -->
+  <ng-container matColumnDef="managerDepartmentApproval">
+    <th mat-header-cell *matHeaderCellDef>אישור מנהל מחלקת הנוער</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.managerDepartmentApproval }}
+    </td>
+  </ng-container>
+
+  <!-- Notes Column -->
+  <ng-container matColumnDef="notes">
+    <th mat-header-cell *matHeaderCellDef>הערות</th>
+    <td mat-cell *matCellDef="let element">{{ element.notes }}</td>
+  </ng-container>
+
+  <!-- Options Column -->
+  <ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef>אפשרויות</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        color="primary"
+        class="delete-button"
+        (click)="onDelete(element)"
+        aria-label="Example icon button with a home icon"
+      >
+        <mat-icon class="delete-icon-button">delete</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="primary"
+        class="edit-button"
+        aria-label="Example icon button with a home icon"
+        mat-raised-button
+        (click)="onEdit(element)"
+      >
+        <mat-icon class="edit-icon-button">edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr
+    mat-header-row
+    *matHeaderRowDef="displayedColumns"
+    class="example-row-header black white-text"
+  ></tr>
+  <tr
+    dir="rtl"
+    class="example-element-row black white-text"
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+  ></tr>
+</table>
+
+<div class="wrap-btn form-group">
+  <button type="button" (click)="onMoveTab()" class="btn btn-primary">
+    הבא
+  </button>
+</div>

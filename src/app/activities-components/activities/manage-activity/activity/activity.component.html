@@ -1,0 +1,353 @@
+<form [formGroup]="generalAreaForm" (ngSubmit)="onSubmit(generalAreaForm)">
+  <div class="row">
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="name">שם הפעילות:</label>
+        <input
+          id="name"
+          class="form-control"
+          formControlName="name"
+          placeholder="הכנס שם"
+          [ngClass]="{
+            'is-invalid':
+              generalAreaForm.controls.name.dirty &&
+              generalAreaForm.controls.name.errors
+          }"
+        />
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="manager">מנהל הפעילות:</label>
+        <select
+          id="manager"
+          name="manager"
+          formControlName="manager"
+          class="custom-select"
+        >
+          <option value="" disabled>בחר מנהל פעילות</option>
+          <option
+            *ngFor="let manager of managers; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ manager }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="startDate">תחילת פעילות:</label>
+        <div class="input-group">
+          <input
+            class="form-control custom"
+            placeholder="dd-mm-yyyy"
+            ngbDatepicker
+            #dStart="ngbDatepicker"
+            formControlName="startDate"
+            readonly
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              (click)="dStart.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar fa-lg icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="endDate"> תאריך סיום:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            ngbDatepicker
+            #dEnd="ngbDatepicker"
+            formControlName="endDate"
+            readonly
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              (click)="dEnd.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar fa-lg icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="targetedStudents">קהל יעד (חניכים):</label>
+        <select
+          id="targetedStudents"
+          class="custom-select"
+          formControlName="targetedStudents"
+        >
+          <option value="" disabled>בחר קהל יעד</option>
+          <option
+            *ngFor="let student of students; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ student }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="targetedGuides">קהל יעד (מדריכים):</label>
+        <select
+          id="targetedGuides"
+          class="custom-select"
+          formControlName="targetedGuides"
+        >
+          <option value="" disabled>בחר קהל יעד</option>
+          <option
+            *ngFor="let guide of guides; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ guide }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="crewPreparationDate">תאריך הכנה (צוות מחלקה):</label>
+        <div class="input-group">
+          <input
+            id="crewPreparationDate"
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            ngbDatepicker
+            #dPrepCrew="ngbDatepicker"
+            formControlName="crewPreparationDate"
+            readonly
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              (click)="dPrepCrew.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar fa-lg icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="type">אופי המפעל:</label>
+        <select id="type" class="custom-select" formControlName="type">
+          <option value="" disabled>בחר סוג</option>
+          <option
+            *ngFor="let type of types; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ type }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="preparationsDate">תאריכי הכנה (בני נוער ו/או בוגרים)</label>
+        <div class="input-group">
+          <input
+            id="preparationsDate"
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            ngbDatepicker
+            #dGeneralPrep="ngbDatepicker"
+            formControlName="preparationsDate"
+            readonly
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              (click)="dGeneralPrep.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar fa-lg icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="targetAudienceDetails">פירוט קהל היעד בהכנות:</label>
+        <input
+          id="targetAudienceDetails"
+          class="form-control"
+          formControlName="targetAudienceDetails"
+          placeholder="הכנס פירוט"
+        />
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="summarizeDate">תאריך סיכום המפעל</label>
+        <div class="input-group">
+          <input
+            id="summarizeDate"
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            ngbDatepicker
+            #dSummarize="ngbDatepicker"
+            formControlName="summarizeDate"
+            readonly
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              (click)="dSummarize.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar fa-lg icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="form-group">
+        <label for="">נקבע ביומן המחלקתי:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isScheduled"
+                type="radio"
+                name="isScheduled"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isScheduled"
+                type="radio"
+                class="form-check-input no"
+                name="isScheduled"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="map col">
+      <div
+        draggable="false"
+        style="
+          user-select: none;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+          border-radius: 2px;
+          cursor: pointer;
+          background-color: rgb(255, 255, 255);
+          width: 40px;
+          height: 40px;
+          z-index: 1;
+          position: absolute;
+          top: 150px;
+          right: 26px;
+        "
+      >
+        <button
+          draggable="false"
+          title="הקטנת התצוגה"
+          aria-label="הקטנת התצוגה"
+          type="button"
+          class="gm-control-active"
+          style="
+            background: none;
+            display: block;
+            border: 0px;
+            margin: 0px;
+            padding: 0px;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            overflow: hidden;
+            width: 40px;
+            height: 40px;
+            top: 0px;
+            left: 0px;
+          "
+          (click)="getUserLocation()"
+        >
+          <i class="fas fa-location-arrow"></i>
+        </button>
+      </div>
+
+      <agm-map
+        id="map"
+        [zoom]="15"
+        [mapTypeControl]="true"
+        [fullscreenControl]="true"
+        [latitude]="location.latitude"
+        [longitude]="location.longitude"
+        (mapClick)="onChoseLocation($event)"
+        style="border-top: 1px solid #333"
+      >
+        <agm-marker
+          [latitude]="location.latitude"
+          [longitude]="location.longitude"
+        >
+          <agm-info-window style="text-align: center">
+            <h3>{{ location.city }}, {{ location.principalSubdivision }}</h3>
+          </agm-info-window>
+        </agm-marker>
+        <!-- Nearby User Locations -->
+        <agm-marker
+          *ngFor="let marker of markers"
+          [latitude]="marker.location[0]"
+          [longitude]="marker.location[1]"
+        >
+          <agm-info-window>
+            <h3><strong>פרטי מיקום</strong></h3>
+            <p>{{ marker.distance }}</p>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+
+  <div class="wrap-btn form-group">
+    <button type="submit" class="btn btn-primary">הבא</button>
+  </div>
+</form>

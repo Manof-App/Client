@@ -1,0 +1,31 @@
+* {
+  direction: rtl;
+}
+
+:host {
+  display: block;
+  margin: 30px 0;
+  padding: 15px 0;
+  min-height: 800px;
+}
+
+.container {
+  max-width: 1350px;
+}
+
+.container ul.nav-tabs {
+  padding: 0;
+}
+
+.container .nav-tabs li a {
+  color: #212529;
+  font-weight: bold;
+}
+
+.container ul.nav-tabs li a.active {
+  color: #06cb77 !important;
+}
+
+.container .tab-content {
+  margin: 30px 0;
+}

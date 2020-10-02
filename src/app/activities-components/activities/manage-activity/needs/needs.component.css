@@ -1,0 +1,95 @@
+* {
+  direction: rtl;
+}
+
+form .form-group label {
+  display: block;
+  text-align: right;
+}
+
+form .form-group input {
+  background-color: #fff;
+}
+
+form .form-group .input-group-append button.btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-color: #ced4da;
+  border-right: none;
+  background-color: #fff;
+}
+
+form .form-group .input-group input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-left: none;
+}
+
+::ng-deep form select.custom-select {
+  cursor: pointer;
+  background-position: 0.75rem center;
+  padding: 0.375rem 0.75rem 0.375rem 1.75rem;
+  color: #333 !important;
+}
+
+::ng-deep button.btn.btn-outline-secondary {
+  color: #333 !important;
+}
+
+::ng-deep .btn.focus, .btn:focus {
+  box-shadow: none !important;
+}
+
+agm-map {
+  height: 350px;
+  padding: 2px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+}
+
+.wrap-check-yes, .wrap-check-no {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40px;
+}
+
+.wrap-check-no div label, .wrap-check-yes div label {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.form-check-input {
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+div.wrap-btn.form-group {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid #adb5bd;
+  max-width: 100%;
+}
+
+.wrap-btn button {
+  margin-top: 10px;
+  width: 30%;
+}
+
+.form-group {
+  margin-bottom: 3rem;
+}

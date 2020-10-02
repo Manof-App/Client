@@ -1,0 +1,270 @@
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+<app-pop-up-message
+  *ngIf="showServerMessage"
+  [message]="message"
+  [responseType]="responseType"
+></app-pop-up-message>
+
+<div class="wrapper">
+  <div class="forms-wrapper" [ngClass]="{ 'register-active': registerActive }">
+    <div class="forms">
+      <div class="form-links">
+        <div
+          class="form-link login-link"
+          (click)="toggleRegisterForm()"
+          [ngClass]="{ active: !registerActive }"
+        >
+          התחבר
+        </div>
+        <div
+          class="form-link register-link"
+          (click)="toggleRegisterForm()"
+          [ngClass]="{ active: registerActive }"
+        >
+          הירשם
+        </div>
+      </div>
+      <div class="login">
+        <h2 class="form-title">איזור התחברות</h2>
+
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <div class="font-weight-bold">או השתמש בחשבון קיים</div>
+
+        <form [formGroup]="loginForm" (submit)="submitLoginForm(loginForm)">
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="email"
+              name="email"
+              placeholder="אימייל"
+              formControlName="email"
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.controls.email.dirty &&
+                  loginForm.controls.email.errors
+              }"
+            />
+
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="far fa-envelope"></i>
+              </span>
+            </div>
+            <div
+              [hidden]="!loginForm.controls.email.errors?.required"
+              class="invalid-feedback"
+            >
+              <span dir="rtl" class="info">אימייל נחוץ</span>
+            </div>
+            <div
+              [hidden]="!loginForm.controls.email.errors?.email"
+              class="invalid-feedback"
+            >
+              <span dir="rtl">אימייל לא חוקי</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              style="border-left: none"
+              class="form-control"
+              [type]="showPassword ? 'text' : 'password'"
+              dir="rtl"
+              name="password"
+              placeholder="סיסמא"
+              formControlName="password"
+              id="password"
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.controls.password.dirty &&
+                  loginForm.controls.password.errors
+              }"
+            />
+
+            <div
+              class="input-group-append"
+              (click)="showPassword = !showPassword"
+            >
+              <span class="input-group-text">
+                <i
+                  class="fas fa-eye"
+                  [ngClass]="{
+                    'fa fa-eye-slash': !showPassword
+                  }"
+                ></i>
+              </span>
+            </div>
+
+            <div
+              [hidden]="!loginForm.controls.password.errors?.required"
+              class="invalid-feedback"
+            >
+              <span dir="rtl">סיסמא נחוצה</span>
+            </div>
+          </div>
+
+          <div class="forgot-password">
+            <a dir="rtl" routerLink="reset-password">שכחת סיסמא?</a>
+          </div>
+
+          <div class="submit">
+            <Button
+              type="submit"
+              class="btn btn-primary btn-block"
+              [disabled]="!loginForm.valid"
+              >התחבר</Button
+            >
+          </div>
+        </form>
+      </div>
+      <div class="register">
+        <h2 class="form-title">הרשמה</h2>
+
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <div class="font-weight-bold">או הירשם עם אימייל</div>
+
+        <form
+          [formGroup]="registerForm"
+          (submit)="submitRegisterForm(registerForm)"
+        >
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="name"
+              name="name"
+              placeholder="שם מלא"
+              formControlName="name"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.controls.name.errors &&
+                  registerForm.controls.name.dirty
+              }"
+            />
+
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="far fa-envelope"></i>
+              </span>
+            </div>
+
+            <div
+              [hidden]="!registerForm.controls.name.errors?.required"
+              class="invalid-feedback"
+            >
+              <span dir="rtl" class="info">שם נחוץ</span>
+            </div>
+
+            <div
+              [hidden]="!registerForm.controls.name.errors?.pattern"
+              class="invalid-feedback"
+            >
+              <span dir="rtl">שם לא חוקי</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="email"
+              name="email"
+              placeholder="אימייל"
+              formControlName="email"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.controls.email.errors &&
+                  registerForm.controls.email.dirty
+              }"
+            />
+
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="far fa-envelope"></i>
+              </span>
+            </div>
+
+            <div
+              [hidden]="!registerForm.controls.email.errors?.required"
+              class="invalid-feedback"
+            >
+              <span dir="rtl" class="info">אימייל נחוץ</span>
+            </div>
+            <div
+              [hidden]="!registerForm.controls.email.errors?.email"
+              class="invalid-feedback"
+            >
+              <span dir="rtl">אימייל לא חוקי</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              class="form-control"
+              [type]="showPassword ? 'text' : 'password'"
+              dir="rtl"
+              name="Password"
+              placeholder="סיסמא"
+              formControlName="password"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.controls.password.errors &&
+                  registerForm.controls.password.dirty
+              }"
+            />
+
+            <div
+              class="input-group-append"
+              (click)="showPassword = !showPassword"
+            >
+              <span class="input-group-text">
+                <i
+                  class="fas fa-eye"
+                  [ngClass]="{
+                    'fa fa-eye-slash': !showPassword
+                  }"
+                ></i>
+              </span>
+            </div>
+
+            <div
+              [hidden]="!registerForm.controls.password.errors?.required"
+              class="invalid-feedback"
+            >
+              <span dir="rtl">סיסמא נחוצה</span>
+            </div>
+          </div>
+
+          <div class="submit">
+            <Button
+              type="submit"
+              class="btn btn-primary btn-block"
+              [disabled]="!registerForm.valid"
+              >צור משתמש</Button
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="description">
+      <div class="login">
+        <h1 dir="rtl">ברוך שובך!</h1>
+        <p dir="rtl">על מנת להתחבר יש להכניס שם משתמש וסיסמא</p>
+      </div>
+      <div class="register">
+        <h1 dir="rtl">עובד יקר!</h1>
+        <p dir="rtl">
+          יש לבחור את דרך ההרשמה או להתחבר על ידי יצירת שם משתמש וסיסמא חדשים
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

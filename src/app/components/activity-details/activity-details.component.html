@@ -1,0 +1,327 @@
+<div class="container">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1" class="a">
+      <a ngbNavLink>פרטי פעילות</a>
+      <ng-template ngbNavContent>
+        <div class="wrapper">
+          <div class="card">
+            <div class="card-header">
+              <a
+                [routerLink]="['/activities/manage-activity']"
+                [queryParams]="{ id: id }"
+                (click)="setTab(1)"
+                class="btn btn-primary"
+                >ערוך פעילות</a
+              >פרטי פעילות
+            </div>
+            <div class="card-body">
+              <h4 class="card-title mb-3" style="text-align: center">
+                {{ activity.activityName }}
+              </h4>
+
+              <div class="row">
+                <p class="card-text col-4">
+                  <strong>מנהל הפעילות: </strong> {{ activity.manager }}
+                </p>
+                <p class="card-text col-5">
+                  <strong>תאריך התחלה : </strong>
+                  {{ activity.startDate | date }}
+                </p>
+                <p class="card-text col-3">
+                  <strong>תאריך סיום : </strong> {{ activity.endDate | date }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>קהל יעד חניכים : </strong> כיתות
+                  {{ activity.targetedStudents }}
+                </p>
+                <p class="card-text col-5">
+                  <strong>קהל יעד מדריכים : </strong> כיתות
+                  {{ activity.targetedGuides }}
+                </p>
+                <p class="card-text col-3">
+                  <strong>תאריך הכנת צוות : </strong>
+                  {{ activity.crewPreparationDate | date }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>אופי המפעל : </strong>
+                  {{ activity.type }}
+                </p>
+                <p class="card-text col-5">
+                  <strong>תאריכי הכנה (בני נוער ו/או בוגרים) : </strong>
+                  {{ activity.preparationsDate | date }}
+                </p>
+                <p class="card-text col-3">
+                  <strong>פירוט קהל היעד בהכנות : </strong>
+                  {{ activity.targetAudienceDetails }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>תאריך סיכום המפעל : </strong>
+                  {{ activity.summarizeDate | date }}
+                </p>
+                <p class="card-text col-5">
+                  <strong>נקבע ביומן המחלקתי : </strong>
+                  {{ activity.isScheduled }}
+                </p>
+                <p class="card-text col-3">
+                  <strong>מיקום הפעילות: </strong>
+                  {{ activity.mapLocation.city }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <a
+                [routerLink]="['/activities/manage-activity']"
+                [queryParams]="{ id: id }"
+                (click)="setTab(2)"
+                class="btn btn-primary"
+                >ערוך בעלי תפקידים</a
+              >בעלי תפקידים
+            </div>
+
+            <div
+              class="card-body"
+              *ngFor="let official of officials.activityOfficials; index as i"
+            >
+              <h5 class="card-title"></h5>
+              <div class="row">
+                <p class="card-text col-4">
+                  <strong>תפקיד : </strong> {{ official.job }}
+                </p>
+                <p class="card-text col-5">
+                  <strong>הגדרת תפקיד : </strong> {{ official.jobTitle }}
+                </p>
+
+                <p class="card-text col-3">
+                  <strong>מועדים נדרשים : </strong>
+                  {{ official.requiredDate | date }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>שעות נוספות : </strong>
+                  {{ official.extraHoursNeeded }}
+                </p>
+
+                <p class="card-text col-5">
+                  <strong>אישור מנהל משרד : </strong>
+                  {{ official.managerApproval }}
+                </p>
+
+                <p class="card-text col-3">
+                  <strong>אישור מנהל מחלקת הנוער : </strong>
+                  {{ official.managerDepartmentApproval }}
+                </p>
+
+                <p class="card-text col-12">
+                  <strong>הערות : </strong> {{ official.notes }}
+                </p>
+              </div>
+              <div
+                *ngIf="officials.activityOfficials.length - 1 > i"
+                class="separator mt-5"
+                style="
+                  max-width: 100%;
+                  background-color: #06cb77;
+                  height: 5px;
+                  margin: auto;
+                "
+              ></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              צרכים
+              <a
+                [routerLink]="['/activities/manage-activity']"
+                [queryParams]="{ id: id }"
+                (click)="setTab(3)"
+                class="btn btn-primary"
+                >ערוך צרכים</a
+              >
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <div class="row">
+                <p class="card-text col-4">
+                  <strong>חוברת הדרכה : </strong>
+                  {{ needs.isRequiredNotebookGuide == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>אביזרי הדרכה : </strong>
+                  {{ needs.isRequiredGuideItems == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>ביגוד : </strong>
+                  {{ needs.isRequiredClothing == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> צורך ברכבים : </strong>
+                  {{ needs.isRequiredVehicles == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>ציוד משרדי : </strong>
+                  {{ needs.isRequiredOfficeEquipment == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> ציוד מחסן : </strong>
+                  {{ needs.isRequiredDepotEquipment == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>מזון : </strong>
+                  {{ needs.isRequiredFood == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>סוג מזון : </strong>
+                  {{ needs.foodType == true ? "נייד" : "נייח" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>צורך בטופס הזמנת כיבוד (פעילות יומית) :</strong>
+                  {{ needs.foodOrderingForm == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> צורך בהסעות :</strong>
+                  {{ needs.isRequiredTransportation == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong>אתרים / סדנאות :</strong>
+                  {{ needs.isSitesAvailable == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> צורך בלינה : </strong>
+                  {{ needs.isSleepingArrangements == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> צורך בהצעת מחיר : </strong>
+                  {{ needs.isRequiredBidingPrice == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> ציוד נוסף : </strong>
+                  {{ needs.isRequiredExtraEquipment == true ? "כן" : "לא" }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> פירוט אביזרי הדרכה : </strong>
+                  {{ needs.detailedIGuideItems }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> פירוט אביזרי ביגוד : </strong>
+                  {{ needs.detailedClothing }}
+                </p>
+
+                <p class="card-text col-4">
+                  <strong> פירוט אביזרי ביגוד : </strong>
+                  {{ needs.foodDescription }}
+                </p>
+
+                <p class="card-text col-3">
+                  <strong> מקום לינה : </strong>
+                  {{ needs.sleepingLocation }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="2">
+      <a ngbNavLink>מעקב משימות </a>
+      <ng-template ngbNavContent>
+        <h3 style="text-align: center">אחוז התקדמות</h3>
+        <div class="progress-wrapper mt-3 mb-3">
+          <div class="progress" style="height: 50px">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [style.width.%]="percentage"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="font-size: 2rem; background-color: #06cb77"
+            >
+              {{ percentage / 100 | percent }}
+            </div>
+          </div>
+        </div>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">מספר משימה</th>
+              <th scope="col">המשימה</th>
+              <th scope="col">תאריך גג לביצוע</th>
+              <th scope="col">המועד שנקבע</th>
+              <th scope="col">התקדמות</th>
+            </tr>
+          </thead>
+          <tbody
+            *ngFor="let assignment of activityAssignments.data; index as i"
+          >
+            <tr>
+              <td scope="row">{{ i + 1 }}.</td>
+              <td>{{ assignment.assignment }}</td>
+              <td>
+                {{ assignment.finalExecDate.seconds * 1000 | date }}
+              </td>
+              <td>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="dd-mm-yyyy"
+                      ngbDatepicker
+                      #dEnd="ngbDatepicker"
+                      readonly
+                      value="  {{
+                        assignment.scheduleDate.seconds * 1000 | date
+                      }}"
+                    />
+                    <div class="input-group-append">
+                      <button class="btn" (click)="dEnd.toggle()" type="button">
+                        <i class="fa fa-calendar fa-lg icon"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <select
+                    value="{{ assignment.progress }}"
+                    class="custom-select"
+                    (change)="myChange($event, i)"
+                  >
+                    <option [ngValue]="1">טרם הסתיים</option>
+                    <option [ngValue]="2">ממתין לאישור מנהל</option>
+                    <option [ngValue]="3">נקבע תאריך גג לביצוע</option>
+                    <option [ngValue]="4">הסתיים</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>

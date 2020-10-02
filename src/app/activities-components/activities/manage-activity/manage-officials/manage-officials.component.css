@@ -1,0 +1,177 @@
+* {
+  direction: rtl;
+}
+
+:host {
+  min-height: 100vh;
+}
+
+::ng-deep table.mat-table {
+  width: 100%;
+}
+
+tr.example-element-row:hover {
+  background-color: #b4efd6;
+}
+
+::ng-deep tr.mat-header-row {
+  background-color: #06cb77;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  color: #fff !important;
+}
+
+::ng-deep td.mat-cell, ::ng-deep th.mat-header-cell {
+  text-align: center !important;
+  padding: 6px !important;
+}
+
+::ng-deep th.mat-header-cell {
+  color: #fff;
+  font-size: 16px;
+}
+
+.mat-column-index {
+  flex: 0 0 100% !important;
+  width: 4% !important;
+}
+
+.mat-column-job {
+  flex: 0 0 100% !important;
+  width: 8% !important;
+}
+
+.mat-column-jobTitle {
+  flex: 0 0 100% !important;
+  width: 10% !important;
+}
+
+.mat-column-requiredDate {
+  flex: 0 0 100% !important;
+  width: 12% !important;
+}
+
+.mat-column-extraHoursNeeded {
+  flex: 0 0 100% !important;
+  width: 14% !important;
+}
+
+.mat-column-managerApproval {
+  flex: 0 0 100% !important;
+  width: 14% !important;
+}
+
+.mat-column-managerDepartmentApproval {
+  flex: 0 0 100% !important;
+  width: 16% !important;
+}
+
+.mat-column-notes {
+  flex: 0 0 100% !important;
+  width: 10% !important;
+}
+
+.mat-column-options {
+  flex: 0 0 100% !important;
+  width: 10% !important;
+}
+
+.wrap-add-button {
+  display: flex;
+  justify-items: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-button, .edit-button, .delete-button {
+  background-color: #06cb77;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+.edit-button {
+  margin: auto;
+}
+
+::ng-deep .mat-icon.edit-icon-button, ::ng-deep .mat-icon.add-icon-button, ::ng-deep .mat-icon.delete-icon-button {
+  color: #fff;
+  background-color: #06cb77;
+}
+
+div.wrap-btn.form-group {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid #adb5bd;
+  max-width: 100%;
+  margin-top: 1rem;
+}
+
+.wrap-btn button {
+  margin-top: 10px;
+  width: 30%;
+}
+
+@media (max-width: 1335px) {
+  ::ng-deep tr.mat-header-row {
+    display: none;
+  }
+}
+
+@media (max-width: 1038px) {
+  .example-element-row.black.white-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 40% !important;
+    height: 100% !important;
+    border-top: 3px solid #06cb77;
+    border-bottom: 3px solid #333;
+    justify-content: center;
+  }
+  .mat-column-index, .mat-column-job, .mat-column-jobTitle, .mat-column-requiredDate, .mat-column-extraHoursNeeded, .mat-column-managerApproval, .mat-column-managerDepartmentApproval, .mat-column-notes, .mat-column-options {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    margin: auto;
+    line-height: 40px;
+    color: #808080;
+    margin: 0;
+  }
+  td.mat-cell:nth-child(even) {
+    background-color: #fff;
+  }
+  td.mat-cell:nth-child(odd) {
+    background-color: #f8f7f7;
+  }
+  .mat-column-index {
+    font-size: 28px;
+    color: #06cb77;
+    font-weight: bold;
+    background-color: #fff !important;
+  }
+  td.mat-cell:hover {
+    background: #b4efd6 !important;
+  }
+  tr.example-element-row:hover {
+    background: none !important;
+  }
+  .mat-column-job {
+    background-color: #06cb77 !important;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  @media (max-width: 768px) {
+    .example-element-row.black.white-text {
+      width: 60% !important;
+    }
+  }
+  @media (max-width: 600px) {
+    .example-element-row.black.white-text {
+      width: 75% !important;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 175px;
+    width: 500px;
+    z-index: 3;
+    text-align: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+    background-color: #f8f7f7f7;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.box .options {
+    display: flex;
+    width: 75%;
+    height: 75%;
+    margin: auto;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.box .options .yes, .box .options .no {
+    padding: 0.5rem;
+    width: 30%;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.box .options .no {
+    border: 1px solid red;
+}
+
+.box .options .yes {
+    border: 1px solid green;
+}
+
+.box .options .no:hover, .box .options .yes:hover {
+    border: none;
+    box-shadow: 0 0 5px 0 #3498db inset, 0 0 5px 1px #3498db;
+}
+
+@media(max-width: 599px) {
+    :host {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container {
+        position: fixed;
+        width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container .box h3 {
+        font-size: 22px;
+    }
+}

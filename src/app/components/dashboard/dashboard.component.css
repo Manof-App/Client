@@ -1,0 +1,112 @@
+/* SHOWCASE */
+
+.wrapper {
+  min-height: 100vh;
+}
+
+.showcase {
+  background: url("../../../assets/images/default.jpg") no-repeat center center;
+  border-top: 3px solid #fff;
+  padding: 30px 0;
+}
+
+.showcase .row {
+  height: 375px;
+}
+
+.showcase .showcase-content {
+  height: 50%;
+  margin: auto;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  -moz-transition: height 0.7s;
+  -ms-transition: height 0.7s;
+  -o-transition: height 0.7s;
+  -webkit-transition: height 0.7s;
+  transition: height 0.7s;
+  overflow: hidden;
+}
+
+.showcase .showcase-content.expandWrapper {
+  height: 90%;
+  -moz-transition: height 0.7s;
+  -ms-transition: height 0.7s;
+  -o-transition: height 0.7s;
+  -webkit-transition: height 0.7s;
+  transition: height 0.7s;
+  overflow: hidden;
+}
+
+.showcase h1 {
+  color: #000;
+  font-size: 50px;
+  margin: 0;
+  padding-bottom: 20px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.showcase .showcase-content button {
+  width: 60%;
+  height: 30%;
+  margin: auto;
+}
+
+.showcase .showcase-content .options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.showcase .showcase-content .options button {
+  width: 40%;
+  height: 100px;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 500ms, visibility 500ms;
+  transition: opacity 500ms, visibility 500ms;
+}
+
+.showcase .showcase-content .options button.showButtons {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ACTIVITY EVENTS */
+
+.activities-feed {
+  display: flex;
+  justify-content: space-around;
+}
+
+.activities-feed .card {
+  flex: 0 0 40%;
+}
+
+.activities-feed a:hover {
+  background-color: #07bb6e;
+}
+
+@media screen and (max-width: 768px) {
+  .showcase .row {
+    height: initial;
+  }
+  .showcase h1 {
+    font-size: 30px;
+  }
+  .activities-feed {
+    flex-direction: column;
+  }
+  .activities-feed .card {
+    margin-bottom: 20px;
+  }
+  .card .card-body.text-right button {
+    width: 40%;
+    margin-right: auto;
+  }
+  button.btn.btn-primary {
+    font-size: 16px;
+  }
+}

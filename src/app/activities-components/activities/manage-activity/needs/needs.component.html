@@ -1,0 +1,649 @@
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+<app-pop-up-message
+  *ngIf="showServerMessage"
+  [message]="message"
+  [responseType]="responseType"
+></app-pop-up-message>
+
+<form [formGroup]="needForm" (ngSubmit)="onSubmit(needForm)">
+  <div class="row">
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredNotebookGuide">חוברת הדרכה:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredNotebookGuide"
+                type="radio"
+                name="isRequiredNotebookGuide"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredNotebookGuide"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredNotebookGuide"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredGuideItems">אביזרי הדרכה:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredGuideItems"
+                type="radio"
+                name="isRequiredGuideItems"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredGuideItems"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredGuideItems"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredClothing">ביגוד:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredClothing"
+                type="radio"
+                name="isRequiredClothing"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredClothing"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredClothing"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredVehicles">צורך ברכבים:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredVehicles"
+                type="radio"
+                name="isRequiredVehicles"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredVehicles"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredVehicles"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredOfficeEquipment">ציוד משרדי:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredOfficeEquipment"
+                type="radio"
+                name="isRequiredOfficeEquipment"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredOfficeEquipment"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredOfficeEquipment"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredDepotEquipment"> ציוד מחסן:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredDepotEquipment"
+                type="radio"
+                name="isRequiredDepotEquipment"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredDepotEquipment"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredDepotEquipment"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredFood">מזון:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredFood"
+                type="radio"
+                name="isRequiredFood"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredFood"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredFood"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="foodType"> סוג מזון:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1"
+                >נייח</label
+              >
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="mobile"
+                formControlName="foodType"
+                type="radio"
+                name="foodType"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">נייד</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="immobile"
+                formControlName="foodType"
+                type="radio"
+                class="form-check-input no"
+                name="foodType"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="foodOrderingForm">
+          צורך בטופס הזמנת כיבוד (פעילות יומית):</label
+        >
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="foodOrderingForm"
+                type="radio"
+                name="foodOrderingForm"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="foodOrderingForm"
+                type="radio"
+                class="form-check-input no"
+                name="foodOrderingForm"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredTransportation">צורך בהסעות:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredTransportation"
+                type="radio"
+                name="isRequiredTransportation"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredTransportation"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredTransportation"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isSitesAvailable">אתרים / סדנאות :</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isSitesAvailable"
+                type="radio"
+                name="isSitesAvailable"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isSitesAvailable"
+                type="radio"
+                class="form-check-input no"
+                name="isSitesAvailable"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredVehicles">צורך בלינה:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isSleepingArrangements"
+                type="radio"
+                name="isSleepingArrangements"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isSleepingArrangements"
+                type="radio"
+                class="form-check-input no"
+                name="isSleepingArrangements"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredBidingPrice"> צורך בהצעת מחיר:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredBidingPrice"
+                type="radio"
+                name="isRequiredBidingPrice"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredBidingPrice"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredBidingPrice"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-6">
+      <div class="form-group">
+        <label for="isRequiredExtraEquipment">ציוד נוסף:</label>
+        <div class="form-check">
+          <div class="wrap-check-yes">
+            <div>
+              <label class="form-check-label yes" for="exampleCheck1">כן</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="yes"
+                formControlName="isRequiredExtraEquipment"
+                type="radio"
+                name="isRequiredExtraEquipment"
+              />
+            </div>
+          </div>
+
+          <div class="wrap-check-no">
+            <div>
+              <label class="form-check-label" for="exampleCheck1">לא</label>
+            </div>
+
+            <div>
+              <input
+                id="exampleCheck1"
+                value="no"
+                formControlName="isRequiredExtraEquipment"
+                type="radio"
+                class="form-check-input no"
+                name="isRequiredExtraEquipment"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-3 col-6">
+      <div class="form-group">
+        <label for="foodDescription">פירוט אוכל:</label>
+        <select
+          id="foodDescription"
+          class="custom-select"
+          formControlName="foodDescription"
+        >
+          <option value="" disabled>בחר סוג מזון</option>
+          <option
+            *ngFor="let item of foodDescription; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ item }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-6">
+      <div class="form-group">
+        <label for="detailedIGuideItems">פירוט אביזרי הדרכה:</label>
+        <select
+          id="detailedIGuideItems"
+          class="custom-select"
+          formControlName="detailedIGuideItems"
+        >
+          <option value="" disabled>בחר סוג</option>
+          <option
+            *ngFor="let item of detailedGuidingItems; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ item }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-6">
+      <div class="form-group">
+        <label for="detailedClothing">פירוט אביזרי ביגוד:</label>
+        <select
+          id="detailedClothing"
+          class="custom-select"
+          formControlName="detailedClothing"
+        >
+          <option value="" disabled>בחר סוג</option>
+          <option
+            *ngFor="let item of detailedClothingItems; let dataIndex = index"
+            [ngValue]="dataIndex"
+          >
+            {{ item }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-6">
+      <div class="form-group">
+        <label for="sleepingLocation">מקום לינה:</label>
+        <input
+          id="sleepingLocation"
+          class="form-control"
+          formControlName="sleepingLocation"
+          placeholder="הכנס מקום לינה"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap-btn form-group" style="margin: 0 !important">
+    <button type="submit" class="btn btn-primary">סיים</button>
+  </div>
+</form>

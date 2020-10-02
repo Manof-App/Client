@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  padding: 30px 0;
+}
+
+.container {
+  max-width: 1500px;
+  min-height: 100vh;
+}
+
+.create-new-activity {
+  margin-right: 0;
+  margin-left: auto;
+  width: 20%;
+  display: block;
+}
+
+.activities {
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .create-new-activity {
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 599px) {
+  .create-new-activity {
+    width: 100%;
+  }
+}

@@ -1,0 +1,34 @@
+:host {
+    background: #444;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff
+}
+
+.box>h2, .box>p {
+    text-align: center;
+}
+
+.box>h2 {
+    font-weight: 700px;
+    font-size: 25vh;
+    margin: 0;
+    line-height: 1;
+    animation: light 4s steps(1) infinite;
+}
+
+h2+p {
+    font-size: 3vh;
+}
+
+@keyframes light {
+    33% {
+        text-shadow: 0 0 20px #e900fe;
+    }
+    66% {
+        text-shadow: 0 0 20px #6de33c;
+    }
+}

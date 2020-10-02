@@ -1,0 +1,63 @@
+<div class="cards-wrapper">
+  <div class="activity-sort">
+    <div class="form-group">
+      <select value="" class="custom-select" (change)="myChange($event)">
+        <option [ngValue]="1">תאריך התחלה</option>
+        <option [ngValue]="2">תאריך סיום</option>
+        <option [ngValue]="3">ממתין לאישור</option>
+      </select>
+    </div>
+  </div>
+  <div class="arrow-left">
+    <i class="fas fa-chevron-circle-left fa-3x"></i>
+  </div>
+  <section class="card-list">
+    <article
+      class="card"
+      *ngFor="
+        let activity of activities;
+        let activitiesCount = count;
+        index as i
+      "
+      [style.z-index]="activitiesCount - i"
+    >
+      <header class="card-header">
+        <h2>{{ activity.name }}</h2>
+        <p>
+          תאריך יציאה: {{ activity.startDate.year }} /
+          {{ activity.startDate.month }} /
+          {{ activity.startDate.day }}
+        </p>
+      </header>
+
+      <div class="card-author">
+        <a href="#" class="author-avatar"
+          ><i class="fas fa-truck-monster fa-2x" style="color: #fff"></i
+        ></a>
+        <svg class="half-circle" viewBox="0 0 106 57">
+          <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
+        </svg>
+      </div>
+
+      <div class="author-name">
+        <div class="author-name-prefix">אופי המפעל : {{ activity.type }}</div>
+        <p>
+          תאריך סיום: {{ activity.endDate.year }} /
+          {{ activity.endDate.month }} /
+          {{ activity.endDate.day }}
+        </p>
+        <button
+          type="button"
+          [routerLink]="['/activity-details']"
+          [queryParams]="{ id: activity.id }"
+          class="btn btn-primary"
+        >
+          פרטים נוספים
+        </button>
+      </div>
+    </article>
+  </section>
+  <div class="arrow-right">
+    <i class="fas fa-chevron-circle-right fa-3x"></i>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  padding-top: 0.2rem;
+}
+
+p {
+  direction: rtl;
+  margin: 0;
+}
+
+a {
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: #06cb77;
+  margin-top: auto;
+}
+
+a:hover {
+  font-weight: bold;
+  color: #06cb77;
+}
+
+i {
+  display: inline-block;
+  margin-bottom: 1rem;
+  transition: ease-in 0.1s;
+  color: #06cb77;
+}
+
+i:hover {
+  font-size: 3.5rem;
+}
+
+div.wrapper {
+  position: fixed;
+  background-color: #f8f7f7f7;
+  width: 100%;
+  height: 100vh;
+}
+
+div.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 85%;
+  background-color: #fff;
+  padding: 2.5rem 1rem 1rem 1rem;
+}
+
+div.wrapper div.inner div.row {
+  height: 35%;
+  padding: 1rem;
+}
+
+div.wrapper div.inner div.row div.wrap div.inner-wrap {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border-top: 0.3rem solid #f8f7f7f7;
+  border-bottom: 0.3rem solid #f8f7f7f7;
+}
+
+div.wrapper div.inner div.container {
+  display: flex;
+  flex-grow: 1;
+  padding: 1rem;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+div.inner-wrap.profile {
+  justify-content: center;
+}
+
+div.inner-wrap.profile h3, div.inner-wrap.profile p, div.inner-wrap.profile a {
+  margin: 0;
+}
+
+div.inner-wrap.profile:first-child p {
+  margin-top: 3rem;
+}
+
+div.inner-wrap.profile h3 {
+  margin-top: 1.5rem;
+}
+
+.fas.fa-user-circle.fa-5x {
+  position: absolute;
+  top: -50px;
+  transition: none;
+}

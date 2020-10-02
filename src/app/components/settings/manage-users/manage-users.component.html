@@ -1,0 +1,32 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">מספר משימה</th>
+      <th scope="col">שם עובד</th>
+      <th scope="col">מייל</th>
+      <th scope="col">תפקיד</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let user of users; index as i">
+    <tr>
+      <td scope="row">{{ i + 1 }}.</td>
+      <td>{{ user.name }}</td>
+      <td style="vertical-align: center !important">
+        {{ user.email }}
+      </td>
+      <td>
+        <div class="form-group">
+          <select
+            value="{{ user.role }}"
+            class="custom-select"
+            (change)="myChange($event, i)"
+          >
+            <option [ngValue]="1">מנהל מפעל</option>
+            <option [ngValue]="2">רכז מפעלים</option>
+            <option [ngValue]="3">מנהל מחלקה</option>
+          </select>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

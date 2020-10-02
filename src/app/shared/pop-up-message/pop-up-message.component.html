@@ -1,0 +1,17 @@
+<ngb-toast
+  class="slide"
+  [ngClass]="isError ? 'toggle-slide bg-danger' : 'bg-danger'"
+  [ngClass]="isSuccess ? 'toggle-slide bg-success' : 'bg-success'"
+>
+  <p dir="rtl">
+    <i
+      [ngClass]="
+        isError
+          ? 'fas fa-exclamation-triangle'
+          : 'fade-out fas fa-exclamation-triangle'
+      "
+      [ngClass]="isSuccess ? 'fas fa-check' : 'fade-out fas fa-check'"
+    ></i>
+    {{ message }}
+  </p>
+</ngb-toast>

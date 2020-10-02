@@ -1,0 +1,45 @@
+/* Global settings */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  cursor: pointer;
+}
+
+button.btn.btn-primary, .btn.btn-primary:active, .btn-primary:focus {
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 1px;
+  background: #06cb77 !important;
+  border: none !important;
+  box-shadow: none;
+}
+
+a.btn.btn-primary:hover, button.btn.btn-primary:hover {
+  box-shadow: 0 0 0 0.2rem rgba(180, 239, 214, 0.9);
+  background-color: #07bb6e !important;
+}
+
+button:focus {
+  outline: none;
+}
+
+::ng-deep .full-width-dialog .mat-dialog-container {
+  max-width: 100vw !important;
+}
+
+/*CUSTOM NG BOOTSTRAP DATEPICKER*/
+
+ngb-datepicker .right .ngb-dp-navigation-chevron {
+  transform: rotate(-135deg);
+}
+
+ngb-datepicker .ngb-dp-navigation-chevron {
+  transform: rotate(-315deg);
+}
