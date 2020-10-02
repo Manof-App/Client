@@ -1,4 +1,5 @@
 <div class="cards-wrapper">
+
   <div class="activity-sort">
     <div class="form-group">
       <select value="" class="custom-select" (change)="myChange($event)">
@@ -8,9 +9,45 @@
       </select>
     </div>
   </div>
-  <div class="arrow-left">
+
+  <section class="activities">
+    <div class="arrow prev"><i class="fas fa-chevron-circle-left fa-3x"></i></div>
+    <div class="activities-list">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="arrow next"><i class="fas fa-chevron-circle-right fa-3x"></i></div>
+  </section>
+
+  <!-- <div class="arrow-left">
     <i class="fas fa-chevron-circle-left fa-3x"></i>
   </div>
+
   <section class="card-list">
     <article class="card" *ngFor="let activity of activities; let activitiesCount = count;index as i"
       [style.z-index]="activitiesCount - i">
@@ -44,7 +81,9 @@
       </div>
     </article>
   </section>
+
   <div class="arrow-right">
     <i class="fas fa-chevron-circle-right fa-3x"></i>
-  </div>
+  </div> -->
+
 </div>

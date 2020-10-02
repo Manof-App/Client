@@ -1,9 +1,10 @@
-div.cards-wrapper {
+/* div.cards-wrapper {
   color: #fff;
   position: relative;
 }
 
-h2, p {
+h2,
+p {
   text-align: center;
 }
 
@@ -31,7 +32,8 @@ div.arrow-right {
   transform: translate(-50%, -50%);
 }
 
-div.arrow-right i, div.arrow-left i {
+div.arrow-right i,
+div.arrow-left i {
   border-radius: 50%;
   border: 2px solid #333;
   color: #fff;
@@ -39,7 +41,8 @@ div.arrow-right i, div.arrow-left i {
   cursor: pointer !important;
 }
 
-div.arrow-right i:hover, div.arrow-left i:hover {
+div.arrow-right i:hover,
+div.arrow-left i:hover {
   color: #333;
   background: #fff;
 }
@@ -123,10 +126,11 @@ div.author-name {
   flex-direction: column;
   justify-content: flex-start;
   flex-grow: 1;
-  padding: .25rem;
+  padding: 0.25rem;
 }
 
-div.author-name-prefix, div.author-name p {
+div.author-name-prefix,
+div.author-name p {
   margin: 0 1rem 1rem 0;
   text-align: right;
 }
@@ -180,4 +184,56 @@ button.btn.btn-primary {
   color: #333 !important;
   direction: rtl;
   width: 100%;
+} */
+
+.cards-wrapper {
+  min-height: 300px;
+  height: 1px;
+}
+
+.cards-wrapper .activities {
+  padding: 0 100px;
+  position: relative;
+  height: 100%;
+}
+
+.cards-wrapper .activities .arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards-wrapper .activities .arrow.prev {
+  left: 26px;
+}
+
+.cards-wrapper .activities .arrow.next {
+  right: 26px;
+}
+
+.cards-wrapper .activities .activities-list {
+  max-width: 75%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.cards-wrapper .activities .activities-list .card {
+  animation-name: card-animation;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  position: relative;
+}
+
+@keyframes card-animation {
+  0% {
+    left: -9999px;
+  }
+
+  100% {
+    left: 0px;
+  }
 }
