@@ -26,22 +26,28 @@ export class ActivityCardsComponent implements OnInit {
 
     this.activities = [];
 
-    this.activitiesService.getAllActivities().subscribe((data) => {
+    this.activitiesService.getAllActivities().subscribe((data: Activity[]) => {
       this.activities = data;
     });
   }
 
+  // Handle user sorting request
   myChange(event) {
     let finder = Object.keys(this.key_finder);
 
     finder.forEach((key) => {
       if (this.key_finder[key] === event.target.value) {
-        this.activitiesService.getActivitiesByCategoryState(key, 'asc').subscribe(
-          (data: Activity[]) => {
-            this.activities = data;
-          },
-          (error) => {}
-        );
+        this.activitiesService
+          .getActivitiesByCategoryState(key, 'asc')
+          .subscribe(
+            (data: Activity[]) => {
+              console.log(data);
+              this.activities = data;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
       }
     });
   }

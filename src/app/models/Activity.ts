@@ -1,7 +1,7 @@
 import { Location } from './Location';
 
 export interface Activity {
-  _id: string;
+  _id?: string;
   activityName: string;
   manager: string;
   startDate: Date;
@@ -13,7 +13,7 @@ export interface Activity {
   preparationsDate: Date;
   targetAudienceDetails: string;
   summarizeDate: Date;
-  isScheduled: string;
+  isScheduled: boolean;
   mapLocation: Location;
   isApproved?: boolean;
 }

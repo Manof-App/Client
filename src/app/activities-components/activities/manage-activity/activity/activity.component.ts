@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Activity } from '../../../../models/Activity';
 import { Location } from '../../../../models/Location';
-import { environment, globals } from '../../../../../environments/environment';
+import { globals } from '../../../../../environments/environment';
 
 import { AssignmentsComponent } from '../../assignments/assignments.component';
 
@@ -20,15 +20,15 @@ import { AssignmentsService } from '../../../../services/assignments/assignments
   providers: [AssignmentsComponent],
 })
 export class ActivityComponent implements OnInit {
-  // Variables Declaration - Do Not Modified
+  // Variables declaration - Do not modified!!
   model: NgbDateStruct;
   generalAreaForm: FormGroup;
 
   id: string;
   markers: any;
   location: Location;
-  isEditing: boolean;
-  newActivity: Activity;
+  isEdit: boolean;
+  activity: Activity;
 
   globs = globals;
 
@@ -39,7 +39,7 @@ export class ActivityComponent implements OnInit {
 
   @Input() tabNumber: number;
   @Output() triggerTab = new EventEmitter<any>();
-  // End Of Variables Declaration
+  // End of variables declaration
 
   // Constructor
   constructor(
@@ -51,89 +51,73 @@ export class ActivityComponent implements OnInit {
     private assignmentsComponent: AssignmentsComponent
   ) {}
 
-  // On Initialization Life Cycle
+  // On initialization component life cycle
   ngOnInit(): void {
-    this.isEditing = false;
+    this.isEdit = false;
     this.id = this.route.snapshot.queryParams.id;
 
-    this.initObject();
+    this.initializeLocationObject();
     this.initForms();
 
     this.triggerTab.emit(this.globs.activityTab);
     this.globs.activityTab = 1;
 
-    this.activityService.getActivity(this.id).subscribe((activity) => {
-      if (activity != undefined) {
-        this.generalAreaForm.controls.name.setValue(activity.activityName);
-
+    this.activityService.getActivity(this.id).subscribe(
+      (data: Activity) => {
+        this.generalAreaForm.controls.name.setValue(data.activityName);
         this.generalAreaForm.controls.manager.setValue(
-          this.managers.findIndex((val) => val === activity.manager)
+          this.managers.findIndex((val) => val === data.manager)
         );
 
-        this.generalAreaForm.controls.startDate.setValue(activity.startDate);
-        this.generalAreaForm.controls.endDate.setValue(activity.endDate);
+        this.generalAreaForm.controls.startDate.setValue(
+          this.convertToObjectDate(data.startDate)
+        );
+        this.generalAreaForm.controls.endDate.setValue(
+          this.convertToObjectDate(data.endDate)
+        );
 
         this.generalAreaForm.controls.targetedStudents.setValue(
-          this.students.findIndex((val) => val === activity.targetedStudents)
+          this.students.findIndex((val) => val === data.targetedStudents)
         );
 
         this.generalAreaForm.controls.targetedGuides.setValue(
-          this.guides.findIndex((val) => val === activity.targetedGuides)
-        );
-
-        this.generalAreaForm.controls.crewPreparationDate.setValue(
-          activity.crewPreparationDate
-        );
-
-        this.generalAreaForm.controls.type.setValue(
-          this.types.findIndex((val) => val === activity.type)
+          this.guides.findIndex((val) => val === data.targetedGuides)
         );
 
         this.generalAreaForm.controls.preparationsDate.setValue(
-          activity.preparationsDate
+          this.convertToObjectDate(data.preparationsDate)
         );
+
+        this.generalAreaForm.controls.type.setValue(
+          this.types.findIndex((val) => val === data.type)
+        );
+
+        this.generalAreaForm.controls.crewPreparationDate.setValue(
+          this.convertToObjectDate(data.crewPreparationDate)
+        );
+
         this.generalAreaForm.controls.targetAudienceDetails.setValue(
-          activity.targetAudienceDetails
+          data.targetAudienceDetails
         );
 
         this.generalAreaForm.controls.summarizeDate.setValue(
-          activity.summarizeDate
-        );
-        this.generalAreaForm.controls.isScheduled.setValue(
-          activity.isScheduled
+          this.convertToObjectDate(data.summarizeDate)
         );
 
-        this.location = activity.mapLocation;
-      } else {
-        this.getUserLocation();
+        this.generalAreaForm.controls.isScheduled.setValue(
+          data.isScheduled.toString()
+        );
+        this.location = data.mapLocation;
+        this.activity = data;
+      },
+      (error) => {
+        console.log(error);
       }
-    });
+    );
   }
 
-  // Initialize Class Objects
-  initObject = () => {
-    this.newActivity = {
-      _id: '',
-      activityName: '',
-      manager: '',
-      startDate: new Date(),
-      endDate: new Date(),
-      targetedStudents: '',
-      targetedGuides: '',
-      crewPreparationDate: new Date(),
-      type: '',
-      preparationsDate: new Date(),
-      targetAudienceDetails: '',
-      summarizeDate: new Date(),
-      isScheduled: '',
-      mapLocation: {
-        latitude: -1,
-        longitude: -1,
-        city: '',
-        principalSubdivision: '',
-      },
-    };
-
+  // Initialize map location object
+  initializeLocationObject = () => {
     this.location = {
       latitude: -1,
       longitude: -1,
@@ -142,79 +126,99 @@ export class ActivityComponent implements OnInit {
     };
   };
 
-  // Initialize Form Variables
+  // Initialize form variables
   initForms() {
     this.generalAreaForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       manager: [''],
 
-      startDate: [''],
-      endDate: [''],
+      startDate: [Date],
+      endDate: [Date],
 
       targetedStudents: [''],
       targetedGuides: [''],
 
-      crewPreparationDate: [''],
+      crewPreparationDate: [Date],
       type: [''],
 
-      preparationsDate: [''],
+      preparationsDate: [Date],
       targetAudienceDetails: [''],
 
-      summarizeDate: [''],
-      isScheduled: [''],
+      summarizeDate: [Date],
+      isScheduled: [false],
     });
   }
 
   // Handle User Submitting Form
   onSubmit = ({ value }) => {
-    this.newActivity._id = this.id;
-    this.newActivity.activityName = value.name;
-    this.newActivity.endDate = value.endDate;
-    this.newActivity.mapLocation = this.location;
-    this.newActivity.startDate = value.startDate;
-    this.newActivity.isScheduled = value.isScheduled;
-    this.newActivity.summarizeDate = value.summarizeDate;
-    this.newActivity.preparationsDate = value.preparationsDate;
-    this.newActivity.crewPreparationDate = value.crewPreparationDate;
-    this.newActivity.targetAudienceDetails = value.targetAudienceDetails;
+    this.activity._id = this.id;
 
-    this.newActivity.type = this.types[value.type];
-    this.newActivity.manager = this.managers[value.manager];
-    this.newActivity.targetedGuides = this.guides[value.targetedGuides];
-    this.newActivity.targetedStudents = this.students[value.targetedStudents];
+    this.activity.activityName = value.name;
+    this.activity.manager = this.managers[value.manager];
+    this.activity.startDate = this.convertToDate(value.startDate);
+    this.activity.endDate = this.convertToDate(value.endDate);
 
-    let SHARED_DATA = {
-      activityId: this.newActivity._id,
-      startDate: this.newActivity.startDate,
-    };
+    this.activity.targetedGuides = this.guides[value.targetedGuides];
+    this.activity.targetedStudents = this.students[value.targetedStudents];
+    this.activity.crewPreparationDate = this.convertToDate(
+      value.crewPreparationDate
+    );
+    this.activity.type = this.types[value.type];
+
+    this.activity.preparationsDate = this.convertToDate(value.preparationsDate);
+    this.activity.targetAudienceDetails = value.targetAudienceDetails;
+    this.activity.summarizeDate = this.convertToDate(value.summarizeDate);
+    console.log(value.isScheduled);
+    this.activity.isScheduled = value.isScheduled;
+
+    this.activity.mapLocation = this.location;
+
+    if (this.isEdit) {
+      console.log(this.activity._id);
+      this.activityService.updateActivity(this.activity).subscribe(
+        (data: Activity) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+    // let SHARED_DATA = {
+    //   activityId: this.activity._id,
+    //   startDate: this.activity.startDate,
+    // };
 
     // Update Data In Service
-    this.assignmentsService.changeData(SHARED_DATA);
+    //this.assignmentsService.changeData(SHARED_DATA);
 
     // Initialize Assignment Component
     // This Action Will Trigger Assignment
     // Component. Therefore We'll Be Able Add Up
     // New Assignments To Our Newly Created Activity
-    this.assignmentsComponent.ngOnInit();
+    // this.assignmentsComponent.ngOnInit();
 
-    // Save Activity Details To Firebase
-    this.activityService.addActivityToFireBase(this.newActivity);
-
+    this.isEdit = !this.isEdit;
     this.tabNumber = 2;
     this.triggerTab.emit(this.tabNumber);
   };
 
-  // Pin The Location The User has Chosen
+  // Pin the location the user has chosen
   onChoseLocation = (event) => {
     this.mapService
       .getLocationDetails(event.coords.lat, event.coords.lng)
-      .subscribe((location) => {
-        this.location = location;
-        console.log(location);
-      });
+      .subscribe(
+        (location) => {
+          this.location = location;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
-  // Get User Current Location
+  // Get user current location
   getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -223,21 +227,29 @@ export class ActivityComponent implements OnInit {
             position.coords.latitude,
             position.coords.longitude
           )
-          .subscribe((location) => {
-            this.location = location;
-          });
+          .subscribe(
+            (location) => {
+              this.location = location;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
       });
     }
   };
 
-  // Generated New Activity UUID
-  generateId = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (
-      c
-    ) {
-      var r = (Math.random() * 16) | 0,
-        v = c == 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
-  };
+  // Convert date Object to type Date
+  convertToDate(objDate: any): Date {
+    return new Date(`${objDate.year}/${objDate.month}/${objDate.day + 1}`);
+  }
+
+  // Convert type Date to date Object
+  convertToObjectDate(date: Date): Object {
+    return {
+      year: new Date(date).getUTCFullYear(),
+      month: new Date(date).getUTCMonth() + 1,
+      day: new Date(date).getUTCDate(),
+    };
+  }
 }

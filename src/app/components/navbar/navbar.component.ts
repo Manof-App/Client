@@ -35,20 +35,20 @@ export class NavbarComponent implements OnInit {
     this.showSpinner = false;
     this.showConfirmBox = false;
 
-    this.firebaseAuth.getAuth().subscribe((auth) => {
-      if (auth) {
-        this.isLoggedIn = true;
-        this.loggedInUser = auth.email;
-      } else {
-        this.isLoggedIn = false;
-      }
-    });
+    // this.firebaseAuth.getAuth().subscribe((auth) => {
+    //   if (auth) {
+    //     this.isLoggedIn = true;
+    //     this.loggedInUser = auth.email;
+    //   } else {
+    //     this.isLoggedIn = false;
+    //   }
+    // });
 
-    /*if (this.authService.loggedIn) {
+    if (this.authService.loggedIn) {
       this.isLoggedIn = true;
     } else {
       this.isLoggedIn = false;
-    }*/
+    }
   }
 
   onLogoutClick() {
@@ -56,46 +56,25 @@ export class NavbarComponent implements OnInit {
   }
 
   isAdmin() {
-    this.showServerMessage = false;
-    this.firebaseAuth.getAuth().subscribe((user) => {
-      this.userService.getUser(user.email).subscribe((user) => {
-        if (user.role === 'מנהל מפעל') {
-          this.displayServerMessage('error', 'למנהל מפעל אין גישה לדף זה');
-        } else {
-          this.router.navigate(['/settings']);
-        }
-      }),
-        (error) => {
-          console.log(error);
-        };
-    }),
-      (error) => {
-        console.log(error);
-      };
-  }
-
-  // Handle Server Message In Case Of Error Or Success
-  displayServerMessage(resType: string, msg: string) {
-    this.responseType = resType;
-    this.message = msg;
-    this.showServerMessage = !this.showServerMessage;
+    // this.showServerMessage = false;
+    // this.firebaseAuth.getAuth().subscribe((user) => {
+    //   this.userService.getUser(user.email).subscribe((user) => {
+    //     if (user.role === 'מנהל מפעל') {
+    //       this.displayServerMessage('error', 'למנהל מפעל אין גישה לדף זה');
+    //     } else {
+    //       this.router.navigate(['/settings']);
+    //     }
+    //   }),
+    //     (error) => {
+    //       console.log(error);
+    //     };
+    // }),
+    //   (error) => {
+    //     console.log(error);
+    //   };
   }
 
   handleUserAnswer(answer) {
-    if (answer) {
-      this.showConfirmBox = !this.showConfirmBox;
-      this.showSpinner = !this.showSpinner;
-      setTimeout(() => {
-        this.authService.logout();
-        this.router.navigate(['/']);
-        this.showSpinner = !this.showSpinner;
-      }, 3000);
-    } else {
-      this.showConfirmBox = !this.showConfirmBox;
-    }
-  }
-
-  /*handleUserAnswer(answer) {
     if (answer) {
       this.showConfirmBox = !this.showConfirmBox;
       this.showSpinner = !this.showSpinner;
@@ -116,5 +95,26 @@ export class NavbarComponent implements OnInit {
     } else {
       this.showConfirmBox = !this.showConfirmBox;
     }
-  }*/
+  }
+
+  // Handle Server Message In Case Of Error Or Success
+  displayServerMessage(resType: string, msg: string) {
+    this.responseType = resType;
+    this.message = msg;
+    this.showServerMessage = !this.showServerMessage;
+  }
+
+  // handleUserAnswer(answer) {
+  //   if (answer) {
+  //     this.showConfirmBox = !this.showConfirmBox;
+  //     this.showSpinner = !this.showSpinner;
+  //     setTimeout(() => {
+  //       this.authService.logout();
+  //       this.router.navigate(['/']);
+  //       this.showSpinner = !this.showSpinner;
+  //     }, 3000);
+  //   } else {
+  //     this.showConfirmBox = !this.showConfirmBox;
+  //   }
+  // }
 }

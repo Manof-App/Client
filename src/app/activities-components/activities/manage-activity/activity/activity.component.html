@@ -241,7 +241,7 @@
             <div>
               <input
                 id="exampleCheck1"
-                value="yes"
+                value="true"
                 formControlName="isScheduled"
                 type="radio"
                 name="isScheduled"
@@ -257,7 +257,7 @@
             <div>
               <input
                 id="exampleCheck1"
-                value="no"
+                value="false"
                 formControlName="isScheduled"
                 type="radio"
                 class="form-check-input no"
@@ -348,6 +348,13 @@
   </div>
 
   <div class="wrap-btn form-group">
+    <button
+      type="submit"
+      class="btn btn-primary ml-3"
+      (click)="isEdit = !this.isEdit"
+    >
+      ערוך
+    </button>
     <button type="submit" class="btn btn-primary">הבא</button>
   </div>
 </form>

@@ -145,7 +145,7 @@ export class LoginRegisterPageComponent implements OnInit {
       this.user.password = value.password;
 
       this.authService.register(this.user).subscribe(
-        (data) => {
+        (data: User) => {
           this.authService.addToken(data);
 
           this.loginForm.controls.email.setValue(this.user.email);

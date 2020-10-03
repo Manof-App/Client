@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Activity } from '../../models/Activity';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument,
+} from 'angularfire2/firestore';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -42,28 +46,45 @@ export class ActivitiesService {
   }
 
   // Get A Single Activity From FireStore
-  getActivity(id: string): Observable<Activity> {
-    return (this.activity = this.activitiesCollection.snapshotChanges().pipe(
-      map((changes) =>
-        changes.map(({ payload: { doc } }) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        })
-      ),
-      map((activities) => activities.find((doc) => doc.id === id))
-    ));
+  // getActivity(id: string): Observable<Activity> {
+  //   return (this.activity = this.activitiesCollection.snapshotChanges().pipe(
+  //     map((changes) =>
+  //       changes.map(({ payload: { doc } }) => {
+  //         const data = doc.data();
+  //         const id = doc.id;
+  //         return { id, ...data };
+  //       })
+  //     ),
+  //     map((activities) => activities.find((doc) => doc.id === id))
+  //   ));
+  // }
+
+  getActivity(_id: string): Observable<Activity> {
+    return this.httpClient.get<Activity>(`${this.baseUrl}/activities/${_id}`);
   }
 
   getAllActivities(): Observable<Activity[]> {
     return this.httpClient.get<Activity[]>(this.baseUrl + '/allActivities');
   }
 
-  getActivitiesByCategoryState(category: string, categoryState: string): Observable<Activity[]> {
-    let params = new HttpParams().set('sortBy', `${category}:${categoryState}`);
-    console.log(params);
+  getActivitiesByCategoryState(
+    category: string,
+    categoryState: string
+  ): Observable<Activity[]> {
+    let searchParams = new HttpParams().set(
+      'sortBy',
+      `${category}:${categoryState}`
+    );
     return this.httpClient.get<Activity[]>(`${this.baseUrl}/activities`, {
-      params: params,
+      params: searchParams,
     });
+  }
+
+  updateActivity(activity: Activity): Observable<Activity> {
+    console.log(`${this.baseUrl}/activities/${activity._id}`);
+    return this.httpClient.patch<Activity>(
+      `${this.baseUrl}/activities/${activity._id}`,
+      activity
+    );
   }
 }

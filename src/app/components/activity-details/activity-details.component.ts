@@ -25,7 +25,6 @@ export class ActivityDetailsComponent implements OnInit {
   active: number;
   id: string;
 
-  req: Date;
   globs = globals;
   percentage: number;
 
@@ -48,14 +47,15 @@ export class ActivityDetailsComponent implements OnInit {
     this.id = this.route.snapshot.queryParams.id;
     this.percentage = 0;
 
-    this.activitiesService.getActivity(this.id).subscribe((data) => {
-      //console.log(data);
-      this.activity = data;
-      this.handleActivity();
-    }),
+    // Get activity by id
+    this.activitiesService.getActivity(this.id).subscribe(
+      (data: Activity) => {
+        this.activity = data;
+      },
       (error) => {
         console.log(error);
-      };
+      }
+    );
 
     this.officialsService.getOfficialsPerActivity(this.id).subscribe((data) => {
       this.officials = data;
@@ -94,7 +94,7 @@ export class ActivityDetailsComponent implements OnInit {
       }
     });
 
-    this.activity.isScheduled = this.convertType(this.activity.isScheduled);
+    // this.activity.isScheduled = this.convertType(this.activity.isScheduled);
   }
 
   handleOfficials() {
@@ -112,28 +112,6 @@ export class ActivityDetailsComponent implements OnInit {
 
   // Initialize Class Objects
   initObject = () => {
-    this.activity = {
-      _id: '',
-      activityName: '',
-      manager: '',
-      startDate: new Date(),
-      endDate: new Date(),
-      targetedStudents: '',
-      targetedGuides: '',
-      crewPreparationDate: new Date(),
-      type: '',
-      preparationsDate: new Date(),
-      targetAudienceDetails: '',
-      summarizeDate: new Date(),
-      isScheduled: '',
-      mapLocation: {
-        latitude: -1,
-        longitude: -1,
-        city: '',
-        principalSubdivision: '',
-      },
-    };
-
     this.officials = {
       activityOfficials: [
         {

@@ -6,13 +6,22 @@
         <div class="wrapper">
           <div class="card">
             <div class="card-header">
-              <a
+              <button
                 [routerLink]="['/activities/manage-activity']"
                 [queryParams]="{ id: id }"
                 (click)="setTab(1)"
                 class="btn btn-primary"
-                >ערוך פעילות</a
+              >
+                ערוך פעילות</button
               >פרטי פעילות
+              <p class="card-text">
+                <span class="span-title" style="text-decoration: none"
+                  >מאושר :
+                </span>
+                <span class="span-body">{{
+                  activity.isApproved === true ? "מאושר" : "לא מאושר"
+                }}</span>
+              </p>
             </div>
             <div class="card-body">
               <h4 class="card-title mb-3" style="text-align: center">
@@ -25,10 +34,11 @@
                 </p>
                 <p class="card-text col-5">
                   <strong>תאריך התחלה : </strong>
-                  {{ activity.startDate | date }}
+                  {{ activity.startDate | date: "dd/MM/yyyy" }}
                 </p>
                 <p class="card-text col-3">
-                  <strong>תאריך סיום : </strong> {{ activity.endDate | date }}
+                  <strong>תאריך סיום : </strong>
+                  {{ activity.endDate | date: "dd/MM/yyyy" }}
                 </p>
 
                 <p class="card-text col-4">
@@ -41,7 +51,7 @@
                 </p>
                 <p class="card-text col-3">
                   <strong>תאריך הכנת צוות : </strong>
-                  {{ activity.crewPreparationDate | date }}
+                  {{ activity.crewPreparationDate | date: "dd/MM/yyyy" }}
                 </p>
 
                 <p class="card-text col-4">
@@ -50,7 +60,7 @@
                 </p>
                 <p class="card-text col-5">
                   <strong>תאריכי הכנה (בני נוער ו/או בוגרים) : </strong>
-                  {{ activity.preparationsDate | date }}
+                  {{ activity.preparationsDate | date: "dd/MM/yyyy" }}
                 </p>
                 <p class="card-text col-3">
                   <strong>פירוט קהל היעד בהכנות : </strong>
@@ -59,14 +69,14 @@
 
                 <p class="card-text col-4">
                   <strong>תאריך סיכום המפעל : </strong>
-                  {{ activity.summarizeDate | date }}
+                  {{ activity.summarizeDate | date: "dd/MM/yyyy" }}
                 </p>
                 <p class="card-text col-5">
                   <strong>נקבע ביומן המחלקתי : </strong>
-                  {{ activity.isScheduled }}
+                  {{ activity.isScheduled === true ? "כן" : "לא" }}
                 </p>
                 <p class="card-text col-3">
-                  <strong>מיקום הפעילות: </strong>
+                  <strong>מיקום הפעילות : </strong>
                   {{ activity.mapLocation.city }}
                 </p>
               </div>
@@ -75,13 +85,20 @@
 
           <div class="card">
             <div class="card-header">
-              <a
+              <button
                 [routerLink]="['/activities/manage-activity']"
                 [queryParams]="{ id: id }"
                 (click)="setTab(2)"
                 class="btn btn-primary"
-                >ערוך בעלי תפקידים</a
+              >
+                ערוך בעלי תפקידים</button
               >בעלי תפקידים
+              <p class="card-text">
+                <span class="span-title" style="text-decoration: none"
+                  >כמות בעלי תפקידים :
+                </span>
+                <span class="span-body">2</span>
+              </p>
             </div>
 
             <div
@@ -136,14 +153,21 @@
 
           <div class="card">
             <div class="card-header">
-              צרכים
-              <a
+              <button
                 [routerLink]="['/activities/manage-activity']"
                 [queryParams]="{ id: id }"
                 (click)="setTab(3)"
                 class="btn btn-primary"
-                >ערוך צרכים</a
               >
+                ערוך צרכים
+              </button>
+              צרכים
+              <p class="card-text">
+                <span class="span-title" style="text-decoration: none"
+                  >כמות צרכים :
+                </span>
+                <span class="span-body">18</span>
+              </p>
             </div>
             <div class="card-body">
               <h5 class="card-title"></h5>
