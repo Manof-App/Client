@@ -16,8 +16,8 @@ export class ConfirmBoxComponent implements OnInit {
     this.answer = false;
   }
 
-  onClick = (ans: boolean) => {
-    this.answer = ans;
+  onClick = (result: boolean) => {
+    this.answer = result;
     this.userAnswer.emit(this.answer);
   };
 }

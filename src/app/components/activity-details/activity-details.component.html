@@ -103,7 +103,7 @@
 
             <div
               class="card-body"
-              *ngFor="let official of officials.activityOfficials; index as i"
+              *ngFor="let official of officials; index as i"
             >
               <h5 class="card-title"></h5>
               <div class="row">
@@ -116,7 +116,7 @@
 
                 <p class="card-text col-3">
                   <strong>מועדים נדרשים : </strong>
-                  {{ official.requiredDate | date }}
+                  {{ official.requiredDate | date: "dd/MM/yyyy" }}
                 </p>
 
                 <p class="card-text col-4">
@@ -139,7 +139,7 @@
                 </p>
               </div>
               <div
-                *ngIf="officials.activityOfficials.length - 1 > i"
+                *ngIf="officials.length - 1 > i"
                 class="separator mt-5"
                 style="
                   max-width: 100%;

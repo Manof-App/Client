@@ -29,7 +29,7 @@ export class ActivityDetailsComponent implements OnInit {
   percentage: number;
 
   activity: Activity;
-  officials: Official;
+  officials: Official[];
   needs: Need;
   activityAssignments: ActivityAssignments;
 
@@ -57,13 +57,15 @@ export class ActivityDetailsComponent implements OnInit {
       }
     );
 
-    this.officialsService.getOfficialsPerActivity(this.id).subscribe((data) => {
-      this.officials = data;
-      this.handleOfficials();
-    }),
+    this.officialsService.getOfficials(this.id).subscribe(
+      (data: Official[]) => {
+        this.officials = data;
+        // this.handleOfficials();
+      },
       (error) => {
         console.log(error);
-      };
+      }
+    );
 
     this.needService.getNeed(this.id).subscribe((data) => {
       this.needs = data;
@@ -97,37 +99,21 @@ export class ActivityDetailsComponent implements OnInit {
     // this.activity.isScheduled = this.convertType(this.activity.isScheduled);
   }
 
-  handleOfficials() {
-    this.officials.activityOfficials.forEach((obj, index) => {
-      let KEYS = Object.keys(this.officials.activityOfficials[index]);
-      for (let key of KEYS) {
-        if (key === 'requiredDate') {
-          this.officials.activityOfficials[
-            index
-          ].requiredDate = this.convertObjectToDate(obj.requiredDate);
-        }
-      }
-    });
-  }
+  // handleOfficials() {
+  //   this.officials.activityOfficials.forEach((obj, index) => {
+  //     let KEYS = Object.keys(this.officials.activityOfficials[index]);
+  //     for (let key of KEYS) {
+  //       if (key === 'requiredDate') {
+  //         this.officials.activityOfficials[
+  //           index
+  //         ].requiredDate = this.convertObjectToDate(obj.requiredDate);
+  //       }
+  //     }
+  //   });
+  // }
 
   // Initialize Class Objects
   initObject = () => {
-    this.officials = {
-      activityOfficials: [
-        {
-          id: '',
-          activityId: '',
-          job: '',
-          jobTitle: '',
-          requiredDate: new Date(),
-          extraHoursNeeded: -1,
-          managerApproval: false,
-          managerDepartmentApproval: true,
-          notes: '',
-        },
-      ],
-    };
-
     this.needs = {
       id: '',
       activityId: '',
@@ -219,8 +205,8 @@ export class ActivityDetailsComponent implements OnInit {
     this.globs.activityTab = number;
   }
 
-  convertType(type: string): string {
-    if (type === 'yes') return 'כן';
-    return 'לא';
-  }
+  // convertType(type: string): string {
+  //   if (type === 'yes') return 'כן';
+  //   return 'לא';
+  // }
 }

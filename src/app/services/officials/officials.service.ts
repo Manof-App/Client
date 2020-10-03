@@ -5,10 +5,12 @@ import {
   AngularFirestoreDocument,
 } from 'angularfire2/firestore';
 
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Official } from '../../models/Official';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,9 @@ export class OfficialsService {
   officials: Observable<Official[]>;
   official: Observable<Official>;
 
-  constructor(private afs: AngularFirestore) {
+  baseURl: string = environment.apiURL;
+
+  constructor(private afs: AngularFirestore, private httpClient: HttpClient) {
     this.officialsCollection = this.afs.collection('officials');
   }
 
@@ -40,5 +44,9 @@ export class OfficialsService {
       ),
       map((dataList) => dataList.find((doc) => doc.id === activityId))
     );
+  }
+
+  getOfficials(_id: string): Observable<Official[]> {
+    return this.httpClient.get<Official[]>(`${this.baseURl}/officials/_id`);
   }
 }

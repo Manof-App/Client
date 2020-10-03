@@ -11,7 +11,7 @@ import {
   MatDialogConfig,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -33,11 +33,12 @@ export class ManageOfficialsComponent implements OnInit {
 
   userData: any;
   official: Official;
+  officials: Official[];
 
   isMobile: boolean = false;
   showConfirmBox: boolean = false;
 
-  activityId: string;
+  id: string;
   content: string = 'האם אתה בטוח שאתה רוצה למחוק?';
 
   displayedColumns: string[] = [
@@ -60,7 +61,7 @@ export class ManageOfficialsComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private aos: OfficialsService,
+    private officialService: OfficialsService,
     private breakpointObserver: BreakpointObserver,
     private changeDetectorRefs: ChangeDetectorRef
   ) {
@@ -75,7 +76,7 @@ export class ManageOfficialsComponent implements OnInit {
   // Component Life Cycle On Initialization
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(null);
-    this.activityId = this.route.snapshot.queryParams.id;
+    this.id = this.route.snapshot.queryParams.id;
     this.refreshTable();
   }
 
@@ -97,61 +98,63 @@ export class ManageOfficialsComponent implements OnInit {
 
   //Add A New Official To Firestore
   addNewOfficial = (official) => {
-    official.data.activityId = this.activityId;
+    official.relatedActivityId = this.id;
 
     if (!this.official) {
       this.official = {
-        activityOfficials: [
-          {
-            id: official.data.id,
-            activityId: official.data.activityId,
-            job: official.data.job,
-            jobTitle: official.data.jobTitle,
-            requiredDate: official.data.requiredDate,
-            extraHoursNeeded: official.data.extraHoursNeeded,
-            managerApproval: official.data.managerApproval,
-            managerDepartmentApproval: official.data.managerDepartmentApproval,
-            notes: official.data.notes,
-          },
-        ],
+        _id: official.data.id,
+        relatedActivityId: official.data.activityId,
+        job: official.data.job,
+        jobTitle: official.data.jobTitle,
+        requiredDate: official.data.requiredDate,
+        extraHoursNeeded: official.data.extraHoursNeeded,
+        managerApproval: official.data.managerApproval,
+        managerDepartmentApproval: official.data.managerDepartmentApproval,
+        notes: official.data.notes,
       };
     } else {
-      this.official.activityOfficials.push(official.data);
+      this.officials.push(official);
     }
-    this.aos.saveOfficialToFireStore(this.official, this.activityId);
+    //this.aos.saveOfficialToFireStore(this.official._id);
     this.refreshTable();
   };
 
   // Update A Specific Official To Firestore
   updateOfficial = () => {
-    this.aos.saveOfficialToFireStore(this.official, this.activityId);
+    //this.aos.saveOfficialToFireStore(this.official, this.activityId);
     this.refreshTable();
     this.dialogConfig.data = null;
   };
 
   // Refresh table data
   refreshTable = () => {
-    this.aos.getOfficialsPerActivity(this.activityId).subscribe((officials) => {
-      if (officials != undefined) {
-        this.official = officials;
-        this.dataSource = new MatTableDataSource(
-          this.official.activityOfficials
-        );
+    this.officialService.getOfficials(this.id).subscribe(
+      (officials: Official[]) => {
+        this.officials = officials;
+        this.dataSource = new MatTableDataSource();
+      },
+      (error) => {
+        console.log(error);
       }
-    });
+    );
     this.changeDetectorRefs.detectChanges();
   };
 
   // Triggered When The Plus Button Is Being Pressed
-  onCreate = () => {
+  createOfficial() {
     this.dialogConfig.data = null;
     this.dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-    this.dialogRef.afterClosed().subscribe((official) => {
-      if (official.event === 'save') {
-        this.addNewOfficial(official);
+    this.dialogRef.afterClosed().subscribe(
+      (official) => {
+        if (official.event === 'save') {
+          this.addNewOfficial(official);
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-    });
-  };
+    );
+  }
 
   // Triggered When The Edit Button Is Being Pressed
   onEdit = (rowData) => {
@@ -167,9 +170,9 @@ export class ManageOfficialsComponent implements OnInit {
 
   editLocalOfficialList = (currOfficial) => {
     const currId = currOfficial.data.id;
-    this.official.activityOfficials.forEach((obj, index) => {
-      if (obj.id === currId) {
-        this.official.activityOfficials[index] = currOfficial.data;
+    this.officials.forEach((official, index) => {
+      if (official._id === currId) {
+        this.official[index] = currOfficial.data;
         this.updateOfficial();
       }
     });
@@ -187,9 +190,9 @@ export class ManageOfficialsComponent implements OnInit {
       this.showConfirmBox = !this.showConfirmBox;
     } else {
       const currId = this.userData.id;
-      this.official.activityOfficials.forEach((obj, index) => {
-        if (obj.id === currId) {
-          this.official.activityOfficials.splice(index, 1);
+      this.officials.forEach((official, index) => {
+        if (official._id === currId) {
+          this.officials.splice(index, 1);
           this.updateOfficial();
         }
       });

@@ -1,7 +1,8 @@
 <app-confirm-box
   [data]="content"
   *ngIf="showConfirmBox"
-  (userAnswer)="handleUserAnswer($event)"
+  (click)="handleUserAnswer($event)"
+  [answer]="userAnswer"
 ></app-confirm-box>
 
 <div class="container">
@@ -13,9 +14,9 @@
   </mat-toolbar>
 
   <form
-    [formGroup]="officialForm"
+    [formGroup]="officialsForm"
     class="normal-form"
-    (ngSubmit)="onSubmit(officialForm)"
+    (ngSubmit)="onSubmit(officialsForm)"
   >
     <mat-grid-list cols="2" [cols]="isMobile ? 1 : 2" row-height="300px">
       <mat-grid-tile class="col-a">
@@ -106,7 +107,7 @@
               mat-raised-button
               color="primary"
               type="submit"
-              [disabled]="officialForm.invalid"
+              [disabled]="officialsForm.invalid"
             >
               שמור
             </button>
