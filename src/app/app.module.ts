@@ -23,7 +23,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { OfficialsService } from './services/officials/officials.service';
-import { UsersService } from './services/authorization/users/users.service';
+import { UsersService } from './services/users/users.service';
 import { ActivitiesService } from './services/activities/activities.service';
 import { AuthService } from './services/authorization/authService/auth.service';
 import { FirebaseAuthService } from './services/authorization/firebaseAuth/firebase-auth.service';
@@ -49,6 +49,7 @@ import { ActivityCardsComponent } from './components/dashboard/activity-cards/ac
 import { ActivityDetailsComponent } from './components/activity-details/activity-details.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ManageUsersComponent } from './components/settings/manage-users/manage-users.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ManageUsersComponent } from './components/settings/manage-users/manage-
     ActivityDetailsComponent,
     ResetPasswordComponent,
     ManageUsersComponent,
+    UsersComponent,
   ],
   entryComponents: [MatDialogModule],
   imports: [

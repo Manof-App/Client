@@ -18,8 +18,15 @@ export class ActivityProgressComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activityService.getActivities().subscribe((activities) => {
-      this.activities = activities;
-    });
+    this.activityService.getAllActivities().subscribe(
+      (data: Activity[]) => {
+        console.log(data);
+        this.activities = data;
+        console.log(this.activities.length);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

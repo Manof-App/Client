@@ -1,43 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Need } from '../../models/Need';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-} from 'angularfire2/firestore';
 
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
+import { Need } from '../../models/Need';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NeedService {
-  needsCollection: AngularFirestoreCollection<Need>;
-  needDoc: AngularFirestoreDocument<Need>;
-  needs: Observable<Need[]>;
-  need: Observable<Need>;
+  baseUrl: string = environment.apiURL;
 
-  constructor(private afs: AngularFirestore) {
-    this.needsCollection = this.afs.collection('needs');
+  constructor(private httpClient: HttpClient) {}
+
+  // Create need
+  createNeed(need: Need): Observable<Need> {
+    return this.httpClient.post<Need>(`${this.baseUrl}/needs`, need);
   }
 
-  // Add new activity to firebase
-  saveNeedToFireBase(newNeed: Need) {
-    this.needsCollection.doc(newNeed.activityId).set(newNeed);
+  // Delete need
+  deleteNeed(need: Need): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.baseUrl}/officials/${need._id}`
+    );
   }
 
-  // Get All Needs Related To A Specific Activity From FireStore
-  getNeed(id: string): Observable<Need> {
-    return (this.need = this.needsCollection.snapshotChanges().pipe(
-      map((changes) =>
-        changes.map(({ payload: { doc } }) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        })
-      ),
-      map((needs) => needs.find((doc) => doc.activityId === id))
-    ));
+  // Update need
+  updateNeed(need: Need): Observable<Need> {
+    console.log(need);
+    return this.httpClient.patch<Need>(
+      `${this.baseUrl}/needs/${need.relatedActivityId}`,
+      need
+    );
+  }
+
+  // Get need
+  getNeed(relatedActivityId: string): Observable<Need> {
+    return this.httpClient.get<Need>(
+      `${this.baseUrl}/needs/${relatedActivityId}`
+    );
   }
 }

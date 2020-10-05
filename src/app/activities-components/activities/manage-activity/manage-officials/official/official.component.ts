@@ -12,6 +12,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { DialogComponent } from '../../../../../shared/dialog/dialog.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Official } from 'src/app/models/Official';
 
 @Component({
   selector: 'app-official',
@@ -22,14 +23,10 @@ export class OfficialComponent implements OnInit {
   officialsForm: FormGroup;
   formDirective: FormGroupDirective;
 
-  @Input() official;
+  @Input() official: Official;
   id: string;
   dialogConfig: any;
-  userAnswer: boolean;
 
-  openOrCloseConfirmBox: boolean;
-
-  date: Date;
   isMobile: boolean = false;
   showConfirmBox: boolean = false;
   userData: any;
@@ -44,6 +41,7 @@ export class OfficialComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
+    public dialog: DialogComponent,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver
@@ -59,26 +57,30 @@ export class OfficialComponent implements OnInit {
     this.id = this.route.snapshot.queryParams.id;
 
     this.initForm();
+    this.initOfficial();
 
-    if (!this.official) {
-      this.official = {};
-    } else {
-      // this.officialsForm.controls.job.setValue(
-      //   this.convertJobNameToId(this.official.job)
-      // );
-      // this.officialForm.controls.notes.setValue(this.official.notes);
-      // this.officialForm.controls.jobTitle.setValue(this.official.jobTitle);
-      // const displayDate = `${this.official.requiredDate.month}/${this.official.requiredDate.day}/${this.official.requiredDate.year}`;
-      // this.date = new Date(displayDate);
-      // this.officialForm.controls.managerApproval.setValue(
-      //   this.official.managerApproval
-      // );
-      // this.officialForm.controls.extraHoursNeeded.setValue(
-      //   this.official.extraHoursNeeded
-      // );
-      // this.officialForm.controls.managerDepartmentApproval.setValue(
-      //   this.official.managerDepartmentApproval
-      // );
+    if (this.dialog.official._id) {
+      this.official = this.dialog.official;
+      this.officialsForm.controls.job.setValue(this.getJobId());
+      this.officialsForm.controls.jobTitle.setValue(this.official.jobTitle);
+
+      this.officialsForm.controls.requiredDate.setValue(
+        new Date(this.official.requiredDate)
+      );
+
+      this.officialsForm.controls.extraHoursNeeded.setValue(
+        this.official.extraHoursNeeded
+      );
+
+      this.officialsForm.controls.managerApproval.setValue(
+        this.official.managerApproval.toString()
+      );
+
+      this.officialsForm.controls.managerDepartmentApproval.setValue(
+        this.official.managerDepartmentApproval.toString()
+      );
+
+      this.officialsForm.controls.notes.setValue(this.official.notes);
     }
   }
 
@@ -90,84 +92,68 @@ export class OfficialComponent implements OnInit {
       requiredDate: new FormControl(''),
       extraHoursNeeded: new FormControl(''),
       managerApproval: new FormControl(false),
-      notes: new FormControl(''),
       managerDepartmentApproval: new FormControl(false),
+      notes: new FormControl(''),
     });
   }
 
-  onSubmit = ({ value }) => {
-    this.showConfirmBox = !this.showConfirmBox;
-    this.official = value;
-    console.log(this.userAnswer);
-  };
+  initOfficial() {
+    this.official = {
+      relatedActivityId: '-1',
+      job: '',
+      jobTitle: '',
+      requiredDate: new Date(),
+      extraHoursNeeded: -1,
+      managerApproval: false,
+      managerDepartmentApproval: false,
+      notes: '',
+    };
+  }
 
-  handleUserAnswer = (userAnswer) => {
+  onSubmit({ value }) {
+    this.showConfirmBox = !this.showConfirmBox;
+    this.userData = value;
+  }
+
+  handleUserAnswer(userAnswer) {
     if (!userAnswer) {
       this.showConfirmBox = !this.showConfirmBox;
     } else {
-      // this.official.job = this.applyJobTitle(this.userData.job);
-      // this.official.jobTitle = this.userData.jobTitle;
-      // this.official.requiredDate = this.userData.requiredDate = this.toObjectMap(
-      //   new Date(this.userData.requiredDate)
-      // );
-      // this.official.extraHoursNeeded = this.userData.extraHoursNeeded;
-      // this.official.managerApproval = this.userData.managerApproval;
-      // this.official.managerDepartmentApproval = this.userData.managerDepartmentApproval;
-      // this.official.notes = this.userData.notes;
-      // /* If the action add a new official */
-      // if (!this.official.id) {
-      //   this.official.id = this.generateId();
-      //   this.dialogRef.close({ event: 'save', data: this.official });
-      // } else {
-      //   /* If the action edit a official */
-      //   this.dialogRef.close({ event: 'edit', data: this.official });
-      // }
+      this.official.relatedActivityId = this.id;
+      this.official.job = this.userData.job;
+      this.official.jobTitle = this.userData.jobTitle;
+      this.official.requiredDate = this.userData.requiredDate;
+      this.official.extraHoursNeeded = this.userData.extraHoursNeeded;
+      this.official.managerApproval = this.userData.managerApproval;
+      this.official.managerDepartmentApproval = this.userData.managerDepartmentApproval;
+      this.official.notes = this.userData.notes;
+
+      if (!this.official._id) {
+        // if the action add a new official
+        this.dialogRef.close({ event: 'save', data: this.official });
+      } else {
+        // if the action edit a official
+        this.dialogRef.close({ event: 'edit', data: this.official });
+      }
     }
-  };
+  }
 
   /* Clear form inputs */
   clearForm() {
     this.officialsForm.reset();
   }
 
-  /* Converts a given id to a job title string */
-  // applyJobTitle = (currId): any => {
-  //   let objectValue;
-  //   this.jobs.forEach((obj) => {
-  //     if (obj.id == currId) {
-  //       objectValue = obj.value;
-  //     }
-  //   });
-  //   return objectValue;
-  // };
+  // Return the value key of the current job
+  getJobId(): string {
+    return this.jobs.find((obj) => obj.value === this.official.job).id;
+  }
 
-  // Converts A Given Job String To An Id
-  // convertJobNameToId = (currentJob): any => {
-  //   let id;
-  //   this.jobs.forEach((obj) => {
-  //     if (obj.value == currentJob) {
-  //       id = obj.id;
-  //     }
-  //   });
-  //   return id;
-  // };
-
-  // toObjectMap = (date: Date): Object => {
-  //   return {
-  //     day: date.getDate(),
-  //     month: date.getMonth() + 1,
-  //     year: date.getFullYear(),
-  //   };
-  // };
-
-  // Generates New Id For A Specific Official Within An Activity
-  // generateId = () => {
-  //   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (
-  //     c
-  //   ) {
-  //     var r = (Math.random() * 16) | 0,
-  //       v = c == 'x' ? r : (r & 0x3) | 0x8;
-  //     return v.toString(16);
-  //   });
-  // };
+  // Convert type Date to date Object
+  convertToObjectDate(date: Date): Object {
+    return {
+      year: new Date(date).getUTCFullYear(),
+      month: new Date(date).getUTCMonth() + 1,
+      day: new Date(date).getUTCDate(),
+    };
+  }
 }

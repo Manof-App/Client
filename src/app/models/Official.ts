@@ -1,5 +1,5 @@
 export interface Official {
-  _id: string;
+  _id?: string;
   relatedActivityId: string;
   job: string;
   jobTitle: string;

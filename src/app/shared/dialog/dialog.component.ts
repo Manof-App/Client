@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Official } from '../../models/Official';
 
 @Component({
   selector: 'app-dialog',
@@ -8,7 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public official: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public official: Official) {}
 
   ngOnInit(): void {}
 }

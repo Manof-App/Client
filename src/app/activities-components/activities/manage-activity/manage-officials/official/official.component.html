@@ -1,8 +1,7 @@
 <app-confirm-box
   [data]="content"
   *ngIf="showConfirmBox"
-  (click)="handleUserAnswer($event)"
-  [answer]="userAnswer"
+  (userAnswer)="handleUserAnswer($event)"
 ></app-confirm-box>
 
 <div class="container">
@@ -53,7 +52,6 @@
               matInput
               [matDatepicker]="picker"
               placeholder="בחר מועד נדרש"
-              [(ngModel)]="date"
               type="text"
             />
             <mat-datepicker-toggle
@@ -89,16 +87,16 @@
           <div class="add-bottom-padding">
             <mat-label>אישור מנהל פעילות</mat-label>
             <mat-radio-group formControlName="managerApproval">
-              <mat-radio-button value="כן"> כן </mat-radio-button>
-              <mat-radio-button value="לא"> לא </mat-radio-button>
+              <mat-radio-button value="true">כן</mat-radio-button>
+              <mat-radio-button value="false">לא</mat-radio-button>
             </mat-radio-group>
           </div>
 
           <div class="add-bottom-padding">
             <mat-label>אישור מנהל מחלקת הנוער</mat-label>
             <mat-radio-group formControlName="managerDepartmentApproval">
-              <mat-radio-button value="כן">כן</mat-radio-button>
-              <mat-radio-button value="לא">לא</mat-radio-button>
+              <mat-radio-button value="true">כן</mat-radio-button>
+              <mat-radio-button value="false">לא</mat-radio-button>
             </mat-radio-group>
           </div>
 

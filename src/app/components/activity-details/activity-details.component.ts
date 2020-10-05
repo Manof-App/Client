@@ -42,14 +42,13 @@ export class ActivityDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initObject();
-
-    this.id = this.route.snapshot.queryParams.id;
     this.percentage = 0;
+    this.id = this.route.snapshot.queryParams.id;
 
     // Get activity by id
     this.activitiesService.getActivity(this.id).subscribe(
       (data: Activity) => {
+        //console.log(data);
         this.activity = data;
       },
       (error) => {
@@ -57,22 +56,27 @@ export class ActivityDetailsComponent implements OnInit {
       }
     );
 
+    // Get related officials
     this.officialsService.getOfficials(this.id).subscribe(
       (data: Official[]) => {
+        //console.log(data);
         this.officials = data;
-        // this.handleOfficials();
       },
       (error) => {
         console.log(error);
       }
     );
 
-    this.needService.getNeed(this.id).subscribe((data) => {
-      this.needs = data;
-    }),
-      (error: any) => {
+    // Get related needs
+    this.needService.getNeed(this.id).subscribe(
+      (data: Need) => {
+        //console.log(data);
+        this.needs = data;
+      },
+      (error) => {
         console.log(error);
-      };
+      }
+    );
 
     this.assignmentsService
       .getActivityAssignments(this.id)
@@ -87,69 +91,19 @@ export class ActivityDetailsComponent implements OnInit {
       };
   }
 
-  handleActivity() {
-    const KEYS = Object.keys(this.activity);
-
-    KEYS.forEach((obj: any) => {
-      if (obj.includes('Date')) {
-        this.activity[obj] = this.convertObjectToDate(this.activity[obj]);
-      }
-    });
-
-    // this.activity.isScheduled = this.convertType(this.activity.isScheduled);
-  }
-
-  // handleOfficials() {
-  //   this.officials.activityOfficials.forEach((obj, index) => {
-  //     let KEYS = Object.keys(this.officials.activityOfficials[index]);
-  //     for (let key of KEYS) {
-  //       if (key === 'requiredDate') {
-  //         this.officials.activityOfficials[
-  //           index
-  //         ].requiredDate = this.convertObjectToDate(obj.requiredDate);
-  //       }
-  //     }
-  //   });
-  // }
-
   // Initialize Class Objects
-  initObject = () => {
-    this.needs = {
-      id: '',
-      activityId: '',
-      isRequiredNotebookGuide: false,
-      isRequiredGuideItems: false,
-      detailedIGuideItems: '',
-      isRequiredClothing: false,
-      detailedClothing: '',
-      isRequiredVehicles: false,
-
-      isRequiredOfficeEquipment: false,
-      isRequiredDepotEquipment: false,
-      isRequiredFood: false,
-      foodOrderingForm: false,
-      foodType: false,
-      foodDescription: '',
-
-      isRequiredTransportation: false,
-      isSitesAvailable: false,
-      isSleepingArrangements: false,
-      sleepingLocation: '',
-      isRequiredBidingPrice: false,
-      isRequiredExtraEquipment: false,
-    };
-
-    this.activityAssignments = {
-      data: [
-        {
-          assignment: 'אין משימה',
-          finalExecDate: new Date(),
-          scheduleDate: new Date(),
-          progress: 'טרם הסתיים',
-        },
-      ],
-    };
-  };
+  // initObject = () => {
+  //   this.activityAssignments = {
+  //     data: [
+  //       {
+  //         assignment: 'אין משימה',
+  //         finalExecDate: new Date(),
+  //         scheduleDate: new Date(),
+  //         progress: 'טרם הסתיים',
+  //       },
+  //     ],
+  //   };
+  // };
 
   myChange(e, i) {
     this.activityAssignments.data.forEach((assignment, index) => {
@@ -169,44 +123,22 @@ export class ActivityDetailsComponent implements OnInit {
   updateProgressBar() {
     let counter = 0;
 
-    this.activityAssignments.data.forEach((assignment, index) => {
-      if (assignment.progress === 'טרם הסתיים') {
-        counter += 1;
-      } else if (assignment.progress === 'ממתין לאישור מנהל') {
-        counter += 2;
-      } else if (assignment.progress === 'נקבע תאריך גג לביצוע') {
-        counter += 3;
-      } else if (assignment.progress === 'הסתיים') {
-        counter += 4;
-      }
-    });
+    // this.activityAssignments.data.forEach((assignment, index) => {
+    //   if (assignment.progress === 'טרם הסתיים') {
+    //     counter += 1;
+    //   } else if (assignment.progress === 'ממתין לאישור מנהל') {
+    //     counter += 2;
+    //   } else if (assignment.progress === 'נקבע תאריך גג לביצוע') {
+    //     counter += 3;
+    //   } else if (assignment.progress === 'הסתיים') {
+    //     counter += 4;
+    //   }
+    // });
 
     this.percentage = (counter / (4 * 32)) * 100;
   }
 
-  convertObjectToDate = (dateObj: Object): Date => {
-    const KEYS = Object.keys(dateObj);
-    let year, month, day;
-
-    KEYS.forEach((key) => {
-      if (key === 'year') {
-        year = dateObj[key];
-      } else if (key === 'month') {
-        month = dateObj[key];
-      } else {
-        day = dateObj[key];
-      }
-    });
-
-    return new Date(year, month - 1, day);
-  };
-
   setTab(number) {
     this.globs.activityTab = number;
   }
-
-  // convertType(type: string): string {
-  //   if (type === 'yes') return 'כן';
-  //   return 'לא';
-  // }
 }

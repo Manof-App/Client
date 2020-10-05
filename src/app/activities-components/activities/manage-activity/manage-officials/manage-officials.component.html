@@ -43,9 +43,7 @@
   <ng-container matColumnDef="requiredDate">
     <th mat-header-cell *matHeaderCellDef>באיזה מועדים נדרש</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.requiredDate.day }}/{{ element.requiredDate.month }}/{{
-        element.requiredDate.year
-      }}
+      {{ element.requiredDate | date: "dd/MM/yyyy" }}
     </td>
   </ng-container>
 
@@ -58,14 +56,16 @@
   <!-- Local Manager Approval Column -->
   <ng-container matColumnDef="managerApproval">
     <th mat-header-cell *matHeaderCellDef>אישור מנהל משרד</th>
-    <td mat-cell *matCellDef="let element">{{ element.managerApproval }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.managerApproval === true ? "כן" : "לא" }}
+    </td>
   </ng-container>
 
   <!-- Manager Department Approval Column -->
   <ng-container matColumnDef="managerDepartmentApproval">
     <th mat-header-cell *matHeaderCellDef>אישור מנהל מחלקת הנוער</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.managerDepartmentApproval }}
+      {{ element.managerDepartmentApproval === true ? "כן" : "לא" }}
     </td>
   </ng-container>
 
@@ -83,7 +83,7 @@
         mat-icon-button
         color="primary"
         class="delete-button"
-        (click)="onDelete(element)"
+        (click)="deleteOfficial(element)"
         aria-label="Example icon button with a home icon"
       >
         <mat-icon class="delete-icon-button">delete</mat-icon>
@@ -95,7 +95,7 @@
         class="edit-button"
         aria-label="Example icon button with a home icon"
         mat-raised-button
-        (click)="onEdit(element)"
+        (click)="editOfficial(element)"
       >
         <mat-icon class="edit-icon-button">edit</mat-icon>
       </button>

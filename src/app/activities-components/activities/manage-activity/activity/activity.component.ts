@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  EventEmitter,
+  Output,
+  Input,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Activity } from '../../../../models/Activity';
 import { Location } from '../../../../models/Location';
 import { globals } from '../../../../../environments/environment';
+
+import { Router } from '@angular/router';
 
 import { AssignmentsComponent } from '../../assignments/assignments.component';
 
@@ -19,7 +28,7 @@ import { AssignmentsService } from '../../../../services/assignments/assignments
   styleUrls: ['./activity.component.css'],
   providers: [AssignmentsComponent],
 })
-export class ActivityComponent implements OnInit {
+export class ActivityComponent implements OnInit, OnDestroy {
   // Variables declaration - Do not modified!!
   model: NgbDateStruct;
   generalAreaForm: FormGroup;
@@ -48,72 +57,107 @@ export class ActivityComponent implements OnInit {
     private activityService: ActivitiesService,
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
-    private assignmentsComponent: AssignmentsComponent
+    private assignmentsComponent: AssignmentsComponent,
+    private router: Router
   ) {}
+
+  ngOnDestroy(): void {
+    if (this.activity.status === 'not active') {
+      this.activityService.deleteActivity(this.activity).subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
 
   // On initialization component life cycle
   ngOnInit(): void {
-    this.isEdit = false;
-    this.id = this.route.snapshot.queryParams.id;
-
-    this.initializeLocationObject();
     this.initForms();
+    this.initializeLocationObject();
 
     this.triggerTab.emit(this.globs.activityTab);
     this.globs.activityTab = 1;
+    this.isEdit = false;
 
-    this.activityService.getActivity(this.id).subscribe(
-      (data: Activity) => {
-        this.generalAreaForm.controls.name.setValue(data.activityName);
-        this.generalAreaForm.controls.manager.setValue(
-          this.managers.findIndex((val) => val === data.manager)
-        );
+    if (!this.route.snapshot.queryParams.id) {
+      // Initializing new activity in database
+      this.activityService.createActivity().subscribe(
+        (data: Activity) => {
+          this.activity = data;
+          this.getUserLocation();
+          this.router.navigate(['/activities/manage-activity'], {
+            queryParams: { id: this.activity._id },
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      // Using an existing activity in database
+      this.id = this.route.snapshot.queryParams.id;
 
-        this.generalAreaForm.controls.startDate.setValue(
-          this.convertToObjectDate(data.startDate)
-        );
-        this.generalAreaForm.controls.endDate.setValue(
-          this.convertToObjectDate(data.endDate)
-        );
+      this.activityService.getActivity(this.id).subscribe(
+        (data: Activity) => {
+          this.generalAreaForm.controls.name.setValue(data.activityName);
+          this.generalAreaForm.controls.manager.setValue(
+            this.managers.findIndex((val) => val === data.manager)
+          );
 
-        this.generalAreaForm.controls.targetedStudents.setValue(
-          this.students.findIndex((val) => val === data.targetedStudents)
-        );
+          this.generalAreaForm.controls.startDate.setValue(
+            this.convertToObjectDate(data.startDate)
+          );
+          this.generalAreaForm.controls.endDate.setValue(
+            this.convertToObjectDate(data.endDate)
+          );
 
-        this.generalAreaForm.controls.targetedGuides.setValue(
-          this.guides.findIndex((val) => val === data.targetedGuides)
-        );
+          this.generalAreaForm.controls.targetedStudents.setValue(
+            this.students.findIndex((val) => val === data.targetedStudents)
+          );
 
-        this.generalAreaForm.controls.preparationsDate.setValue(
-          this.convertToObjectDate(data.preparationsDate)
-        );
+          this.generalAreaForm.controls.targetedGuides.setValue(
+            this.guides.findIndex((val) => val === data.targetedGuides)
+          );
 
-        this.generalAreaForm.controls.type.setValue(
-          this.types.findIndex((val) => val === data.type)
-        );
+          this.generalAreaForm.controls.preparationsDate.setValue(
+            this.convertToObjectDate(data.preparationsDate)
+          );
 
-        this.generalAreaForm.controls.crewPreparationDate.setValue(
-          this.convertToObjectDate(data.crewPreparationDate)
-        );
+          this.generalAreaForm.controls.type.setValue(
+            this.types.findIndex((val) => val === data.type)
+          );
 
-        this.generalAreaForm.controls.targetAudienceDetails.setValue(
-          data.targetAudienceDetails
-        );
+          this.generalAreaForm.controls.crewPreparationDate.setValue(
+            this.convertToObjectDate(data.crewPreparationDate)
+          );
 
-        this.generalAreaForm.controls.summarizeDate.setValue(
-          this.convertToObjectDate(data.summarizeDate)
-        );
+          this.generalAreaForm.controls.targetAudienceDetails.setValue(
+            data.targetAudienceDetails
+          );
 
-        this.generalAreaForm.controls.isScheduled.setValue(
-          data.isScheduled.toString()
-        );
-        this.location = data.mapLocation;
-        this.activity = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+          this.generalAreaForm.controls.summarizeDate.setValue(
+            this.convertToObjectDate(data.summarizeDate)
+          );
+
+          this.generalAreaForm.controls.isScheduled.setValue(
+            data.isScheduled.toString()
+          );
+
+          if (!!data.mapLocation) {
+            this.location = data.mapLocation;
+          }
+
+          this.activity = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   // Initialize map location object
@@ -168,13 +212,12 @@ export class ActivityComponent implements OnInit {
     this.activity.preparationsDate = this.convertToDate(value.preparationsDate);
     this.activity.targetAudienceDetails = value.targetAudienceDetails;
     this.activity.summarizeDate = this.convertToDate(value.summarizeDate);
-    console.log(value.isScheduled);
     this.activity.isScheduled = value.isScheduled;
+    this.activity.status = 'active';
 
     this.activity.mapLocation = this.location;
 
     if (this.isEdit) {
-      console.log(this.activity._id);
       this.activityService.updateActivity(this.activity).subscribe(
         (data: Activity) => {
           console.log(data);
@@ -229,6 +272,7 @@ export class ActivityComponent implements OnInit {
           )
           .subscribe(
             (location) => {
+              console.log(this.location.latitude);
               this.location = location;
             },
             (error) => {

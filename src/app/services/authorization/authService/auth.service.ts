@@ -20,15 +20,7 @@ export class AuthService {
 
   // Handle user login
   login(user: User): Observable<any> {
-    return this.httpClient.post<any>(this.baseUrl + '/users/login', user).pipe(
-      catchError((err) => {
-        console.log('error caught in service');
-
-        //Handle the error here
-        return throwError(err.message); //Rethrow it back to component
-      })
-    );
-    // .pipe(catchError(this.handleError));
+    return this.httpClient.post<any>(this.baseUrl + '/users/login', user);
   }
 
   // Handle user registration
@@ -63,11 +55,4 @@ export class AuthService {
   clearLocalStorage() {
     localStorage.clear();
   }
-
-  // handleError(error: HttpErrorResponse) {
-  //   if (error instanceof HttpErrorResponse) {
-  //     console.log(error);
-  //     return throwError(error.message || 'Something went wrong');
-  //   }
-  // }
 }

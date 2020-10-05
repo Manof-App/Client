@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-} from 'angularfire2/firestore';
 
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Official } from '../../models/Official';
 import { environment } from '../../../environments/environment';
@@ -16,37 +10,41 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class OfficialsService {
-  officialsCollection: AngularFirestoreCollection<Official>;
-  officialDoc: AngularFirestoreDocument<Official>;
-  officials: Observable<Official[]>;
-  official: Observable<Official>;
+  baseUrl: string = environment.apiURL;
 
-  baseURl: string = environment.apiURL;
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private afs: AngularFirestore, private httpClient: HttpClient) {
-    this.officialsCollection = this.afs.collection('officials');
-  }
-
-  // Add or update an activity to firestore
-  saveOfficialToFireStore(officials: Official, activityId: string) {
-    this.officialsCollection.doc(activityId).set(officials);
-  }
-
-  // Get all officials per an activity from fire store
-  getOfficialsPerActivity(activityId: string): Observable<Official> {
-    return this.officialsCollection.snapshotChanges().pipe(
-      map((changes) =>
-        changes.map(({ payload: { doc } }) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        })
-      ),
-      map((dataList) => dataList.find((doc) => doc.id === activityId))
+  // Create official
+  writeOfficial(official: Official): Observable<Official> {
+    console.log(official);
+    return this.httpClient.post<Official>(
+      this.baseUrl + '/officials',
+      official
     );
   }
 
-  getOfficials(_id: string): Observable<Official[]> {
-    return this.httpClient.get<Official[]>(`${this.baseURl}/officials/_id`);
+  // Delete official
+  deleteOfficial(official: Official): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.baseUrl}/officials/${official._id}`
+    );
+  }
+
+  // Update official
+  updateOfficial(official: Official): Observable<Official> {
+    return this.httpClient.patch<Official>(
+      `${this.baseUrl}`,
+      `/${official._id}`
+    );
+  }
+
+  // Get a single official
+  getOfficial(id: string): Observable<Official> {
+    return this.httpClient.get<Official>(`${this.baseUrl}/officials/${id}`);
+  }
+
+  // Get all officials related to a specific activity
+  getOfficials(id: string): Observable<Official[]> {
+    return this.httpClient.get<Official[]>(`${this.baseUrl}/officials/${id}`);
   }
 }

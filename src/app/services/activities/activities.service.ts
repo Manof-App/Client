@@ -1,15 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Activity } from '../../models/Activity';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-} from 'angularfire2/firestore';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { Activity } from '../../models/Activity';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,56 +12,39 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class ActivitiesService {
   baseUrl: string = environment.apiURL;
 
-  activitiesCollection: AngularFirestoreCollection<Activity>;
-  activityDoc: AngularFirestoreDocument<Activity>;
-  activities: Observable<Activity[]>;
-  activity: Observable<Activity>;
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private afs: AngularFirestore, private httpClient: HttpClient) {
-    // Reference Database Location
-    this.activitiesCollection = this.afs.collection('activities');
+  // Create activity
+  createActivity(): Observable<Activity> {
+    return this.httpClient.post<Activity>(this.baseUrl + '/activities', {});
   }
 
-  // Add New Activity Or Edit & Save Existed One To Firebase
-  addActivityToFireBase(newActivity: Activity) {
-    this.activitiesCollection.doc(newActivity._id).set(newActivity);
+  // Delete activity
+  deleteActivity(activity: Activity): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.baseUrl}/activities/${activity._id}`
+    );
   }
 
-  // Get All Activities From FireStore
-  getActivities(): Observable<Activity[]> {
-    return (this.activities = this.activitiesCollection.snapshotChanges().pipe(
-      map((changes) => {
-        return changes.map((action) => {
-          const data = action.payload.doc.data() as Activity;
-          data._id = action.payload.doc.id;
-          return data;
-        });
-      })
-    ));
+  // Update activity
+  updateActivity(activity: Activity): Observable<Activity> {
+    return this.httpClient.patch<Activity>(
+      `${this.baseUrl}/activities/${activity._id}`,
+      activity
+    );
   }
 
-  // Get A Single Activity From FireStore
-  // getActivity(id: string): Observable<Activity> {
-  //   return (this.activity = this.activitiesCollection.snapshotChanges().pipe(
-  //     map((changes) =>
-  //       changes.map(({ payload: { doc } }) => {
-  //         const data = doc.data();
-  //         const id = doc.id;
-  //         return { id, ...data };
-  //       })
-  //     ),
-  //     map((activities) => activities.find((doc) => doc.id === id))
-  //   ));
-  // }
-
+  // Get a single activity
   getActivity(_id: string): Observable<Activity> {
     return this.httpClient.get<Activity>(`${this.baseUrl}/activities/${_id}`);
   }
 
+  // Get all activities
   getAllActivities(): Observable<Activity[]> {
     return this.httpClient.get<Activity[]>(this.baseUrl + '/allActivities');
   }
 
+  // Get all activities by criteria
   getActivitiesByCategoryState(
     category: string,
     categoryState: string
@@ -78,13 +56,5 @@ export class ActivitiesService {
     return this.httpClient.get<Activity[]>(`${this.baseUrl}/activities`, {
       params: searchParams,
     });
-  }
-
-  updateActivity(activity: Activity): Observable<Activity> {
-    console.log(`${this.baseUrl}/activities/${activity._id}`);
-    return this.httpClient.patch<Activity>(
-      `${this.baseUrl}/activities/${activity._id}`,
-      activity
-    );
   }
 }

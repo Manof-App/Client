@@ -19,14 +19,16 @@
     <button
       class="btn btn-primary btn-block to-activity"
       [routerLink]="['/activities/manage-activity']"
-      [queryParams]="{ id: activity.id }"
+      [queryParams]="{ id: activity._id }"
     >
       מעבר לפעילות
     </button>
   </div>
   <div dir=" rtl" class="preview">
-    <h2>{{ activity.activity_name }}</h2>
-    <h6>נערים כיתות ט'</h6>
-    <a href="#">סטטוס: לא מאושר</a>
+    <h2>{{ activity.activityName }}</h2>
+    <h6>{{ activity.activityName }}</h6>
+    <a href="#"
+      >{{ activity.isApproved === true ? "מאושר" : "לא מאושר" }} : סטטוס</a
+    >
   </div>
 </div>

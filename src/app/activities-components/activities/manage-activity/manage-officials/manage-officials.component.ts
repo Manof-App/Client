@@ -96,58 +96,29 @@ export class ManageOfficialsComponent implements OnInit {
     }
   };
 
-  //Add A New Official To Firestore
-  addNewOfficial = (official) => {
-    official.relatedActivityId = this.id;
-
-    if (!this.official) {
-      this.official = {
-        _id: official.data.id,
-        relatedActivityId: official.data.activityId,
-        job: official.data.job,
-        jobTitle: official.data.jobTitle,
-        requiredDate: official.data.requiredDate,
-        extraHoursNeeded: official.data.extraHoursNeeded,
-        managerApproval: official.data.managerApproval,
-        managerDepartmentApproval: official.data.managerDepartmentApproval,
-        notes: official.data.notes,
-      };
-    } else {
-      this.officials.push(official);
-    }
-    //this.aos.saveOfficialToFireStore(this.official._id);
-    this.refreshTable();
-  };
-
-  // Update A Specific Official To Firestore
-  updateOfficial = () => {
-    //this.aos.saveOfficialToFireStore(this.official, this.activityId);
-    this.refreshTable();
-    this.dialogConfig.data = null;
-  };
-
   // Refresh table data
-  refreshTable = () => {
+  refreshTable() {
     this.officialService.getOfficials(this.id).subscribe(
-      (officials: Official[]) => {
-        this.officials = officials;
-        this.dataSource = new MatTableDataSource();
+      (data: Official[]) => {
+        this.officials = data;
+        this.dataSource = new MatTableDataSource(this.officials);
       },
       (error) => {
         console.log(error);
       }
     );
     this.changeDetectorRefs.detectChanges();
-  };
+  }
 
-  // Triggered When The Plus Button Is Being Pressed
+  // Triggered when the plus button is pressed
   createOfficial() {
     this.dialogConfig.data = null;
     this.dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
     this.dialogRef.afterClosed().subscribe(
-      (official) => {
-        if (official.event === 'save') {
-          this.addNewOfficial(official);
+      (obj: any) => {
+        if (obj.event === 'save') {
+          this.official = obj.data;
+          this.addOfficialToDB();
         }
       },
       (error) => {
@@ -156,49 +127,68 @@ export class ManageOfficialsComponent implements OnInit {
     );
   }
 
-  // Triggered When The Edit Button Is Being Pressed
-  onEdit = (rowData) => {
-    this.dialogConfig.data = rowData;
+  //Add new official To database
+  addOfficialToDB() {
+    this.officialService.writeOfficial(this.official).subscribe(
+      (data: Official) => {
+        console.log(data);
+        this.refreshTable();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateOfficial() {
+    this.officialService.updateOfficial(this.official).subscribe(
+      (data: Official) => {
+        console.log(data);
+        this.refreshTable();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  // Triggered when the edit button is pressed
+  editOfficial(element) {
+    this.dialogConfig.data = element;
     this.dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
 
-    this.dialogRef.afterClosed().subscribe((official) => {
-      if (official.event === 'edit') {
-        this.editLocalOfficialList(official);
-      }
-    });
-  };
-
-  editLocalOfficialList = (currOfficial) => {
-    const currId = currOfficial.data.id;
-    this.officials.forEach((official, index) => {
-      if (official._id === currId) {
-        this.official[index] = currOfficial.data;
+    this.dialogRef.afterClosed().subscribe((obj) => {
+      if (obj.event === 'edit') {
+        this.official = obj.data;
         this.updateOfficial();
+        this.refreshTable();
       }
     });
-  };
+  }
 
   // Handle Row Removing
-  onDelete = (rowData) => {
+  deleteOfficial(element) {
     this.showConfirmBox = !this.showConfirmBox;
-    this.userData = rowData;
-  };
+    this.official = element;
+  }
 
   // Handle Confirm Box Dialog User Answer
-  handleUserAnswer = (userAnswer) => {
+  handleUserAnswer(userAnswer) {
     if (!userAnswer) {
       this.showConfirmBox = !this.showConfirmBox;
     } else {
-      const currId = this.userData.id;
-      this.officials.forEach((official, index) => {
-        if (official._id === currId) {
-          this.officials.splice(index, 1);
-          this.updateOfficial();
+      this.officialService.deleteOfficial(this.official).subscribe(
+        (data: void) => {
+          console.log(data);
+          this.showConfirmBox = !this.showConfirmBox;
+          this.refreshTable();
+        },
+        (error) => {
+          console.log(error);
         }
-      });
-      this.showConfirmBox = !this.showConfirmBox;
+      );
     }
-  };
+  }
 
   onMoveTab() {
     this.tabNumber = 3;

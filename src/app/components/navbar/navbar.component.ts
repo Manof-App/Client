@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/authorization/authService/auth.service';
-import { UsersService } from '../../services/authorization/users/users.service';
-import { FirebaseAuthService } from '../../services/authorization/firebaseAuth/firebase-auth.service';
+
+import { User } from '../../models/User';
+import { UsersService } from '../../services/users/users.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  user: User;
+
   isMenuCollapsed: boolean;
   isLoggedIn: boolean;
   loggedInUser: string;
@@ -25,7 +28,6 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private firebaseAuth: FirebaseAuthService,
     private userService: UsersService,
     private router: Router
   ) {}
@@ -34,15 +36,6 @@ export class NavbarComponent implements OnInit {
     this.isMenuCollapsed = true;
     this.showSpinner = false;
     this.showConfirmBox = false;
-
-    // this.firebaseAuth.getAuth().subscribe((auth) => {
-    //   if (auth) {
-    //     this.isLoggedIn = true;
-    //     this.loggedInUser = auth.email;
-    //   } else {
-    //     this.isLoggedIn = false;
-    //   }
-    // });
 
     if (this.authService.loggedIn) {
       this.isLoggedIn = true;
@@ -56,22 +49,23 @@ export class NavbarComponent implements OnInit {
   }
 
   isAdmin() {
-    // this.showServerMessage = false;
-    // this.firebaseAuth.getAuth().subscribe((user) => {
-    //   this.userService.getUser(user.email).subscribe((user) => {
-    //     if (user.role === 'מנהל מפעל') {
-    //       this.displayServerMessage('error', 'למנהל מפעל אין גישה לדף זה');
-    //     } else {
-    //       this.router.navigate(['/settings']);
-    //     }
-    //   }),
-    //     (error) => {
-    //       console.log(error);
-    //     };
-    // }),
-    //   (error) => {
-    //     console.log(error);
-    //   };
+    this.showServerMessage = false;
+
+    this.userService.getUser().subscribe(
+      (data: User) => {
+        console.log(data);
+        this.user = data;
+        if (this.user.role === 'מנהל מפעל') {
+          this.displayServerMessage('error', 'למנהל מפעל אין גישה לדף זה');
+        } else {
+          this.router.navigate(['/settings']);
+        }
+      },
+      (error) => {
+        //console.log(error)
+        this.displayServerMessage('error', 'משהו השתבש..');
+      }
+    );
   }
 
   handleUserAnswer(answer) {
