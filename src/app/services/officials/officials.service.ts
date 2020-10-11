@@ -25,26 +25,25 @@ export class OfficialsService {
 
   // Delete official
   deleteOfficial(official: Official): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${this.baseUrl}/officials/${official._id}`
-    );
+    const id = official._id;
+    return this.httpClient.delete<void>(`${this.baseUrl}/officials/${id}`);
   }
 
   // Update official
   updateOfficial(official: Official): Observable<Official> {
-    return this.httpClient.patch<Official>(
-      `${this.baseUrl}`,
-      `/${official._id}`
-    );
+    const id = official._id;
+    return this.httpClient.patch<Official>(`${this.baseUrl}`, `/${id}`);
   }
 
   // Get a single official
-  getOfficial(id: string): Observable<Official> {
+  getOfficial(relatedActivityId: string): Observable<Official> {
+    const id = relatedActivityId;
     return this.httpClient.get<Official>(`${this.baseUrl}/officials/${id}`);
   }
 
   // Get all officials related to a specific activity
-  getOfficials(id: string): Observable<Official[]> {
+  getOfficials(relatedActivityId: string): Observable<Official[]> {
+    const id = relatedActivityId;
     return this.httpClient.get<Official[]>(`${this.baseUrl}/officials/${id}`);
   }
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Activity } from '../../models/Activity';
+import { ActivityEditing } from '../../models/ActivityEditing';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -12,49 +13,55 @@ import { environment } from '../../../environments/environment';
 export class ActivitiesService {
   baseUrl: string = environment.apiURL;
 
+  private editable = new BehaviorSubject<ActivityEditing>({
+    isEditAndCreate: false,
+    isOnlyEdit: false,
+  });
+
   constructor(private httpClient: HttpClient) {}
 
   // Create activity
-  createActivity(): Observable<Activity> {
-    return this.httpClient.post<Activity>(this.baseUrl + '/activities', {});
+  createActivity(activity: Activity): Observable<Activity> {
+    return this.httpClient.post<Activity>(this.baseUrl + '/activities', activity);
   }
 
   // Delete activity
   deleteActivity(activity: Activity): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${this.baseUrl}/activities/${activity._id}`
-    );
+    const id = activity._id;
+    return this.httpClient.delete<void>(`${this.baseUrl}/activities/${id}`);
   }
 
   // Update activity
   updateActivity(activity: Activity): Observable<Activity> {
-    return this.httpClient.patch<Activity>(
-      `${this.baseUrl}/activities/${activity._id}`,
-      activity
-    );
+    console.log(activity);
+    const id = activity._id;
+    return this.httpClient.patch<Activity>(`${this.baseUrl}/activities/${id}`, activity);
   }
 
   // Get a single activity
-  getActivity(_id: string): Observable<Activity> {
-    return this.httpClient.get<Activity>(`${this.baseUrl}/activities/${_id}`);
+  getActivity(id: string): Observable<Activity> {
+    return this.httpClient.get<Activity>(`${this.baseUrl}/activities/${id}`);
   }
 
   // Get all activities
-  getAllActivities(): Observable<Activity[]> {
+  getActivities(): Observable<Activity[]> {
     return this.httpClient.get<Activity[]>(this.baseUrl + '/allActivities');
   }
 
   // Get all activities by criteria
-  getActivitiesByCategoryState(
-    category: string,
-    categoryState: string
-  ): Observable<Activity[]> {
-    let searchParams = new HttpParams().set(
-      'sortBy',
-      `${category}:${categoryState}`
-    );
-    return this.httpClient.get<Activity[]>(`${this.baseUrl}/activities`, {
+  getActivitiesByCategoryState(searchParams?: HttpParams): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/activities`, {
       params: searchParams,
     });
+  }
+
+  // Set activity editing state
+  setEditingStates(isEdit: ActivityEditing): void {
+    return this.editable.next(isEdit);
+  }
+
+  // Get activity editing state
+  getEditingState(): Observable<ActivityEditing> {
+    return this.editable.asObservable();
   }
 }

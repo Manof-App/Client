@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ObjectUnsubscribedError } from 'rxjs';
-import { ActivityAssignments } from '../../../models/ActivityAssignments';
+import { Assignment } from '../../../models/Assignment';
 import { AssignmentsService } from '../../../services/assignments/assignments.service';
 
 @Component({
@@ -13,69 +12,82 @@ export class AssignmentsComponent implements OnInit {
 
   constructor(private assignmentsService: AssignmentsService) {}
 
-  assignments: ActivityAssignments;
+  assignments: Assignment[];
+
   ngOnInit(): void {
     this.assignmentsService.currentData.subscribe(
-      (data) => (this.SHARED_DATA = data)
+      (data: any) => {
+        // console.log(data);
+        this.SHARED_DATA = data;
+      },
+      (error) => {
+        console.log(error);
+      }
     );
-    //console.log(this.SHARED_DATA);
     this.handleAssignments();
   }
 
   handleAssignments() {
     // Convert An Object To Date
-    let date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    this.assignments = [];
+    let date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_1 = {
+    const ASSIGN_1: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'מעבר על סיכומים משנה שעברה וכתיבת נגזרות',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 2)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_2 = {
-      assignment:
-        'כתיבת מטרות המפעל - חיבור למטרות שנכתבו בדף הפתיחה של מנהל המפעל',
+    const ASSIGN_2: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
+      assignment: 'כתיבת מטרות המפעל - חיבור למטרות שנכתבו בדף הפתיחה של מנהל המפעל',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 2)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_3 = {
+    const ASSIGN_3: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'בניית שלד כח אדם - בעלי התפקידים במפעל',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 2)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_4 = {
+    const ASSIGN_4: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: " סגירת צוות מוביל מפעל (צוות מחלקה ע''פ רשימה)",
       finalExecDate: new Date(date.setMonth(date.getMonth() - 2)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_5 = {
+    const ASSIGN_5: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: "סגירת כח אדם הדרכה (מד''בים או פרילנסרים)",
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_6 = {
+    const ASSIGN_6: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: "סגירת כח אדם מנהלה (מד''בים או פרילנסרים)",
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_7 = {
+    const ASSIGN_7: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'נוכחות בוגרים בהכנת בוגרים',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
@@ -83,274 +95,275 @@ export class AssignmentsComponent implements OnInit {
     };
     let dateModified = this.getDaysInMonth(date.getMonth(), date.getFullYear());
 
-    const ASSIGN_8 = {
+    const ASSIGN_8: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'נוכחות בוגרים בהכנת מדריכים',
       finalExecDate: dateModified[dateModified.length - 7],
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
     dateModified = this.getDaysInMonth(date.getMonth(), date.getFullYear());
 
-    const ASSIGN_9 = {
+    const ASSIGN_9: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'בוגרים במפעל - כולל חלוקת גרעינרים לישובים',
       finalExecDate: dateModified[dateModified.length - 7],
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
 
-    const ASSIGN_10 = {
+    const ASSIGN_10: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות מוביל',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_11 = {
+    const ASSIGN_11: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'הכנת מנהל מפעל ורכז מפעלים בשטח',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_12 = {
+    const ASSIGN_12: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות הדרכה - הכנה להכנת בוגרים',
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_13 = {
+    const ASSIGN_13: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות מנהלה - הכנה להכנת בוגרים',
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_14 = {
+    const ASSIGN_14: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות הדרכה - הכנה להכנת מדריכים',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_15 = {
+    const ASSIGN_15: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות הדרכה - הכנה למפעל',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_16 = {
+    const ASSIGN_16: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות מנהלה הכנה להכנת מדריכים',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_17 = {
+    const ASSIGN_17: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'ישיבת צוות מנהלה - הכנה למפעל',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_18 = {
+    const ASSIGN_18: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'בחירת מסלולים',
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_19 = {
-      assignment:
-        'הכנת פורמט חוברת הדרכה (אם יש צורך בחוברות - ע"פ מילוי צרכים של מנהל מפעל)',
+    const ASSIGN_19: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
+      assignment: 'הכנת פורמט חוברת הדרכה (אם יש צורך בחוברות - ע"פ מילוי צרכים של מנהל מפעל)',
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_20 = {
-      assignment:
-        'בניית הדרכות לחוברת (אם יש צורך בחוברות - ע"פ מילוי צרכים של מנהל מפעל)',
+    const ASSIGN_20: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
+      assignment: 'בניית הדרכות לחוברת (אם יש צורך בחוברות - ע"פ מילוי צרכים של מנהל מפעל)',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_21 = {
-      assignment:
-        'שליחת חוברת להגהות (אם יש צורך בחוברות - ע"פ מילוי צרכים של מנהל מפעל)',
+    const ASSIGN_21: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
+      assignment: 'שליחת חוברת להגהות (אם יש צורך בחוברות - ע"פ מילוי צרכים של מנהל מפעל)',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_22 = {
+    const ASSIGN_22: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'הוצאת דף פרטים למד"בים',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_23 = {
+    const ASSIGN_23: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'קביעת זמן בישיבת מד"בים להסבר על הטיול',
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_24 = {
+    const ASSIGN_24: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'הוצאת טיזר ראשוני',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
     dateModified = this.getDaysInMonth(date.getMonth(), date.getFullYear());
 
-    const ASSIGN_25 = {
+    const ASSIGN_25: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'הוצאת פלייר',
       finalExecDate: dateModified[dateModified.length - 21],
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_26 = {
+    const ASSIGN_26: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'קביעת זמן בישיבת מד"בים להסבר על הטיול',
       finalExecDate: this.getDayWithinAMonth(date, 1),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    const ASSIGN_27 = {
+    const ASSIGN_27: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'קביעת מחיר על בסיס הערכת מחיר במערכת',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
     const ASSIGN_28 = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'קביעת תאריך אחרון להרשמה',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    this.SHARED_DATA.startDate;
 
-    const ASSIGN_29 = {
+    const ASSIGN_29: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'פתיחת הרשמה למפעל (כרגע מיני פיי)',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    this.SHARED_DATA.startDate;
 
-    const ASSIGN_30 = {
+    const ASSIGN_30: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'הוצאת תיאום טיולים',
       finalExecDate: new Date(date.setMonth(date.getMonth() - 1)),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    this.SHARED_DATA.startDate;
 
-    const ASSIGN_31 = {
+    const ASSIGN_31: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'מעבר רכז מפעלים+מנהל מפעל על אישור טיול',
       finalExecDate: this.getDayWithinAMonth(date, 0),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    this.SHARED_DATA.startDate;
 
-    const ASSIGN_32 = {
+    const ASSIGN_32: Assignment = {
+      relatedActivityId: this.SHARED_DATA.activityId,
       assignment: 'עדכון כמויות בסיום הרשמה',
       finalExecDate: this.getDayWithinAMonth(date, 0),
       scheduleDate: new Date(),
       progress: 'טרם הסתיים',
     };
-    date = this.convertObjectToDate(this.SHARED_DATA.startDate);
+    date = this.SHARED_DATA.startDate;
 
-    this.assignments = {
-      data: [ASSIGN_1],
-    };
+    this.assignments.push(ASSIGN_1);
+    this.assignments.push(ASSIGN_2);
+    this.assignments.push(ASSIGN_3);
+    this.assignments.push(ASSIGN_4);
+    this.assignments.push(ASSIGN_5);
+    this.assignments.push(ASSIGN_6);
+    this.assignments.push(ASSIGN_7);
+    this.assignments.push(ASSIGN_8);
+    this.assignments.push(ASSIGN_9);
+    this.assignments.push(ASSIGN_10);
+    this.assignments.push(ASSIGN_11);
+    this.assignments.push(ASSIGN_12);
+    this.assignments.push(ASSIGN_13);
+    this.assignments.push(ASSIGN_14);
+    this.assignments.push(ASSIGN_15);
+    this.assignments.push(ASSIGN_16);
+    this.assignments.push(ASSIGN_17);
+    this.assignments.push(ASSIGN_18);
+    this.assignments.push(ASSIGN_19);
+    this.assignments.push(ASSIGN_20);
+    this.assignments.push(ASSIGN_21);
+    this.assignments.push(ASSIGN_22);
+    this.assignments.push(ASSIGN_23);
+    this.assignments.push(ASSIGN_24);
+    this.assignments.push(ASSIGN_25);
+    this.assignments.push(ASSIGN_26);
+    this.assignments.push(ASSIGN_27);
+    this.assignments.push(ASSIGN_28);
+    this.assignments.push(ASSIGN_29);
+    this.assignments.push(ASSIGN_30);
+    this.assignments.push(ASSIGN_31);
+    this.assignments.push(ASSIGN_32);
 
-    this.assignments.data.push(ASSIGN_2);
-    this.assignments.data.push(ASSIGN_3);
-    this.assignments.data.push(ASSIGN_4);
-    this.assignments.data.push(ASSIGN_5);
-    this.assignments.data.push(ASSIGN_6);
-    this.assignments.data.push(ASSIGN_7);
-    this.assignments.data.push(ASSIGN_8);
-    this.assignments.data.push(ASSIGN_9);
-    this.assignments.data.push(ASSIGN_10);
-    this.assignments.data.push(ASSIGN_11);
-    this.assignments.data.push(ASSIGN_12);
-    this.assignments.data.push(ASSIGN_13);
-    this.assignments.data.push(ASSIGN_14);
-    this.assignments.data.push(ASSIGN_15);
-    this.assignments.data.push(ASSIGN_16);
-    this.assignments.data.push(ASSIGN_17);
-    this.assignments.data.push(ASSIGN_18);
-    this.assignments.data.push(ASSIGN_19);
-    this.assignments.data.push(ASSIGN_20);
-    this.assignments.data.push(ASSIGN_21);
-    this.assignments.data.push(ASSIGN_22);
-    this.assignments.data.push(ASSIGN_23);
-    this.assignments.data.push(ASSIGN_24);
-    this.assignments.data.push(ASSIGN_25);
-    this.assignments.data.push(ASSIGN_26);
-    this.assignments.data.push(ASSIGN_27);
-    this.assignments.data.push(ASSIGN_28);
-    this.assignments.data.push(ASSIGN_29);
-    this.assignments.data.push(ASSIGN_30);
-    this.assignments.data.push(ASSIGN_31);
-    this.assignments.data.push(ASSIGN_32);
-
-    this.convertDateToObject();
-
-    // Save Assignments To Firebase
-    this.assignmentsService.saveAssignmentsToFireBase(
-      this.SHARED_DATA.activityId,
-      this.assignments
+    // Save to database
+    this.assignmentsService.createAssignments(this.assignments).subscribe(
+      (data: Assignment[]) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
     );
   }
-
-  convertDateToObject() {
-    this.assignments.data.forEach((obj) => {
-      this.toObjectMap(obj.finalExecDate);
-    });
-  }
-
-  toObjectMap = (date: Date): Object => {
-    return {
-      day: date.getDate(),
-      month: date.getMonth() + 1,
-      year: date.getFullYear(),
-    };
-  };
-
-  convertObjectToDate = (dateObject: any) => {
-    return new Date(
-      dateObject.year + '/' + dateObject.month + '/' + dateObject.day
-    );
-  };
 
   getDaysInMonth(month, year) {
     let date = new Date(year, month, 1);
@@ -363,15 +376,9 @@ export class AssignmentsComponent implements OnInit {
   }
 
   getDayWithinAMonth(date: Date, monthsToExtract: number): Date {
-    let daysDatesWithinMonth = this.getDaysInMonth(
-      date.getMonth() - monthsToExtract,
-      date.getFullYear()
-    );
+    let daysDatesWithinMonth = this.getDaysInMonth(date.getMonth() - monthsToExtract, date.getFullYear());
 
-    let day =
-      daysDatesWithinMonth.length % 2 === 0
-        ? daysDatesWithinMonth.length / 2
-        : (daysDatesWithinMonth.length - 1) / 2;
+    let day = daysDatesWithinMonth.length % 2 === 0 ? daysDatesWithinMonth.length / 2 : (daysDatesWithinMonth.length - 1) / 2;
 
     return daysDatesWithinMonth[day];
   }

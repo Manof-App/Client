@@ -28,17 +28,22 @@ export class LoginRegisterPageComponent implements OnInit {
   // End Of Variables Declarations
 
   // Constructor
-  constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {}
 
   // Component Life Cycle On Initialization
   ngOnInit(): void {
     this.showSpinner = this.showPassword = false;
 
+    this.initUser();
     this.initForms();
+  }
+
+  initUser() {
+    this.user = {
+      email: '',
+      password: '',
+      userId: '',
+    };
   }
 
   // Forms Initialization
@@ -49,6 +54,7 @@ export class LoginRegisterPageComponent implements OnInit {
     });
 
     this.registerForm = this.formBuilder.group({
+      userId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
@@ -84,6 +90,7 @@ export class LoginRegisterPageComponent implements OnInit {
     this.showSpinner = !this.showSpinner;
 
     setTimeout(() => {
+      this.user.userId = value.userId;
       this.user.email = value.email;
       this.user.password = value.password;
       this.user.role = 'מנהל מפעל';

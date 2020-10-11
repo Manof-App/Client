@@ -30,12 +30,7 @@ export class NeedsComponent implements OnInit {
   // End Of Variables Declarations
 
   // Constructor
-  constructor(
-    private formBuilder: FormBuilder,
-    private needService: NeedService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private formBuilder: FormBuilder, private needService: NeedService, private route: ActivatedRoute, private router: Router) {}
 
   // Component Life Cycle On Initialization
   ngOnInit(): void {
@@ -47,75 +42,39 @@ export class NeedsComponent implements OnInit {
 
     this.needService.getNeed(this.id).subscribe(
       (data: Need) => {
-        this.needForm.controls.isRequiredNotebookGuide.setValue(
-          data.isRequiredNotebookGuide.toString()
-        );
+        this.needForm.controls.isRequiredNotebookGuide.setValue(data.isRequiredNotebookGuide.toString());
 
-        this.needForm.controls.isRequiredGuideItems.setValue(
-          data.isRequiredGuideItems.toString()
-        );
+        this.needForm.controls.isRequiredGuideItems.setValue(data.isRequiredGuideItems.toString());
 
-        this.needForm.controls.isRequiredClothing.setValue(
-          data.isRequiredClothing.toString()
-        );
+        this.needForm.controls.isRequiredClothing.setValue(data.isRequiredClothing.toString());
 
-        this.needForm.controls.isRequiredVehicles.setValue(
-          data.isRequiredVehicles.toString()
-        );
+        this.needForm.controls.isRequiredVehicles.setValue(data.isRequiredVehicles.toString());
 
-        this.needForm.controls.isRequiredOfficeEquipment.setValue(
-          data.isRequiredOfficeEquipment.toString()
-        );
+        this.needForm.controls.isRequiredOfficeEquipment.setValue(data.isRequiredOfficeEquipment.toString());
 
-        this.needForm.controls.isRequiredDepotEquipment.setValue(
-          data.isRequiredDepotEquipment.toString()
-        );
+        this.needForm.controls.isRequiredDepotEquipment.setValue(data.isRequiredDepotEquipment.toString());
 
-        this.needForm.controls.isRequiredFood.setValue(
-          data.isRequiredFood.toString()
-        );
+        this.needForm.controls.isRequiredFood.setValue(data.isRequiredFood.toString());
 
-        this.needForm.controls.isRequiredTransportation.setValue(
-          data.isRequiredTransportation.toString()
-        );
+        this.needForm.controls.isRequiredTransportation.setValue(data.isRequiredTransportation.toString());
 
-        this.needForm.controls.foodOrderingForm.setValue(
-          data.foodOrderingForm.toString()
-        );
+        this.needForm.controls.foodOrderingForm.setValue(data.foodOrderingForm.toString());
 
-        this.needForm.controls.isRequiredBidingPrice.setValue(
-          data.isRequiredBidingPrice.toString()
-        );
+        this.needForm.controls.isRequiredBidingPrice.setValue(data.isRequiredBidingPrice.toString());
 
-        this.needForm.controls.isRequiredExtraEquipment.setValue(
-          data.isRequiredExtraEquipment.toString()
-        );
+        this.needForm.controls.isRequiredExtraEquipment.setValue(data.isRequiredExtraEquipment.toString());
 
-        this.needForm.controls.isSleepingArrangements.setValue(
-          data.isSleepingArrangements.toString()
-        );
+        this.needForm.controls.isSleepingArrangements.setValue(data.isSleepingArrangements.toString());
 
         this.needForm.controls.foodType.setValue(data.foodType.toString());
 
-        this.needForm.controls.detailedIGuideItems.setValue(
-          this.detailedGuidingItems.findIndex(
-            (val) => val === data.detailedIGuideItems
-          )
-        );
+        this.needForm.controls.detailedIGuideItems.setValue(this.detailedGuidingItems.findIndex((val) => val === data.detailedIGuideItems));
 
-        this.needForm.controls.foodDescription.setValue(
-          this.foodDescription.findIndex((val) => val === data.foodDescription)
-        );
+        this.needForm.controls.foodDescription.setValue(this.foodDescription.findIndex((val) => val === data.foodDescription));
 
-        this.needForm.controls.detailedClothing.setValue(
-          this.detailedClothingItems.findIndex(
-            (val) => val === data.detailedClothing
-          )
-        );
+        this.needForm.controls.detailedClothing.setValue(this.detailedClothingItems.findIndex((val) => val === data.detailedClothing));
 
-        this.needForm.controls.isSitesAvailable.setValue(
-          data.isSitesAvailable.toString()
-        );
+        this.needForm.controls.isSitesAvailable.setValue(data.isSitesAvailable.toString());
 
         this.needForm.controls.sleepingLocation.setValue(data.sleepingLocation);
       },
@@ -184,13 +143,9 @@ export class NeedsComponent implements OnInit {
 
       this.need.isRequiredNotebookGuide = value.isRequiredNotebookGuide;
       this.need.isRequiredGuideItems = value.isRequiredGuideItems;
-      this.need.detailedIGuideItems = this.detailedGuidingItems[
-        value.detailedIGuideItems
-      ];
+      this.need.detailedIGuideItems = this.detailedGuidingItems[value.detailedIGuideItems];
       this.need.isRequiredClothing = value.isRequiredClothing;
-      this.need.detailedClothing = this.detailedClothingItems[
-        value.detailedClothing
-      ];
+      this.need.detailedClothing = this.detailedClothingItems[value.detailedClothing];
       this.need.isRequiredVehicles = value.isRequiredVehicles;
 
       this.need.isRequiredOfficeEquipment = value.isRequiredOfficeEquipment;

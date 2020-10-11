@@ -1,6 +1,78 @@
 .cards-wrapper {
-  min-height: 400px;
+  min-height: 500px;
   height: 1px;
+}
+
+.cards-wrapper .activity-sort {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin: 0 auto;
+  width: 75%;
+  height: 20%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ccc;
+}
+
+.cards-wrapper .activity-sort div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #07bb6e;
+  cursor: pointer;
+}
+
+.cards-wrapper .activity-sort div:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom: 2px solid #07bb6e;
+  border-top: 2px solid #07bb6e;
+  border-right: 2px solid #07bb6e;
+}
+
+.cards-wrapper .activity-sort div:nth-child(3) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom: 2px solid #07bb6e;
+  border-top: 2px solid #07bb6e;
+  border-left: 2px solid #07bb6e;
+}
+
+.cards-wrapper .activity-sort div:first-child, .cards-wrapper .activity-sort div:nth-child(3) {
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.cards-wrapper .activity-sort div:hover p {
+  color: #07bb6e;
+}
+
+.cards-wrapper .activity-sort div:hover {
+  background-color: #fff;
+  border-bottom: 2px solid #07bb6e;
+  border-top: 2px solid #07bb6e;
+}
+
+.cards-wrapper .activity-sort div:nth-child(3):hover {
+  border-right: 2px solid #07bb6e;
+}
+
+.cards-wrapper .activity-sort div:first-child:hover {
+  border-left: 2px solid #07bb6e;
+}
+
+.cards-wrapper .activity-sort div p {
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  font-weight: bold;
 }
 
 .cards-wrapper .activities {
@@ -11,7 +83,7 @@
 
 .cards-wrapper .activities .arrow {
   position: absolute;
-  top: 0;
+  top: 10%;
   bottom: 0;
   display: flex;
   align-items: flex-start;
@@ -177,4 +249,23 @@ button.btn.btn-primary {
   margin-right: auto;
   margin-left: 1rem;
   margin-bottom: 1rem;
+}
+
+.message {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.message h2 {
+  color: #333;
+  font-size: 5rem;
+}
+
+button {
+  border: none;
+  background: transparent;
 }

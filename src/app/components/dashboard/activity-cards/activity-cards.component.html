@@ -1,28 +1,31 @@
-<!-- [style.right.px]="(i + 10) * 5" -->
-
 <div class="cards-wrapper">
   <div class="activity-sort">
-    <div class="form-group">
-      <select value="" class="custom-select" (change)="myChange($event)">
-        <option [ngValue]="1">תאריך התחלה</option>
-        <option [ngValue]="2">תאריך סיום</option>
-        <option [ngValue]="3">ממתין לאישור</option>
-      </select>
+    <div (click)="myChange('תאריך סיום')">
+      <p>תאריך סיום</p>
+    </div>
+
+    <div (click)="myChange('תאריך התחלה')">
+      <p>תאריך התחלה</p>
+    </div>
+
+    <div (click)="myChange('ממתין לאישור')">
+      <p>ממתין לאישור</p>
     </div>
   </div>
 
   <section class="activities">
-    <div class="arrow prev">
-      <i class="fas fa-chevron-circle-left fa-3x"></i>
+    <div class="message" *ngIf="isShow">
+      <h2>אין פעילויות להצגה</h2>
     </div>
-    <div class="activities-list">
+    <div class="arrow prev">
+      <button type="button" [disabled]="!hasNext" (click)="nextPage()">
+        <i class="fas fa-chevron-circle-left fa-3x"></i>
+      </button>
+    </div>
+    <div class="activities-list" *ngIf="!isShow">
       <div
         class="card"
-        *ngFor="
-          let activity of activities;
-          let activitiesCount = count;
-          index as i
-        "
+        *ngFor="let activity of activities; let activitiesCount = count; index as i"
         [style.z-index]="activitiesCount - i"
         [style.right.px]="250 * i + 200"
       >
@@ -32,30 +35,25 @@
         </header>
 
         <div class="card-author">
-          <a href="#" class="author-avatar"
-            ><i class="fas fa-truck-monster fa-2x" style="color: #fff"></i
-          ></a>
+          <a href="#" class="author-avatar"><i class="fas fa-truck-monster fa-2x" style="color: #fff"></i></a>
           <svg class="half-circle" viewBox="0 0 106 57">
             <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
           </svg>
         </div>
 
         <div class="author-name">
-          <div class="author-name-prefix">אופי המפעל : {{ activity.type }}</div>
+          <div class="author-name-prefix">מאושר : {{ activity.isApproved === true ? 'מאושר' : 'לא מאושר' }}</div>
           <p>תאריך סיום: {{ activity.endDate | date }}</p>
-          <button
-            type="button"
-            [routerLink]="['/activity-details']"
-            [queryParams]="{ id: activity._id }"
-            class="btn btn-primary"
-          >
+          <button type="button" [routerLink]="['/activity-details']" [queryParams]="{ id: activity._id }" class="btn btn-primary">
             פרטים נוספים
           </button>
         </div>
       </div>
     </div>
     <div class="arrow next">
-      <i class="fas fa-chevron-circle-right fa-3x"></i>
+      <button type="button" [disabled]="!hasPrev" (click)="prevPage()">
+        <i class="fas fa-chevron-circle-right fa-3x"></i>
+      </button>
     </div>
   </section>
 </div>

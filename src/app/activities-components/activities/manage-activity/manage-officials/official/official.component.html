@@ -1,34 +1,19 @@
-<app-confirm-box
-  [data]="content"
-  *ngIf="showConfirmBox"
-  (userAnswer)="handleUserAnswer($event)"
-></app-confirm-box>
+<app-confirm-box [data]="content" *ngIf="showConfirmBox" (userAnswer)="handleUserAnswer($event)"></app-confirm-box>
 
 <div class="container">
   <mat-toolbar>
     <span>הוסף או ערוך בעל תפקיד</span>
-    <button mat-dialog-close mat-button class="exit-button active focus target">
-      X
-    </button>
+    <button mat-dialog-close mat-button class="exit-button active focus target">X</button>
   </mat-toolbar>
 
-  <form
-    [formGroup]="officialsForm"
-    class="normal-form"
-    (ngSubmit)="onSubmit(officialsForm)"
-  >
+  <form [formGroup]="officialsForm" class="normal-form" (ngSubmit)="onSubmit(officialsForm)">
     <mat-grid-list cols="2" [cols]="isMobile ? 1 : 2" row-height="300px">
       <mat-grid-tile class="col-a">
         <div class="controles-container">
           <input type="hidden" formControlName="$key" />
 
           <mat-form-field>
-            <mat-select
-              dir="rtl"
-              formControlName="job"
-              matInput
-              placeholder="תפקיד"
-            >
+            <mat-select dir="rtl" formControlName="job" matInput placeholder="תפקיד">
               <mat-option>בחר...</mat-option>
               <ng-container *ngFor="let job of jobs">
                 <mat-option value="{{ job.id }}">{{ job.value }}</mat-option>
@@ -37,27 +22,13 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input
-              style="margin-right: 0.75em"
-              formControlName="jobTitle"
-              matInput
-              placeholder="הגדרת תפקיד*"
-            />
+            <input style="margin-right: 0.75em" formControlName="jobTitle" matInput placeholder="הגדרת תפקיד*" />
             <mat-error>שדה חובה</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <input
-              formControlName="requiredDate"
-              matInput
-              [matDatepicker]="picker"
-              placeholder="בחר מועד נדרש"
-              type="text"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
+            <input formControlName="requiredDate" matInput [matDatepicker]="picker" placeholder="בחר מועד נדרש" type="text" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker style="margin-right: auto" #picker></mat-datepicker>
           </mat-form-field>
         </div>
@@ -67,21 +38,11 @@
         <div class="controles-container">
           <input type="hidden" formControlName="$key" />
           <mat-form-field>
-            <input
-              formControlName="extraHoursNeeded"
-              matInput
-              placeholder="מספר שעות נוספות נדרשות"
-            />
+            <input formControlName="extraHoursNeeded" matInput placeholder="מספר שעות נוספות נדרשות" />
           </mat-form-field>
 
           <mat-form-field>
-            <textarea
-              matInput
-              placeholder="Comment"
-              formControlName="notes"
-              placeholder="הערות"
-            >
-            </textarea>
+            <textarea matInput placeholder="Comment" formControlName="notes" placeholder="הערות"> </textarea>
           </mat-form-field>
 
           <div class="add-bottom-padding">
@@ -101,23 +62,9 @@
           </div>
 
           <div class="button-row">
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              [disabled]="officialsForm.invalid"
-            >
-              שמור
-            </button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="officialsForm.invalid">שמור</button>
 
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="clearForm()"
-            >
-              נקה טופס
-            </button>
+            <button mat-raised-button color="warn" type="button" (click)="clearForm()">נקה טופס</button>
           </div>
         </div>
       </mat-grid-tile>

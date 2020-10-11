@@ -3,9 +3,10 @@ import { DatePipe } from '@angular/common';
 
 import { ActivatedRoute } from '@angular/router';
 
+import { ActivityEditing } from '../../models/ActivityEditing';
 import { Activity } from '../../models/Activity';
 import { Official } from '../../models/Official';
-import { ActivityAssignments } from '../../models/ActivityAssignments';
+import { Assignment } from '../../models/Assignment';
 
 import { ActivitiesService } from '../../services/activities/activities.service';
 import { OfficialsService } from '../../services/officials/officials.service';
@@ -30,8 +31,13 @@ export class ActivityDetailsComponent implements OnInit {
 
   activity: Activity;
   officials: Official[];
+  assignments: Assignment[];
+
   needs: Need;
-  activityAssignments: ActivityAssignments;
+
+  editable: ActivityEditing = {
+    isOnlyEdit: false,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -44,11 +50,14 @@ export class ActivityDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.percentage = 0;
     this.id = this.route.snapshot.queryParams.id;
+    this.editable.isOnlyEdit = true;
+
+    this.activitiesService.setEditingStates(this.editable);
 
     // Get activity by id
     this.activitiesService.getActivity(this.id).subscribe(
       (data: Activity) => {
-        //console.log(data);
+        // console.log(data);
         this.activity = data;
       },
       (error) => {
@@ -59,7 +68,7 @@ export class ActivityDetailsComponent implements OnInit {
     // Get related officials
     this.officialsService.getOfficials(this.id).subscribe(
       (data: Official[]) => {
-        //console.log(data);
+        // console.log(data);
         this.officials = data;
       },
       (error) => {
@@ -70,7 +79,7 @@ export class ActivityDetailsComponent implements OnInit {
     // Get related needs
     this.needService.getNeed(this.id).subscribe(
       (data: Need) => {
-        //console.log(data);
+        // console.log(data);
         this.needs = data;
       },
       (error) => {
@@ -78,44 +87,24 @@ export class ActivityDetailsComponent implements OnInit {
       }
     );
 
-    this.assignmentsService
-      .getActivityAssignments(this.id)
-      .subscribe((data) => {
-        if (data != undefined) {
-          this.activityAssignments = data;
-        }
+    this.assignmentsService.getAssignments(this.id).subscribe(
+      (data: Assignment[]) => {
+        console.log(data);
+        this.assignments = data;
         this.updateProgressBar();
-      }),
+      },
       (error: any) => {
         console.log(error);
-      };
+      }
+    );
   }
 
-  // Initialize Class Objects
-  // initObject = () => {
-  //   this.activityAssignments = {
-  //     data: [
-  //       {
-  //         assignment: 'אין משימה',
-  //         finalExecDate: new Date(),
-  //         scheduleDate: new Date(),
-  //         progress: 'טרם הסתיים',
-  //       },
-  //     ],
-  //   };
-  // };
-
   myChange(e, i) {
-    this.activityAssignments.data.forEach((assignment, index) => {
-      if (i == index) {
+    this.assignments.forEach((assignment, index) => {
+      if (i === index) {
         assignment.progress = e.target.value;
       }
     });
-
-    this.assignmentsService.saveAssignmentsToFireBase(
-      this.id,
-      this.activityAssignments
-    );
 
     this.updateProgressBar();
   }
@@ -123,22 +112,22 @@ export class ActivityDetailsComponent implements OnInit {
   updateProgressBar() {
     let counter = 0;
 
-    // this.activityAssignments.data.forEach((assignment, index) => {
-    //   if (assignment.progress === 'טרם הסתיים') {
-    //     counter += 1;
-    //   } else if (assignment.progress === 'ממתין לאישור מנהל') {
-    //     counter += 2;
-    //   } else if (assignment.progress === 'נקבע תאריך גג לביצוע') {
-    //     counter += 3;
-    //   } else if (assignment.progress === 'הסתיים') {
-    //     counter += 4;
-    //   }
-    // });
+    this.assignments.forEach((assignment) => {
+      if (assignment.progress === 'טרם הסתיים') {
+        counter += 1;
+      } else if (assignment.progress === 'ממתין לאישור מנהל') {
+        counter += 2;
+      } else if (assignment.progress === 'נקבע תאריך גג לביצוע') {
+        counter += 3;
+      } else if (assignment.progress === 'הסתיים') {
+        counter += 4;
+      }
+    });
 
     this.percentage = (counter / (4 * 32)) * 100;
   }
 
-  setTab(number) {
-    this.globs.activityTab = number;
+  setTab(num) {
+    this.globs.activityTab = num;
   }
 }

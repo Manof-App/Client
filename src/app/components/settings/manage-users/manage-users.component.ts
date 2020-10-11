@@ -13,11 +13,24 @@ export class ManageUsersComponent implements OnInit {
   user: User;
   @Input() connectedUser: string;
 
+  index: number = 0;
+  content: string = 'האם אתה בטוח שאתה רוצה למחוק?';
+  showConfirmBox: boolean = false;
+
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
     this.initUser();
+    this.getUsers();
+  }
 
+  initUser() {
+    this.user = {
+      role: '',
+    };
+  }
+
+  getUsers() {
     this.userService.getUsers().subscribe(
       (data: User[]) => {
         //console.log(data);
@@ -27,12 +40,6 @@ export class ManageUsersComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  initUser() {
-    this.user = {
-      role: '',
-    };
   }
 
   myChange(e, i) {
@@ -50,5 +57,35 @@ export class ManageUsersComponent implements OnInit {
         }
       }
     });
+  }
+
+  deleteUser(e, i) {
+    this.index = i;
+    this.showConfirmBox = !this.showConfirmBox;
+  }
+
+  // Handle Confirm Box Dialog User Answer
+  handleUserAnswer(userAnswer) {
+    console.log(userAnswer);
+    if (!userAnswer) {
+      this.showConfirmBox = !this.showConfirmBox;
+    } else {
+      this.users.forEach((user, i) => {
+        if (this.index === i) {
+          if (this.connectedUser != user.email) {
+            // display user message
+
+            this.userService.deleteUser(user).subscribe((data: void) => {
+              console.log(data);
+              this.showConfirmBox = !this.showConfirmBox;
+              this.getUsers();
+            });
+          } else {
+            console.log('check');
+            // display user message
+          }
+        }
+      });
+    }
   }
 }

@@ -1,24 +1,16 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-  EventEmitter,
-  Output,
-  Input,
-} from '@angular/core';
-import {
-  MatDialog,
-  MatDialogConfig,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output, Input } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 
 import { Official } from '../../../../models/Official';
+import { ActivityEditing } from '../../../../models/ActivityEditing';
+
 import { DialogComponent } from '../../../../shared/dialog/dialog.component';
 import { OfficialsService } from '.././../../../services/officials/officials.service';
+import { ActivitiesService } from '../../../../services/activities/activities.service';
 
 @Component({
   selector: 'app-manage-officials',
@@ -35,11 +27,11 @@ export class ManageOfficialsComponent implements OnInit {
   official: Official;
   officials: Official[];
 
-  isMobile: boolean = false;
-  showConfirmBox: boolean = false;
+  isMobile = false;
+  showConfirmBox = false;
 
   id: string;
-  content: string = 'האם אתה בטוח שאתה רוצה למחוק?';
+  content = 'האם אתה בטוח שאתה רוצה למחוק?';
 
   displayedColumns: string[] = [
     'index',
@@ -55,6 +47,11 @@ export class ManageOfficialsComponent implements OnInit {
   @Input() tabNumber: number;
   @Output() triggerTab = new EventEmitter<any>();
 
+  editable: ActivityEditing = {
+    isEditAndCreate: false,
+    isOnlyEdit: false,
+  };
+
   // End Of Variables Declarations
 
   // Constructor
@@ -63,25 +60,28 @@ export class ManageOfficialsComponent implements OnInit {
     private route: ActivatedRoute,
     private officialService: OfficialsService,
     private breakpointObserver: BreakpointObserver,
-    private changeDetectorRefs: ChangeDetectorRef
+    private changeDetectorRefs: ChangeDetectorRef,
+    private activitiesService: ActivitiesService
   ) {
-    this.breakpointObserver
-      .observe(['(max-width: 599px)'])
-      .subscribe((result) => {
-        this.isMobile = result.matches;
-        this.initDialogSettings();
-      });
+    this.breakpointObserver.observe(['(max-width: 599px)']).subscribe((result) => {
+      this.isMobile = result.matches;
+      this.initDialogSettings();
+    });
   }
 
   // Component Life Cycle On Initialization
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(null);
     this.id = this.route.snapshot.queryParams.id;
+
+    this.editable.isOnlyEdit = true;
+    this.activitiesService.setEditingStates(this.editable);
+
     this.refreshTable();
   }
 
   // Variables Initialization
-  initDialogSettings = () => {
+  initDialogSettings() {
     if (!this.dialogConfig) {
       this.dialogConfig = new MatDialogConfig();
       this.dialogConfig.disableClose = true;
@@ -94,12 +94,13 @@ export class ManageOfficialsComponent implements OnInit {
     } else {
       this.dialogConfig.width = '60%';
     }
-  };
+  }
 
   // Refresh table data
   refreshTable() {
     this.officialService.getOfficials(this.id).subscribe(
       (data: Official[]) => {
+        console.log(data);
         this.officials = data;
         this.dataSource = new MatTableDataSource(this.officials);
       },
@@ -127,7 +128,7 @@ export class ManageOfficialsComponent implements OnInit {
     );
   }
 
-  //Add new official To database
+  // Add new official to database
   addOfficialToDB() {
     this.officialService.writeOfficial(this.official).subscribe(
       (data: Official) => {
@@ -140,6 +141,7 @@ export class ManageOfficialsComponent implements OnInit {
     );
   }
 
+  // Update official in database
   updateOfficial() {
     this.officialService.updateOfficial(this.official).subscribe(
       (data: Official) => {

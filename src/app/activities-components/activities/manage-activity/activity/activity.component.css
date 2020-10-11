@@ -138,20 +138,6 @@ div.gm-svpct {
 }
 
 button.location-btn {
-  /* background-color: rgb(255, 255, 255);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-  border-radius: 2px;
-  width: 40px;
-  height: 40px;
-  touch-action: none;
-  position: fixed;
-  right: 50px;
-  bottom: 206px;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer; */
   background: none;
   display: block;
   border: 0px;

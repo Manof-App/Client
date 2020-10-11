@@ -11,6 +11,7 @@ import { UsersService } from '../../services/users/users.service';
 export class SettingsComponent implements OnInit {
   isAdmin: boolean;
   isUpdateUsers: boolean;
+  isUpdateActivities: boolean;
   connectedUser: string;
   user: User;
 
@@ -33,5 +34,19 @@ export class SettingsComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  showUsers() {
+    if (this.isUpdateActivities) {
+      this.isUpdateActivities = false;
+    }
+    this.isUpdateUsers = !this.isUpdateUsers;
+  }
+
+  showActivities() {
+    if (this.isUpdateUsers) {
+      this.isUpdateUsers = false;
+    }
+    this.isUpdateActivities = !this.isUpdateActivities;
   }
 }

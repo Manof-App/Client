@@ -1,16 +1,17 @@
-<div *ngFor="let activity of activities" class="course">
+<div *ngFor="let activity of activities; let i = index" class="course">
   <div dir="rtl" class="info">
-    <div class="progress-wrapper">
+    <div class="progress-wrapper mt-3 mb-3">
       <div class="progress">
         <div
           class="progress-bar"
+          id="i"
           role="progressbar"
-          style="width: 50%"
+          [style.width.%]="activity.percentage"
           aria-valuenow="25"
           aria-valuemin="0"
           aria-valuemax="100"
         >
-          50%
+          {{ activity.percentage / 100 | percent }}
         </div>
       </div>
     </div>
@@ -26,9 +27,7 @@
   </div>
   <div dir=" rtl" class="preview">
     <h2>{{ activity.activityName }}</h2>
-    <h6>{{ activity.activityName }}</h6>
-    <a href="#"
-      >{{ activity.isApproved === true ? "מאושר" : "לא מאושר" }} : סטטוס</a
-    >
+    <h6>{{ activity.percentage / 100 | percent }}</h6>
+    <a href="#">{{ activity.isApproved === true ? 'מאושר' : 'לא מאושר' }} : סטטוס</a>
   </div>
 </div>

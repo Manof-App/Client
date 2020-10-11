@@ -50,6 +50,7 @@ import { ActivityDetailsComponent } from './components/activity-details/activity
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ManageUsersComponent } from './components/settings/manage-users/manage-users.component';
 import { UsersComponent } from './components/users/users.component';
+import { ManageActivitiesComponent } from './components/settings/manage-activities/manage-activities.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { UsersComponent } from './components/users/users.component';
     ResetPasswordComponent,
     ManageUsersComponent,
     UsersComponent,
+    ManageActivitiesComponent,
   ],
   entryComponents: [MatDialogModule],
   imports: [

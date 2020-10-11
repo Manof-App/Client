@@ -1,0 +1,62 @@
+<app-pop-up-message
+  *ngIf="showServerMessage"
+  [message]="message"
+  [responseType]="responseType"
+></app-pop-up-message>
+
+<!-- <app-confirm-box
+  [data]="content"
+  *ngIf="showConfirmBox"
+  (userAnswer)="handleUserAnswer($event)"
+></app-confirm-box> -->
+
+<div class="activity" *ngFor="let activity of activities">
+  <div class="name">
+    <label>שם פעילות</label>
+    <p>{{ activity.activityName }}</p>
+  </div>
+
+  <div class="id">
+    <label>מספר פעילות</label>
+    <p>{{ activity._id }}</p>
+  </div>
+
+  <div class="status">
+    <label> סטטוס פעילות </label>
+    <button
+      class="btn"
+      [ngClass]="{
+        'btn-danger': activity.status === 'not_active',
+        'btn-success': activity.status === 'active'
+      }"
+      (click)="changeStatusState(activity)"
+    >
+      {{ activity.status === "active" ? "פעילה" : "לא פעילה" }}
+    </button>
+  </div>
+
+  <div class="approved">
+    <label> אישור פעילות </label>
+    <button
+      class="btn"
+      [ngClass]="{
+        'btn-success': activity.isApproved === true,
+        'btn-danger': activity.isApproved === false
+      }"
+      (click)="changeApprovalState(activity)"
+    >
+      {{ activity.isApproved === true ? "מאושרת" : "לא מאושרת" }}
+    </button>
+  </div>
+
+  <div class="activity-details">
+    <label> פרטי פעילות </label>
+    <button
+      class="btn btn-success"
+      [routerLink]="['/activity-details']"
+      [queryParams]="{ id: activity._id }"
+    >
+      מעבר לפעילות
+    </button>
+  </div>
+</div>

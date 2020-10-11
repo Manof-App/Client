@@ -24,7 +24,12 @@ export class UsersService {
     return this.httpClient.get<User[]>(`${this.baseUrl}/users/all`);
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.httpClient.patch<User>(`${this.baseUrl}/users`, user);
+  deleteUser(user: User): Observable<void> {
+    const userEmail = user.email;
+    return this.httpClient.delete<void>(`${this.baseUrl}/users/${userEmail}`);
+  }
+
+  updateUser(updates: any): Observable<User> {
+    return this.httpClient.patch<User>(`${this.baseUrl}/users/me`, updates);
   }
 }

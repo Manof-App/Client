@@ -18,7 +18,7 @@
     align-items: center;
     width: 85%;
     height: 100%;
-    padding: 32px;
+    padding: 8px 32px;
     margin: 0 auto;
     margin-bottom: 3rem;
     box-shadow: 0 0.1rem 1.25rem 0 rgba(69, 90, 100, 0.08);
@@ -40,8 +40,87 @@
     background: url("../../../assets/images/left-bg.jpg") no-repeat center center/cover;
 }
 
+.wrapper .inner .left .user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+
+.wrapper .inner .left form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper .inner .left form .form-group {
+    width: 100%;
+    position: relative;
+}
+
+.wrapper .inner .left form .form-group label {
+    width: 100%;
+    text-align: right;
+    padding: 0 12px;
+}
+
+.wrapper .inner .left form .form-group .form-control {
+    position: relative;
+    background-color: transparent !important;
+    border: 0;
+    border-bottom: 2px solid #333;
+    border-radius: 0;
+}
+
+.wrapper .inner .left form .form-group .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0);
+}
+
+.fas.fa-at, .fa.fa-calendar, .fas.fa-id-card, .fas.fa-user-friends, .fas.fa-map-marker-alt, .fas.fa-phone {
+    position: absolute;
+    bottom: 30%;
+    left: 0%;
+    font-size: 20px;
+    display: block;
+    height: 10px;
+    padding-bottom: 5px;
+}
+
+.wrapper .inner .left form .form-group span {
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.fa.fa-calendar {
+    cursor: pointer;
+}
+
+::ng-deep form select.custom-select {
+    cursor: pointer;
+    background-position: 0.75rem center;
+    padding: 0 0.5rem;
+}
+
+form button.btn-primary {
+    height: 40px;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
 .wrapper .inner .right {
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
     width: 65%;
     height: 100%;
@@ -50,7 +129,7 @@
 .wrapper .inner .right .info {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 40%;
     width: 100%;
     padding: 8px 32px;
 }
@@ -64,7 +143,6 @@
 
 .wrapper .inner .right .info .inner-info {
     display: flex;
-    flex-grow: 1;
     justify-content: center;
     flex-direction: column;
     width: 100%;
@@ -83,7 +161,6 @@
     flex-direction: column;
     width: 100%;
     padding: 8px 32px;
-    flex-grow: 1;
 }
 
 .wrapper .inner .right .contact-details h3 {
@@ -95,7 +172,6 @@
 
 .wrapper .inner .right .contact-details .inner-contact-details {
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
     width: 100%;
     justify-content: center;

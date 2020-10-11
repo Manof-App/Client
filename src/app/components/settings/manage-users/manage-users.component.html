@@ -1,3 +1,8 @@
+<app-confirm-box
+  [data]="content"
+  *ngIf="showConfirmBox"
+  (userAnswer)="handleUserAnswer($event)"
+></app-confirm-box>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -5,6 +10,7 @@
       <th scope="col">שם עובד</th>
       <th scope="col">מייל</th>
       <th scope="col">תפקיד</th>
+      <th scope="col">מחק משתמש</th>
     </tr>
   </thead>
   <tbody *ngFor="let user of users; index as i">
@@ -25,6 +31,11 @@
             <option [ngValue]="2">רכז מפעלים</option>
             <option [ngValue]="3">מנהל מחלקה</option>
           </select>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <i class="far fa-trash-alt fa-2x" (click)="deleteUser($event, i)"></i>
         </div>
       </td>
     </tr>

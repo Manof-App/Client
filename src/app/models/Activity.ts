@@ -17,4 +17,5 @@ export interface Activity {
   mapLocation?: Location;
   isApproved?: boolean;
   status?: string;
+  percentage?: number;
 }

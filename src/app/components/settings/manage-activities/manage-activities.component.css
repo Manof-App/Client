@@ -1,0 +1,37 @@
+:host {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
+* {
+    direction: rtl;
+}
+
+.activity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activity button.btn {
+    width: 175px;
+    font-weight: bold;
+}
+
+.activity div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.activity div label {
+    font-weight: bold;
+    color: #333;
+}
+
+.activity div p {
+    margin: 0;
+    vertical-align: middle;
+}

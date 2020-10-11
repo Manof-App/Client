@@ -3,15 +3,13 @@
     <li [ngbNavItem]="1" class="a">
       <a ngbNavLink>פרטי פעילות</a>
       <ng-template ngbNavContent>
-        <app-activity (triggerTab)="changeActivityTab($event)"></app-activity>
+        <app-activity (triggerTab)="changeActivityTab($event)" (updateId)="getCurrentId($event)"></app-activity>
       </ng-template>
     </li>
     <li [ngbNavItem]="2">
       <a ngbNavLink>בעלי תפקידים</a>
       <ng-template ngbNavContent>
-        <app-manage-officials
-          (triggerTab)="changeActivityTab($event)"
-        ></app-manage-officials>
+        <app-manage-officials (triggerTab)="changeActivityTab($event)"></app-manage-officials>
       </ng-template>
     </li>
     <li [ngbNavItem]="3">

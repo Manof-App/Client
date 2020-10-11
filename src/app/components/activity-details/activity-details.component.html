@@ -6,21 +6,12 @@
         <div class="wrapper">
           <div class="card">
             <div class="card-header">
-              <button
-                [routerLink]="['/activities/manage-activity']"
-                [queryParams]="{ id: id }"
-                (click)="setTab(1)"
-                class="btn btn-primary"
-              >
+              <button [routerLink]="['/activities/manage-activity']" [queryParams]="{ id: id }" (click)="setTab(1)" class="btn btn-primary">
                 ערוך פעילות</button
               >פרטי פעילות
               <p class="card-text">
-                <span class="span-title" style="text-decoration: none"
-                  >מאושר :
-                </span>
-                <span class="span-body">{{
-                  activity?.isApproved === true ? "מאושר" : "לא מאושר"
-                }}</span>
+                <span class="span-title" style="text-decoration: none">מאושר : </span>
+                <span class="span-body">{{ activity?.isApproved === true ? 'מאושר' : 'לא מאושר' }}</span>
               </p>
             </div>
             <div class="card-body">
@@ -29,16 +20,14 @@
               </h4>
 
               <div class="row">
-                <p class="card-text col-4">
-                  <strong>מנהל הפעילות: </strong> {{ activity?.manager }}
-                </p>
+                <p class="card-text col-4"><strong>מנהל הפעילות: </strong> {{ activity?.manager }}</p>
                 <p class="card-text col-5">
                   <strong>תאריך התחלה : </strong>
-                  {{ activity?.startDate | date: "dd/MM/yyyy" }}
+                  {{ activity?.startDate | date: 'dd/MM/yyyy' }}
                 </p>
                 <p class="card-text col-3">
                   <strong>תאריך סיום : </strong>
-                  {{ activity?.endDate | date: "dd/MM/yyyy" }}
+                  {{ activity?.endDate | date: 'dd/MM/yyyy' }}
                 </p>
 
                 <p class="card-text col-4">
@@ -51,7 +40,7 @@
                 </p>
                 <p class="card-text col-3">
                   <strong>תאריך הכנת צוות : </strong>
-                  {{ activity?.crewPreparationDate | date: "dd/MM/yyyy" }}
+                  {{ activity?.crewPreparationDate | date: 'dd/MM/yyyy' }}
                 </p>
 
                 <p class="card-text col-4">
@@ -60,7 +49,7 @@
                 </p>
                 <p class="card-text col-5">
                   <strong>תאריכי הכנה (בני נוער ו/או בוגרים) : </strong>
-                  {{ activity?.preparationsDate | date: "dd/MM/yyyy" }}
+                  {{ activity?.preparationsDate | date: 'dd/MM/yyyy' }}
                 </p>
                 <p class="card-text col-3">
                   <strong>פירוט קהל היעד בהכנות : </strong>
@@ -69,11 +58,11 @@
 
                 <p class="card-text col-4">
                   <strong>תאריך סיכום המפעל : </strong>
-                  {{ activity?.summarizeDate | date: "dd/MM/yyyy" }}
+                  {{ activity?.summarizeDate | date: 'dd/MM/yyyy' }}
                 </p>
                 <p class="card-text col-5">
                   <strong>נקבע ביומן המחלקתי : </strong>
-                  {{ activity?.isScheduled === true ? "כן" : "לא" }}
+                  {{ activity?.isScheduled === true ? 'כן' : 'לא' }}
                 </p>
                 <p class="card-text col-3">
                   <strong>מיקום הפעילות : </strong>
@@ -85,38 +74,24 @@
 
           <div class="card">
             <div class="card-header">
-              <button
-                [routerLink]="['/activities/manage-activity']"
-                [queryParams]="{ id: id }"
-                (click)="setTab(2)"
-                class="btn btn-primary"
-              >
+              <button [routerLink]="['/activities/manage-activity']" [queryParams]="{ id: id }" (click)="setTab(2)" class="btn btn-primary">
                 ערוך בעלי תפקידים</button
               >בעלי תפקידים
               <p class="card-text">
-                <span class="span-title" style="text-decoration: none"
-                  >מספר בעלי תפקידים :
-                </span>
+                <span class="span-title" style="text-decoration: none">מספר בעלי תפקידים : </span>
                 <span class="span-body">1</span>
               </p>
             </div>
 
-            <div
-              class="card-body"
-              *ngFor="let official of officials; index as i"
-            >
+            <div class="card-body" *ngFor="let official of officials; index as i">
               <h5 class="card-title"></h5>
               <div class="row">
-                <p class="card-text col-4">
-                  <strong>תפקיד : </strong> {{ official.job }}
-                </p>
-                <p class="card-text col-5">
-                  <strong>הגדרת תפקיד : </strong> {{ official.jobTitle }}
-                </p>
+                <p class="card-text col-4"><strong>תפקיד : </strong> {{ official.job }}</p>
+                <p class="card-text col-5"><strong>הגדרת תפקיד : </strong> {{ official.jobTitle }}</p>
 
                 <p class="card-text col-3">
                   <strong>מועדים נדרשים : </strong>
-                  {{ official.requiredDate | date: "dd/MM/yyyy" }}
+                  {{ official.requiredDate | date: 'dd/MM/yyyy' }}
                 </p>
 
                 <p class="card-text col-4">
@@ -126,48 +101,32 @@
 
                 <p class="card-text col-5">
                   <strong>אישור מנהל משרד : </strong>
-                  {{ official.managerApproval === true ? "כן" : "לא" }}
+                  {{ official.managerApproval === true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-3">
                   <strong>אישור מנהל מחלקת הנוער : </strong>
-                  {{
-                    official.managerDepartmentApproval === true ? "כן" : "לא"
-                  }}
+                  {{ official.managerDepartmentApproval === true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-12">
-                  <strong>הערות : </strong> {{ official.notes }}
-                </p>
+                <p class="card-text col-12"><strong>הערות : </strong> {{ official.notes }}</p>
               </div>
               <div
                 *ngIf="officials.length - 1 > i"
                 class="separator mt-5"
-                style="
-                  max-width: 100%;
-                  background-color: #06cb77;
-                  height: 5px;
-                  margin: auto;
-                "
+                style="max-width: 100%; background-color: #06cb77; height: 5px; margin: auto"
               ></div>
             </div>
           </div>
 
           <div class="card">
             <div class="card-header">
-              <button
-                [routerLink]="['/activities/manage-activity']"
-                [queryParams]="{ id: id }"
-                (click)="setTab(3)"
-                class="btn btn-primary"
-              >
+              <button [routerLink]="['/activities/manage-activity']" [queryParams]="{ id: id }" (click)="setTab(3)" class="btn btn-primary">
                 ערוך צרכים
               </button>
               צרכים
               <p class="card-text">
-                <span class="span-title" style="text-decoration: none"
-                  >כמות צרכים :
-                </span>
+                <span class="span-title" style="text-decoration: none">כמות צרכים : </span>
                 <span class="span-body">18</span>
               </p>
             </div>
@@ -176,72 +135,72 @@
               <div class="row">
                 <p class="card-text col-4">
                   <strong>חוברת הדרכה : </strong>
-                  {{ needs?.isRequiredNotebookGuide == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredNotebookGuide == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>אביזרי הדרכה : </strong>
-                  {{ needs?.isRequiredGuideItems == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredGuideItems == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>ביגוד : </strong>
-                  {{ needs?.isRequiredClothing == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredClothing == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong> צורך ברכבים : </strong>
-                  {{ needs?.isRequiredVehicles == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredVehicles == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>ציוד משרדי : </strong>
-                  {{ needs?.isRequiredOfficeEquipment == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredOfficeEquipment == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong> ציוד מחסן : </strong>
-                  {{ needs?.isRequiredDepotEquipment == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredDepotEquipment == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>מזון : </strong>
-                  {{ needs?.isRequiredFood == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredFood == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>סוג מזון : </strong>
-                  {{ needs?.foodType == true ? "נייד" : "נייח" }}
+                  {{ needs?.foodType == true ? 'נייד' : 'נייח' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>צורך בטופס הזמנת כיבוד (פעילות יומית) :</strong>
-                  {{ needs?.foodOrderingForm == true ? "כן" : "לא" }}
+                  {{ needs?.foodOrderingForm == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong> צורך בהסעות :</strong>
-                  {{ needs?.isRequiredTransportation == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredTransportation == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong>אתרים / סדנאות :</strong>
-                  {{ needs?.isSitesAvailable == true ? "כן" : "לא" }}
+                  {{ needs?.isSitesAvailable == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong> צורך בלינה : </strong>
-                  {{ needs?.isSleepingArrangements == true ? "כן" : "לא" }}
+                  {{ needs?.isSleepingArrangements == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong> צורך בהצעת מחיר : </strong>
-                  {{ needs?.isRequiredBidingPrice == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredBidingPrice == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
                   <strong> ציוד נוסף : </strong>
-                  {{ needs?.isRequiredExtraEquipment == true ? "כן" : "לא" }}
+                  {{ needs?.isRequiredExtraEquipment == true ? 'כן' : 'לא' }}
                 </p>
 
                 <p class="card-text col-4">
@@ -299,14 +258,12 @@
               <th scope="col">התקדמות</th>
             </tr>
           </thead>
-          <tbody
-            *ngFor="let assignment of activityAssignments.data; index as i"
-          >
+          <tbody *ngFor="let assignment of assignments; index as i">
             <tr>
               <td scope="row">{{ i + 1 }}.</td>
               <td>{{ assignment.assignment }}</td>
               <td>
-                {{ assignment.finalExecDate.seconds * 1000 | date }}
+                {{ assignment.finalExecDate | date: 'dd/MM/yyyy' }}
               </td>
               <td>
                 <div class="form-group">
@@ -317,9 +274,7 @@
                       ngbDatepicker
                       #dEnd="ngbDatepicker"
                       readonly
-                      value="  {{
-                        assignment.scheduleDate.seconds * 1000 | date
-                      }}"
+                      value="  {{ assignment.scheduleDate | date: 'dd/MM/yyyy' }}"
                     />
                     <div class="input-group-append">
                       <button class="btn" (click)="dEnd.toggle()" type="button">
@@ -331,11 +286,7 @@
               </td>
               <td>
                 <div class="form-group">
-                  <select
-                    value="{{ assignment.progress }}"
-                    class="custom-select"
-                    (change)="myChange($event, i)"
-                  >
+                  <select value="{{ assignment.progress }}" class="custom-select" (change)="myChange($event, i)">
                     <option [ngValue]="1">טרם הסתיים</option>
                     <option [ngValue]="2">ממתין לאישור מנהל</option>
                     <option [ngValue]="3">נקבע תאריך גג לביצוע</option>

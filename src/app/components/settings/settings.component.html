@@ -15,7 +15,7 @@
           <h3>ניהול משתמשים</h3>
           <i class="fas fa-user-edit fa-3x"></i>
           <p>התר גישה למשתמשים</p>
-          <a (click)="isUpdateUsers = !isUpdateUsers">עדכן משתמשים</a>
+          <a (click)="showUsers()">עדכן משתמשים</a>
         </div>
       </div>
 
@@ -24,7 +24,7 @@
           <h3>ניהול פעילויות</h3>
           <i class="fas fa-tasks fa-3x"></i>
           <p>נהל או אשר פעילויות</p>
-          <a href="">נהל פעילויות</a>
+          <a (click)="showActivities()">נהל פעילויות</a>
         </div>
       </div>
     </div>
@@ -33,6 +33,11 @@
         *ngIf="isUpdateUsers"
         [connectedUser]="connectedUser"
       ></app-manage-users>
+
+      <app-manage-activities
+        *ngIf="isUpdateActivities"
+        [connectedUser]="connectedUser"
+      ></app-manage-activities>
     </div>
   </div>
 </div>

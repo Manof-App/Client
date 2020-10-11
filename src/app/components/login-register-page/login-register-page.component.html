@@ -1,28 +1,12 @@
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-<app-pop-up-message
-  *ngIf="showServerMessage"
-  [message]="message"
-  [responseType]="responseType"
-></app-pop-up-message>
+<app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
 <div class="wrapper">
   <div class="forms-wrapper" [ngClass]="{ 'register-active': registerActive }">
     <div class="forms">
       <div class="form-links">
-        <div
-          class="form-link login-link"
-          (click)="toggleRegisterForm()"
-          [ngClass]="{ active: !registerActive }"
-        >
-          התחבר
-        </div>
-        <div
-          class="form-link register-link"
-          (click)="toggleRegisterForm()"
-          [ngClass]="{ active: registerActive }"
-        >
-          הירשם
-        </div>
+        <div class="form-link login-link" (click)="toggleRegisterForm()" [ngClass]="{ active: !registerActive }">התחבר</div>
+        <div class="form-link register-link" (click)="toggleRegisterForm()" [ngClass]="{ active: registerActive }">הירשם</div>
       </div>
       <div class="login">
         <h2 class="form-title">איזור התחברות</h2>
@@ -44,9 +28,7 @@
               placeholder="אימייל"
               formControlName="email"
               [ngClass]="{
-                'is-invalid':
-                  loginForm.controls.email.dirty &&
-                  loginForm.controls.email.errors
+                'is-invalid': loginForm.controls.email.dirty && loginForm.controls.email.errors
               }"
             />
 
@@ -55,16 +37,10 @@
                 <i class="far fa-envelope"></i>
               </span>
             </div>
-            <div
-              [hidden]="!loginForm.controls.email.errors?.required"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!loginForm.controls.email.errors?.required" class="invalid-feedback">
               <span dir="rtl" class="info">אימייל נחוץ</span>
             </div>
-            <div
-              [hidden]="!loginForm.controls.email.errors?.email"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!loginForm.controls.email.errors?.email" class="invalid-feedback">
               <span dir="rtl">אימייל לא חוקי</span>
             </div>
           </div>
@@ -80,16 +56,11 @@
               formControlName="password"
               id="password"
               [ngClass]="{
-                'is-invalid':
-                  loginForm.controls.password.dirty &&
-                  loginForm.controls.password.errors
+                'is-invalid': loginForm.controls.password.dirty && loginForm.controls.password.errors
               }"
             />
 
-            <div
-              class="input-group-append"
-              (click)="showPassword = !showPassword"
-            >
+            <div class="input-group-append" (click)="showPassword = !showPassword">
               <span class="input-group-text">
                 <i
                   class="fas fa-eye"
@@ -100,10 +71,7 @@
               </span>
             </div>
 
-            <div
-              [hidden]="!loginForm.controls.password.errors?.required"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!loginForm.controls.password.errors?.required" class="invalid-feedback">
               <span dir="rtl">סיסמא נחוצה</span>
             </div>
           </div>
@@ -113,12 +81,7 @@
           </div>
 
           <div class="submit">
-            <Button
-              type="submit"
-              class="btn btn-primary btn-block"
-              [disabled]="!loginForm.valid"
-              >התחבר</Button
-            >
+            <Button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid">התחבר</Button>
           </div>
         </form>
       </div>
@@ -133,44 +96,38 @@
 
         <div class="font-weight-bold">או הירשם עם אימייל</div>
 
-        <form
-          [formGroup]="registerForm"
-          (submit)="submitRegisterForm(registerForm)"
-        >
-          <!-- <div class="form-group">
+        <form [formGroup]="registerForm" (submit)="submitRegisterForm(registerForm)">
+          <div class="form-group">
             <input
               class="form-control"
-              type="name"
-              name="name"
-              placeholder="שם מלא"
-              formControlName="name"
+              type="text"
+              name="userId"
+              ngbTooltip="תשע ספרות בלבד!"
+              [openDelay]="300"
+              [closeDelay]="300"
+              placeholder="ת.ז"
+              formControlName="userId"
+              pattern="^\d{9}$"
               [ngClass]="{
-                'is-invalid':
-                  registerForm.controls.name.errors &&
-                  registerForm.controls.name.dirty
+                'is-invalid': registerForm.controls.userId.dirty && registerForm.controls.userId.errors
               }"
             />
 
             <div class="input-group-append">
               <span class="input-group-text">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-id-card"></i>
               </span>
             </div>
 
-            <div
-              [hidden]="!registerForm.controls.name.errors?.required"
-              class="invalid-feedback"
-            >
-              <span dir="rtl" class="info">שם נחוץ</span>
+            <div [hidden]="!registerForm.controls.userId.errors?.required" class="invalid-feedback">
+              <span dir="rtl" class="info">ת.ז נחוצה</span>
             </div>
+            <span class="info" [hidden]="!registerForm.controls.userId.errors?.pattern"></span>
 
-            <div
-              [hidden]="!registerForm.controls.name.errors?.pattern"
-              class="invalid-feedback"
-            >
-              <span dir="rtl">שם לא חוקי</span>
+            <div [hidden]="!registerForm.controls.userId.errors?.pattern" class="invalid-feedback">
+              <span class="info" dir="rtl">ת.ז לא תקינה</span>
             </div>
-          </div> -->
+          </div>
 
           <div class="form-group">
             <input
@@ -180,9 +137,7 @@
               placeholder="אימייל"
               formControlName="email"
               [ngClass]="{
-                'is-invalid':
-                  registerForm.controls.email.errors &&
-                  registerForm.controls.email.dirty
+                'is-invalid': registerForm.controls.email.errors && registerForm.controls.email.dirty
               }"
             />
 
@@ -192,16 +147,10 @@
               </span>
             </div>
 
-            <div
-              [hidden]="!registerForm.controls.email.errors?.required"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!registerForm.controls.email.errors?.required" class="invalid-feedback">
               <span dir="rtl" class="info">אימייל נחוץ</span>
             </div>
-            <div
-              [hidden]="!registerForm.controls.email.errors?.email"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!registerForm.controls.email.errors?.email" class="invalid-feedback">
               <span dir="rtl">אימייל לא חוקי</span>
             </div>
           </div>
@@ -215,16 +164,11 @@
               placeholder="סיסמא"
               formControlName="password"
               [ngClass]="{
-                'is-invalid':
-                  registerForm.controls.password.errors &&
-                  registerForm.controls.password.dirty
+                'is-invalid': registerForm.controls.password.errors && registerForm.controls.password.dirty
               }"
             />
 
-            <div
-              class="input-group-append"
-              (click)="showPassword = !showPassword"
-            >
+            <div class="input-group-append" (click)="showPassword = !showPassword">
               <span class="input-group-text">
                 <i
                   class="fas fa-eye"
@@ -235,21 +179,13 @@
               </span>
             </div>
 
-            <div
-              [hidden]="!registerForm.controls.password.errors?.required"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!registerForm.controls.password.errors?.required" class="invalid-feedback">
               <span dir="rtl">סיסמא נחוצה</span>
             </div>
           </div>
 
           <div class="submit">
-            <Button
-              type="submit"
-              class="btn btn-primary btn-block"
-              [disabled]="!registerForm.valid"
-              >צור משתמש</Button
-            >
+            <Button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.valid">צור משתמש</Button>
           </div>
         </form>
       </div>
@@ -261,9 +197,7 @@
       </div>
       <div class="register">
         <h1 dir="rtl">עובד יקר!</h1>
-        <p dir="rtl">
-          יש לבחור את דרך ההרשמה או להתחבר על ידי יצירת שם משתמש וסיסמא חדשים
-        </p>
+        <p dir="rtl">יש לבחור את דרך ההרשמה או להתחבר על ידי יצירת שם משתמש וסיסמא חדשים</p>
       </div>
     </div>
   </div>
