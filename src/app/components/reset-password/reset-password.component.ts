@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FirebaseAuthService } from '../../services/authorization/firebaseAuth/firebase-auth.service';
+
+import { Router } from '@angular/router';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,10 +20,7 @@ export class ResetPasswordComponent implements OnInit {
   // End Of Variables Declarations
 
   // Constructor
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: FirebaseAuthService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private userService: UsersService, private router: Router) {}
 
   // Component Life Cycle On Initialization
   ngOnInit(): void {
@@ -41,21 +40,18 @@ export class ResetPasswordComponent implements OnInit {
     this.showServerMessage = false;
     this.showSpinner = !this.showSpinner;
 
-    this.authService
-      .resetPassword(value.email)
-      .then(() => {
-        setTimeout(() => {
+    setTimeout(() => {
+      this.userService.resetUserPassword(value.email).subscribe(
+        (status: string) => {
+          console.log(status);
           this.displayServerMessage('success', 'בדוק את חשבון המייל שלך');
-        }, 3000);
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          this.displayServerMessage(
-            'error',
-            'חשבון האימייל אשר הוזן אינו קיים'
-          );
-        }, 3000);
-      });
+        },
+        (error) => {
+          // console.log(error)
+          this.displayServerMessage('error', 'חשבון האימייל אשר הוזן אינו קיים');
+        }
+      );
+    }, 3000);
   }
 
   // Handle Server Message In Case Of Error Or Success

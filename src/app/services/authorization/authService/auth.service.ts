@@ -36,6 +36,10 @@ export class AuthService {
     return this.httpClient.post<User>(this.baseUrl + '/users/logout', null);
   }
 
+  logoutAll(): Observable<User> {
+    return this.httpClient.post<User>(this.baseUrl + '/users/logoutAll', null);
+  }
+
   // Add user token to local storage
   addToken(userData: any) {
     this.authToken = userData.token;

@@ -121,7 +121,13 @@
 
           <div class="card">
             <div class="card-header">
-              <button [routerLink]="['/activities/manage-activity']" [queryParams]="{ id: id }" (click)="setTab(3)" class="btn btn-primary">
+              <button
+                [disabled]="showNeeds"
+                [routerLink]="['/activities/manage-activity']"
+                [queryParams]="{ id: id }"
+                (click)="setTab(3)"
+                class="btn btn-primary"
+              >
                 ערוך צרכים
               </button>
               צרכים
@@ -130,7 +136,7 @@
                 <span class="span-body">18</span>
               </p>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="!showNeeds">
               <h5 class="card-title"></h5>
               <div class="row">
                 <p class="card-text col-4">

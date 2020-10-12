@@ -37,7 +37,7 @@ table tr:hover {
 }
 
 table tbody tr td {
-    text-align: center;
+    text-align: center !important;
     margin: auto;
 }
 

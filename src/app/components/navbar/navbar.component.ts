@@ -26,11 +26,7 @@ export class NavbarComponent implements OnInit {
 
   content: string = 'האם ברצונך להתנתק?';
 
-  constructor(
-    private authService: AuthService,
-    private userService: UsersService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private userService: UsersService, private router: Router) {}
 
   ngOnInit(): void {
     this.isMenuCollapsed = true;
@@ -75,7 +71,7 @@ export class NavbarComponent implements OnInit {
       setTimeout(() => {
         this.authService.logout().subscribe(
           (data) => {
-            console.log(data);
+            // console.log(data);
 
             this.authService.clearLocalStorage();
             this.router.navigate(['/']);

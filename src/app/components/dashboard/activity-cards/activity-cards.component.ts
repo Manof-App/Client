@@ -60,13 +60,15 @@ export class ActivityCardsComponent implements OnInit {
           this.isShow = !this.isShow;
           this.hasNext = this.hasPrev = false;
         } else {
+          if (this.isShow) {
+            this.isShow = !this.isShow;
+          }
+
           this.next = data.next;
           this.previous = data.previous;
-
           this.startIndex = data.startIndex;
           this.endIndex = data.endIndex;
           this.listLength = data.length;
-
           this.activities = data.results;
         }
       },
@@ -86,35 +88,28 @@ export class ActivityCardsComponent implements OnInit {
   }
 
   nextPage() {
-    console.log(this.endIndex, this.listLength);
-    if (this.endIndex < this.listLength) {
-      if (this.isShow) {
-        this.isShow = false;
-        this.hasNext = true;
-      } else {
-        this.searchParams = new HttpParams().set('page', `${this.next.page}`);
-        this.showResults();
-      }
+    if (this.isShow) {
+      this.isShow = !this.isShow;
+      this.hasPrev = !this.hasPrev;
+    } else if (this.endIndex < this.listLength) {
+      this.searchParams = new HttpParams().set('page', `${this.next.page}`);
+      this.showResults();
     } else {
-      this.isShow = true;
+      this.isShow = !this.isShow;
       this.hasNext = !this.hasNext;
-      this.hasPrev = true;
     }
   }
 
   prevPage() {
-    if (this.startIndex > 0) {
-      if (this.isShow) {
-        this.isShow = false;
-        this.hasPrev = true;
-      } else {
-        this.searchParams = new HttpParams().set('page', `${this.previous.page}`);
-        this.showResults();
-      }
+    if (this.isShow) {
+      this.isShow = !this.isShow;
+      this.hasNext = !this.hasNext;
+    } else if (this.startIndex > 0) {
+      this.searchParams = new HttpParams().set('page', `${this.previous.page}`);
+      this.showResults();
     } else {
-      this.isShow = true;
-      this.hasPrev = false;
-      this.hasNext = true;
+      this.isShow = !this.isShow;
+      this.hasPrev = !this.hasPrev;
     }
   }
 

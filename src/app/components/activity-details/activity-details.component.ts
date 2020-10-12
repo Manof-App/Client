@@ -35,6 +35,10 @@ export class ActivityDetailsComponent implements OnInit {
 
   needs: Need;
 
+  showActivity: boolean;
+  showNeeds: boolean;
+  showOfficials: boolean;
+
   editable: ActivityEditing = {
     isOnlyEdit: false,
   };
@@ -51,8 +55,9 @@ export class ActivityDetailsComponent implements OnInit {
     this.percentage = 0;
     this.id = this.route.snapshot.queryParams.id;
     this.editable.isOnlyEdit = true;
-
     this.activitiesService.setEditingStates(this.editable);
+
+    this.showNeeds = false;
 
     // Get activity by id
     this.activitiesService.getActivity(this.id).subscribe(
@@ -83,13 +88,14 @@ export class ActivityDetailsComponent implements OnInit {
         this.needs = data;
       },
       (error) => {
+        this.showNeeds = true;
         console.log(error);
       }
     );
 
     this.assignmentsService.getAssignments(this.id).subscribe(
       (data: Assignment[]) => {
-        console.log(data);
+        // console.log(data);
         this.assignments = data;
         this.updateProgressBar();
       },

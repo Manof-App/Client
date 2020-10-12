@@ -21,24 +21,17 @@ export class NeedService {
 
   // Delete need
   deleteNeed(need: Need): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${this.baseUrl}/officials/${need._id}`
-    );
+    return this.httpClient.delete<void>(`${this.baseUrl}/officials/${need._id}`);
   }
 
   // Update need
   updateNeed(need: Need): Observable<Need> {
     console.log(need);
-    return this.httpClient.patch<Need>(
-      `${this.baseUrl}/needs/${need.relatedActivityId}`,
-      need
-    );
+    return this.httpClient.patch<Need>(`${this.baseUrl}/needs/${need.relatedActivityId}`, need);
   }
 
   // Get need
   getNeed(relatedActivityId: string): Observable<Need> {
-    return this.httpClient.get<Need>(
-      `${this.baseUrl}/needs/${relatedActivityId}`
-    );
+    return this.httpClient.get<Need>(`${this.baseUrl}/needs/${relatedActivityId}`);
   }
 }

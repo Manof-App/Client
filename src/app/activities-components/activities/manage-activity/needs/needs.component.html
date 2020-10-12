@@ -1,9 +1,5 @@
 <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-<app-pop-up-message
-  *ngIf="showServerMessage"
-  [message]="message"
-  [responseType]="responseType"
-></app-pop-up-message>
+<app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
 <form [formGroup]="needForm" (ngSubmit)="onSubmit(needForm)">
   <div class="row">
@@ -57,13 +53,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isRequiredGuideItems"
-                type="radio"
-                name="isRequiredGuideItems"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isRequiredGuideItems" type="radio" name="isRequiredGuideItems" />
             </div>
           </div>
 
@@ -97,13 +87,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isRequiredClothing"
-                type="radio"
-                name="isRequiredClothing"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isRequiredClothing" type="radio" name="isRequiredClothing" />
             </div>
           </div>
 
@@ -137,13 +121,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isRequiredVehicles"
-                type="radio"
-                name="isRequiredVehicles"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isRequiredVehicles" type="radio" name="isRequiredVehicles" />
             </div>
           </div>
 
@@ -257,13 +235,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isRequiredFood"
-                type="radio"
-                name="isRequiredFood"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isRequiredFood" type="radio" name="isRequiredFood" />
             </div>
           </div>
 
@@ -293,19 +265,11 @@
         <div class="form-check">
           <div class="wrap-check-yes">
             <div>
-              <label class="form-check-label yes" for="exampleCheck1"
-                >נייח</label
-              >
+              <label class="form-check-label yes" for="exampleCheck1">נייח</label>
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="foodType"
-                type="radio"
-                name="foodType"
-              />
+              <input id="exampleCheck1" value="true" formControlName="foodType" type="radio" name="foodType" />
             </div>
           </div>
 
@@ -315,14 +279,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="false"
-                formControlName="foodType"
-                type="radio"
-                class="form-check-input no"
-                name="foodType"
-              />
+              <input id="exampleCheck1" value="false" formControlName="foodType" type="radio" class="form-check-input no" name="foodType" />
             </div>
           </div>
         </div>
@@ -331,9 +288,7 @@
 
     <div class="col-xl-3 col-lg-6 col-6">
       <div class="form-group">
-        <label for="foodOrderingForm">
-          צורך בטופס הזמנת כיבוד (פעילות יומית):</label
-        >
+        <label for="foodOrderingForm"> צורך בטופס הזמנת כיבוד (פעילות יומית):</label>
         <div class="form-check">
           <div class="wrap-check-yes">
             <div>
@@ -341,13 +296,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="foodOrderingForm"
-                type="radio"
-                name="foodOrderingForm"
-              />
+              <input id="exampleCheck1" value="true" formControlName="foodOrderingForm" type="radio" name="foodOrderingForm" />
             </div>
           </div>
 
@@ -421,13 +370,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isSitesAvailable"
-                type="radio"
-                name="isSitesAvailable"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isSitesAvailable" type="radio" name="isSitesAvailable" />
             </div>
           </div>
 
@@ -461,13 +404,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isSleepingArrangements"
-                type="radio"
-                name="isSleepingArrangements"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isSleepingArrangements" type="radio" name="isSleepingArrangements" />
             </div>
           </div>
 
@@ -501,13 +438,7 @@
             </div>
 
             <div>
-              <input
-                id="exampleCheck1"
-                value="true"
-                formControlName="isRequiredBidingPrice"
-                type="radio"
-                name="isRequiredBidingPrice"
-              />
+              <input id="exampleCheck1" value="true" formControlName="isRequiredBidingPrice" type="radio" name="isRequiredBidingPrice" />
             </div>
           </div>
 
@@ -576,16 +507,9 @@
     <div class="col-xl-3 col-6">
       <div class="form-group">
         <label for="foodDescription">פירוט אוכל:</label>
-        <select
-          id="foodDescription"
-          class="custom-select"
-          formControlName="foodDescription"
-        >
+        <select id="foodDescription" class="custom-select" formControlName="foodDescription">
           <option value="" disabled>בחר סוג מזון</option>
-          <option
-            *ngFor="let item of foodDescription; let dataIndex = index"
-            [ngValue]="dataIndex"
-          >
+          <option *ngFor="let item of foodDescription; let dataIndex = index" [ngValue]="dataIndex">
             {{ item }}
           </option>
         </select>
@@ -595,16 +519,9 @@
     <div class="col-xl-3 col-6">
       <div class="form-group">
         <label for="detailedIGuideItems">פירוט אביזרי הדרכה:</label>
-        <select
-          id="detailedIGuideItems"
-          class="custom-select"
-          formControlName="detailedIGuideItems"
-        >
+        <select id="detailedIGuideItems" class="custom-select" formControlName="detailedIGuideItems">
           <option value="" disabled>בחר סוג</option>
-          <option
-            *ngFor="let item of detailedGuidingItems; let dataIndex = index"
-            [ngValue]="dataIndex"
-          >
+          <option *ngFor="let item of detailedGuidingItems; let dataIndex = index" [ngValue]="dataIndex">
             {{ item }}
           </option>
         </select>
@@ -614,16 +531,9 @@
     <div class="col-xl-3 col-6">
       <div class="form-group">
         <label for="detailedClothing">פירוט אביזרי ביגוד:</label>
-        <select
-          id="detailedClothing"
-          class="custom-select"
-          formControlName="detailedClothing"
-        >
+        <select id="detailedClothing" class="custom-select" formControlName="detailedClothing">
           <option value="" disabled>בחר סוג</option>
-          <option
-            *ngFor="let item of detailedClothingItems; let dataIndex = index"
-            [ngValue]="dataIndex"
-          >
+          <option *ngFor="let item of detailedClothingItems; let dataIndex = index" [ngValue]="dataIndex">
             {{ item }}
           </option>
         </select>
@@ -633,25 +543,12 @@
     <div class="col-xl-3 col-6">
       <div class="form-group">
         <label for="sleepingLocation">מקום לינה:</label>
-        <input
-          id="sleepingLocation"
-          class="form-control"
-          formControlName="sleepingLocation"
-          placeholder="הכנס מקום לינה"
-        />
+        <input id="sleepingLocation" class="form-control" formControlName="sleepingLocation" placeholder="הכנס מקום לינה" />
       </div>
     </div>
   </div>
 
   <div class="wrap-btn form-group" style="margin: 0 !important">
-    <button
-      type="submit"
-      class="btn btn-primary"
-      (click)="isEdit = !this.isEdit"
-    >
-      ערוך
-    </button>
-
     <button type="submit" class="btn btn-primary mr-3">סיים</button>
   </div>
 </form>

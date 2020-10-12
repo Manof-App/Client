@@ -32,4 +32,10 @@ export class UsersService {
   updateUser(updates: any): Observable<User> {
     return this.httpClient.patch<User>(`${this.baseUrl}/users/me`, updates);
   }
+
+  resetUserPassword(userEmail: string): Observable<any> {
+    return this.httpClient.patch<any>(`${this.baseUrl}/users/resetPassword`, {
+      email: userEmail,
+    });
+  }
 }

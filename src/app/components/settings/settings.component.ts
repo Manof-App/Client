@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
 import { User } from '../../models/User';
+import { AuthService } from '../../services/authorization/authService/auth.service';
 import { UsersService } from '../../services/users/users.service';
 
 @Component({
@@ -15,14 +17,18 @@ export class SettingsComponent implements OnInit {
   connectedUser: string;
   user: User;
 
-  constructor(private userService: UsersService) {}
+  content = 'האם ברצונך להתנתק מכלל המכשירים?';
+  showConfirmBox = false;
+  showSpinner = false;
+
+  constructor(private userService: UsersService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.isAdmin = this.isUpdateUsers = false;
 
     this.userService.getUser().subscribe(
       (data: User) => {
-        //console.log(data)
+        // console.log(data)
         this.user = data;
         this.connectedUser = this.user.email;
 
@@ -48,5 +54,33 @@ export class SettingsComponent implements OnInit {
       this.isUpdateUsers = false;
     }
     this.isUpdateActivities = !this.isUpdateActivities;
+  }
+
+  logoutAll() {
+    this.showConfirmBox = !this.showConfirmBox;
+  }
+
+  // Handle Confirm Box Dialog User Answer
+  handleUserAnswer(userAnswer) {
+    if (!userAnswer) {
+      this.showConfirmBox = !this.showConfirmBox;
+    } else {
+      this.showConfirmBox = !this.showConfirmBox;
+      this.showSpinner = !this.showSpinner;
+      setTimeout(() => {
+        this.authService.logoutAll().subscribe(
+          (data) => {
+            // console.log(data);
+            console.log('check');
+            this.authService.clearLocalStorage();
+            this.router.navigate(['/']);
+            this.showSpinner = !this.showSpinner;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }, 3000);
+    }
   }
 }

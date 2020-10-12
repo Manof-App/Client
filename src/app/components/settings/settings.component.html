@@ -1,12 +1,14 @@
+<app-confirm-box [data]="content" *ngIf="showConfirmBox" (userAnswer)="handleUserAnswer($event)"></app-confirm-box>
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+
 <div class="wrapper">
   <div class="inner">
     <div class="row">
       <div class="wrap a col-4">
         <div class="inner-wrap profile">
           <i class="fas fa-user-circle fa-5x"></i>
-          <h3>{{ user?.name }}</h3>
-          <p>למה אני לא יכול לערוך?</p>
-          <a href="#">התנתק מכל המכשירים</a>
+          <h3 class="mt-5">{{ user?.firstName }} {{ user?.lastName }}</h3>
+          <a (click)="logoutAll()">התנתק מכל המכשירים</a>
         </div>
       </div>
 
@@ -29,15 +31,9 @@
       </div>
     </div>
     <div class="container">
-      <app-manage-users
-        *ngIf="isUpdateUsers"
-        [connectedUser]="connectedUser"
-      ></app-manage-users>
+      <app-manage-users *ngIf="isUpdateUsers" [connectedUser]="connectedUser"></app-manage-users>
 
-      <app-manage-activities
-        *ngIf="isUpdateActivities"
-        [connectedUser]="connectedUser"
-      ></app-manage-activities>
+      <app-manage-activities *ngIf="isUpdateActivities" [connectedUser]="connectedUser"></app-manage-activities>
     </div>
   </div>
 </div>

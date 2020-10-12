@@ -13,9 +13,9 @@ export class ManageUsersComponent implements OnInit {
   user: User;
   @Input() connectedUser: string;
 
-  index: number = 0;
-  content: string = 'האם אתה בטוח שאתה רוצה למחוק?';
-  showConfirmBox: boolean = false;
+  index = 0;
+  content = 'האם אתה בטוח שאתה רוצה למחוק?';
+  showConfirmBox = false;
 
   constructor(private userService: UsersService) {}
 
@@ -33,7 +33,7 @@ export class ManageUsersComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(
       (data: User[]) => {
-        //console.log(data);
+        // console.log(data);
         this.users = data;
       },
       (error) => {
@@ -66,13 +66,12 @@ export class ManageUsersComponent implements OnInit {
 
   // Handle Confirm Box Dialog User Answer
   handleUserAnswer(userAnswer) {
-    console.log(userAnswer);
     if (!userAnswer) {
       this.showConfirmBox = !this.showConfirmBox;
     } else {
       this.users.forEach((user, i) => {
         if (this.index === i) {
-          if (this.connectedUser != user.email) {
+          if (this.connectedUser !== user.email) {
             // display user message
 
             this.userService.deleteUser(user).subscribe((data: void) => {

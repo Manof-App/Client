@@ -26,7 +26,6 @@ import { OfficialsService } from './services/officials/officials.service';
 import { UsersService } from './services/users/users.service';
 import { ActivitiesService } from './services/activities/activities.service';
 import { AuthService } from './services/authorization/authService/auth.service';
-import { FirebaseAuthService } from './services/authorization/firebaseAuth/firebase-auth.service';
 import { TokenInterceptorService } from './services/authorization/token-interceptor/token-interceptor.service';
 import { HttpInterceptorService } from './services/authorization/http-interceptor/http-interceptor.service';
 
@@ -98,7 +97,6 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
   providers: [
     AuthService,
     UsersService,
-    FirebaseAuthService,
     ActivitiesService,
     OfficialsService,
     AngularFireDatabase,

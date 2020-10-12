@@ -21,15 +21,20 @@ a:hover {
   color: #06cb77;
 }
 
-i {
+.fas.fa-tasks, .fas.fa-user-edit, .fas.fa-user-circle {
   display: inline-block;
   margin-bottom: 1rem;
-  transition: ease-in 0.1s;
   color: #06cb77;
 }
 
-i:hover {
-  font-size: 3.5rem;
+.fas.fa-tasks:hover, .fas.fa-user-edit:hover {
+  transform: scale(1.3);
+  transition: all .2s ease-in-out;
+}
+
+.fas.fa-user-circle:hover {
+  transform: scale(1.1);
+  transition: all .5s ease-in-out;
 }
 
 div.wrapper {

@@ -45,41 +45,32 @@ export class NeedsComponent implements OnInit {
         this.needForm.controls.isRequiredNotebookGuide.setValue(data.isRequiredNotebookGuide.toString());
 
         this.needForm.controls.isRequiredGuideItems.setValue(data.isRequiredGuideItems.toString());
-
         this.needForm.controls.isRequiredClothing.setValue(data.isRequiredClothing.toString());
-
         this.needForm.controls.isRequiredVehicles.setValue(data.isRequiredVehicles.toString());
 
         this.needForm.controls.isRequiredOfficeEquipment.setValue(data.isRequiredOfficeEquipment.toString());
-
         this.needForm.controls.isRequiredDepotEquipment.setValue(data.isRequiredDepotEquipment.toString());
-
         this.needForm.controls.isRequiredFood.setValue(data.isRequiredFood.toString());
 
         this.needForm.controls.isRequiredTransportation.setValue(data.isRequiredTransportation.toString());
-
         this.needForm.controls.foodOrderingForm.setValue(data.foodOrderingForm.toString());
-
         this.needForm.controls.isRequiredBidingPrice.setValue(data.isRequiredBidingPrice.toString());
 
         this.needForm.controls.isRequiredExtraEquipment.setValue(data.isRequiredExtraEquipment.toString());
-
         this.needForm.controls.isSleepingArrangements.setValue(data.isSleepingArrangements.toString());
-
         this.needForm.controls.foodType.setValue(data.foodType.toString());
 
         this.needForm.controls.detailedIGuideItems.setValue(this.detailedGuidingItems.findIndex((val) => val === data.detailedIGuideItems));
 
         this.needForm.controls.foodDescription.setValue(this.foodDescription.findIndex((val) => val === data.foodDescription));
-
         this.needForm.controls.detailedClothing.setValue(this.detailedClothingItems.findIndex((val) => val === data.detailedClothing));
 
         this.needForm.controls.isSitesAvailable.setValue(data.isSitesAvailable.toString());
-
         this.needForm.controls.sleepingLocation.setValue(data.sleepingLocation);
+        this.isEdit = true;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
       }
     );
   }
@@ -170,7 +161,7 @@ export class NeedsComponent implements OnInit {
             this.displayServerMessage('success', 'נשמר בהצלחה');
           },
           (error) => {
-            //console.log(error)
+            // console.log(error)
             this.displayServerMessage('error', 'משהו השתבש, השינויים לא נשמרו');
           }
         );
@@ -181,7 +172,7 @@ export class NeedsComponent implements OnInit {
             this.displayServerMessage('success', 'נשמר בהצלחה');
           },
           (error) => {
-            //console.log(error)
+            // console.log(error)
             this.displayServerMessage('error', 'משהו השתבש, השינויים לא נשמרו');
           }
         );

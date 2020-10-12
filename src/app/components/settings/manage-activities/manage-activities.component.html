@@ -1,27 +1,17 @@
-<app-pop-up-message
-  *ngIf="showServerMessage"
-  [message]="message"
-  [responseType]="responseType"
-></app-pop-up-message>
+<app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
-<!-- <app-confirm-box
-  [data]="content"
-  *ngIf="showConfirmBox"
-  (userAnswer)="handleUserAnswer($event)"
-></app-confirm-box> -->
-
-<div class="activity" *ngFor="let activity of activities">
-  <div class="name">
+<div class="activity row mb-4 mt-2" *ngFor="let activity of activities">
+  <div class="name col-2">
     <label>שם פעילות</label>
     <p>{{ activity.activityName }}</p>
   </div>
 
-  <div class="id">
+  <div class="id col-2">
     <label>מספר פעילות</label>
     <p>{{ activity._id }}</p>
   </div>
 
-  <div class="status">
+  <div class="status col-2">
     <label> סטטוס פעילות </label>
     <button
       class="btn"
@@ -31,11 +21,11 @@
       }"
       (click)="changeStatusState(activity)"
     >
-      {{ activity.status === "active" ? "פעילה" : "לא פעילה" }}
+      {{ activity.status === 'active' ? 'פעילה' : 'לא פעילה' }}
     </button>
   </div>
 
-  <div class="approved">
+  <div class="approved col-2">
     <label> אישור פעילות </label>
     <button
       class="btn"
@@ -45,18 +35,12 @@
       }"
       (click)="changeApprovalState(activity)"
     >
-      {{ activity.isApproved === true ? "מאושרת" : "לא מאושרת" }}
+      {{ activity.isApproved === true ? 'מאושרת' : 'לא מאושרת' }}
     </button>
   </div>
 
-  <div class="activity-details">
+  <div class="activity-details col-2">
     <label> פרטי פעילות </label>
-    <button
-      class="btn btn-success"
-      [routerLink]="['/activity-details']"
-      [queryParams]="{ id: activity._id }"
-    >
-      מעבר לפעילות
-    </button>
+    <button class="btn btn-success" [routerLink]="['/activity-details']" [queryParams]="{ id: activity._id }">מעבר לפעילות</button>
   </div>
 </div>
