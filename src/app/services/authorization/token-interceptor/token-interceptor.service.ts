@@ -6,12 +6,12 @@ import { HttpInterceptor } from '@angular/common/http';
   providedIn: 'root',
 })
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(private Injector: Injector) {}
+  constructor(private injector: Injector) {}
 
   intercept(req, next) {
-    let tokenizedReq = req.clone({
+    const tokenizedReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.Injector.get(AuthService).getToken()}`,
+        Authorization: `Bearer ${this.injector.get(AuthService).getToken()}`,
       },
     });
 

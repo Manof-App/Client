@@ -43,7 +43,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginRegisterPageComponent } from './components/login-register-page/login-register-page.component';
 
-import { firebase_environment } from '../environments/environment';
 import { ActivityCardsComponent } from './components/dashboard/activity-cards/activity-cards.component';
 import { ActivityDetailsComponent } from './components/activity-details/activity-details.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -90,7 +89,6 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
       useFactory: adapterFactory,
     }),
     FlashMessagesModule.forRoot(),
-    AngularFireModule.initializeApp(firebase_environment.firebaseConfig),
   ],
   exports: [],
   bootstrap: [AppComponent],
