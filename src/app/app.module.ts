@@ -17,11 +17,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-
 import { OfficialsService } from './services/officials/officials.service';
 import { UsersService } from './services/users/users.service';
 import { ActivitiesService } from './services/activities/activities.service';
@@ -81,8 +76,6 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
     FontAwesomeModule,
     ReactiveFormsModule,
     LazyLoadImageModule,
-    AngularFireAuthModule,
-    AngularFirestoreModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -97,7 +90,6 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
     UsersService,
     ActivitiesService,
     OfficialsService,
-    AngularFireDatabase,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

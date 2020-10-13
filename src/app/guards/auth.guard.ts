@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from '../services/authorization/authService/auth.service';
 
 @Injectable()
