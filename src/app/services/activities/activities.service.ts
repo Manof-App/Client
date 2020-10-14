@@ -33,7 +33,6 @@ export class ActivitiesService {
 
   // Update activity
   updateActivity(activity: Activity): Observable<Activity> {
-    console.log(activity);
     const id = activity._id;
     return this.httpClient.patch<Activity>(`${this.baseUrl}/activities/${id}`, activity);
   }

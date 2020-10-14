@@ -144,8 +144,9 @@ export class ManageOfficialsComponent implements OnInit {
   // Update official in database
   updateOfficial() {
     this.officialService.updateOfficial(this.official).subscribe(
-      (data: Official) => {
+      (data: any) => {
         // console.log(data);
+        console.log('check1');
         this.refreshTable();
       },
       (error) => {
