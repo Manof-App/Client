@@ -1,4 +1,6 @@
 <app-confirm-box [data]="content" *ngIf="showConfirmBox" (userAnswer)="handleUserAnswer($event)"></app-confirm-box>
+<app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>

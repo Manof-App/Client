@@ -25,12 +25,17 @@ export class UsersService {
   }
 
   deleteUser(user: User): Observable<void> {
-    const userEmail = user.email;
-    return this.httpClient.delete<void>(`${this.baseUrl}/users/${userEmail}`);
+    const userId = user.userId;
+    return this.httpClient.delete<void>(`${this.baseUrl}/users/${userId}`);
   }
 
   updateUser(updates: any): Observable<User> {
     return this.httpClient.patch<User>(`${this.baseUrl}/users/me`, updates);
+  }
+
+  updateUserRole(user: User): Observable<User> {
+    console.log(user.role);
+    return this.httpClient.patch<User>(`${this.baseUrl}/users/role`, user);
   }
 
   resetUserPassword(userEmail: string): Observable<any> {

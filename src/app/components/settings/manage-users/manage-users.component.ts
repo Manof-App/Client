@@ -17,6 +17,10 @@ export class ManageUsersComponent implements OnInit {
   content = 'האם אתה בטוח שאתה רוצה למחוק?';
   showConfirmBox = false;
 
+  message: string;
+  responseType: string;
+  showServerMessage: boolean;
+
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
@@ -45,15 +49,22 @@ export class ManageUsersComponent implements OnInit {
   myChange(e, i) {
     this.users.forEach((user, index) => {
       if (i === index) {
-        if (this.connectedUser != user.email) {
-          // display user message
-          this.user.role = e.target.value;
-          this.userService.updateUser(user).subscribe((data: User) => {
-            this.user = data;
-          });
+        if (user.role !== 'מנהל מחלקה') {
+          if (this.connectedUser !== user.email) {
+            // display user message
+            this.user.role = e.target.value;
+            user.role = this.user.role;
+            this.userService.updateUserRole(user).subscribe((data: User) => {
+              this.user = data;
+            }, (error) => {
+              console.log(error);
+              this.displayServerMessage('error', 'משהו השתבש, הפעולה לא התאפשרה');
+            });
+          } else {
+            this.displayServerMessage('error', 'לא ניתן לשנות גישה לעצמך');
+          }
         } else {
-          console.log('check');
-          // display user message
+          this.displayServerMessage('error', 'לא ניתן לשנות גישה למשתמש בעל הרשאת מנהל מחלקה');
         }
       }
     });
@@ -72,19 +83,34 @@ export class ManageUsersComponent implements OnInit {
       this.users.forEach((user, i) => {
         if (this.index === i) {
           if (this.connectedUser !== user.email) {
-            // display user message
-
-            this.userService.deleteUser(user).subscribe((data: void) => {
-              console.log(data);
+            if (user.role !== 'מנהל מחלקה') {
+              this.userService.deleteUser(user).subscribe((data: void) => {
+                console.log(data);
+                this.showConfirmBox = !this.showConfirmBox;
+                this.displayServerMessage('success', 'משתמש נמחק בהצלחה');
+                this.getUsers();
+              }, (error) => {
+                console.log(error);
+                this.showConfirmBox = !this.showConfirmBox;
+                this.displayServerMessage('error', 'משהו השתבש, הפעולה לא התאפשרה');
+              });
+            } else {
               this.showConfirmBox = !this.showConfirmBox;
-              this.getUsers();
-            });
+              this.displayServerMessage('error', 'לא ניתן למחוק משתמש בעל הרשאת מנהל מחלקה');
+            }
           } else {
-            console.log('check');
-            // display user message
+            this.showConfirmBox = !this.showConfirmBox;
+            this.displayServerMessage('error', 'לא ניתן למחוק את עצמך');
           }
         }
       });
     }
   }
+
+    // Handle Server Message In Case Of Error Or Success
+    displayServerMessage(resType: string, msg: string) {
+      this.responseType = resType;
+      this.message = msg;
+      this.showServerMessage = !this.showServerMessage;
+    }
 }

@@ -17,7 +17,7 @@ export class ManageActivitiesComponent implements OnInit {
   index: number;
   message: string;
   responseType: string;
-  content: string = 'האם אתה בטוח שאתה רוצה למחוק?';
+  content = 'האם אתה בטוח שאתה רוצה למחוק?';
   showServerMessage: boolean;
   showConfirmBox: boolean;
 
