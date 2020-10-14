@@ -51,6 +51,7 @@ export class OfficialComponent implements OnInit {
     this.initForm();
     this.initOfficial();
 
+
     if (this.dialog.official) {
       this.official = this.dialog.official;
       this.officialsForm.controls.job.setValue(this.getJobId());
@@ -94,6 +95,7 @@ export class OfficialComponent implements OnInit {
   onSubmit({ value }) {
     this.showConfirmBox = !this.showConfirmBox;
     this.userData = value;
+
   }
 
   handleUserAnswer(userAnswer) {
@@ -111,7 +113,6 @@ export class OfficialComponent implements OnInit {
 
       if (!this.official._id) {
         // if the action add a new official
-        console.log('check');
         this.dialogRef.close({ event: 'save', data: this.official });
       } else {
         // if the action edit a official

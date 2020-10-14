@@ -32,7 +32,7 @@ export class OfficialsService {
   // Update official
   updateOfficial(official: Official): Observable<Official> {
     const id = official._id;
-    return this.httpClient.patch<Official>(`${this.baseUrl}`, `/${id}`);
+    return this.httpClient.patch<Official>(`${this.baseUrl}/${id}`, official);
   }
 
   // Get a single official

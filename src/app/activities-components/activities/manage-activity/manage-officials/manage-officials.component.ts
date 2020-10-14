@@ -100,7 +100,7 @@ export class ManageOfficialsComponent implements OnInit {
   refreshTable() {
     this.officialService.getOfficials(this.id).subscribe(
       (data: Official[]) => {
-        console.log(data);
+        // console.log(data);
         this.officials = data;
         this.dataSource = new MatTableDataSource(this.officials);
       },
@@ -132,7 +132,7 @@ export class ManageOfficialsComponent implements OnInit {
   addOfficialToDB() {
     this.officialService.writeOfficial(this.official).subscribe(
       (data: Official) => {
-        console.log(data);
+        // console.log(data);
         this.refreshTable();
       },
       (error) => {
@@ -145,7 +145,7 @@ export class ManageOfficialsComponent implements OnInit {
   updateOfficial() {
     this.officialService.updateOfficial(this.official).subscribe(
       (data: Official) => {
-        console.log(data);
+        // console.log(data);
         this.refreshTable();
       },
       (error) => {
@@ -163,7 +163,6 @@ export class ManageOfficialsComponent implements OnInit {
       if (obj.event === 'edit') {
         this.official = obj.data;
         this.updateOfficial();
-        this.refreshTable();
       }
     });
   }
@@ -181,7 +180,7 @@ export class ManageOfficialsComponent implements OnInit {
     } else {
       this.officialService.deleteOfficial(this.official).subscribe(
         (data: void) => {
-          console.log(data);
+          // console.log(data);
           this.showConfirmBox = !this.showConfirmBox;
           this.refreshTable();
         },
