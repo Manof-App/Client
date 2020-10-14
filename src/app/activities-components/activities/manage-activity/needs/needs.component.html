@@ -508,7 +508,7 @@
       <div class="form-group">
         <label for="foodDescription">פירוט אוכל:</label>
         <select id="foodDescription" class="custom-select" formControlName="foodDescription">
-          <option value="" disabled>בחר סוג מזון</option>
+          <option value="אין פרטים" disabled>בחר סוג מזון</option>
           <option *ngFor="let item of foodDescription; let dataIndex = index" [ngValue]="dataIndex">
             {{ item }}
           </option>
@@ -520,7 +520,7 @@
       <div class="form-group">
         <label for="detailedIGuideItems">פירוט אביזרי הדרכה:</label>
         <select id="detailedIGuideItems" class="custom-select" formControlName="detailedIGuideItems">
-          <option value="" disabled>בחר סוג</option>
+          <option value="אין פרטים" disabled>בחר סוג</option>
           <option *ngFor="let item of detailedGuidingItems; let dataIndex = index" [ngValue]="dataIndex">
             {{ item }}
           </option>
@@ -532,7 +532,7 @@
       <div class="form-group">
         <label for="detailedClothing">פירוט אביזרי ביגוד:</label>
         <select id="detailedClothing" class="custom-select" formControlName="detailedClothing">
-          <option value="" disabled>בחר סוג</option>
+          <option value="אין פרטים" disabled>בחר סוג</option>
           <option *ngFor="let item of detailedClothingItems; let dataIndex = index" [ngValue]="dataIndex">
             {{ item }}
           </option>

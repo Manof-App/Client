@@ -24,9 +24,10 @@ export class NeedsComponent implements OnInit {
   showServerMessage: boolean;
   actionComplete: boolean;
 
-  foodDescription: string[] = ['עומר לובקו', 'תומר גבעתי', 'צח ברק'];
-  detailedGuidingItems: string[] = ['עומר לובקו', 'תומר גבעתי', 'צח ברק'];
-  detailedClothingItems: string[] = ['עומר לובקו', 'תומר גבעתי', 'צח ברק'];
+  foodDescription: string[] = ['עומר לובקו', 'תומר גבעתי', 'צח ברק', 'אין פרטים'];
+  detailedGuidingItems: string[] = ['עומר לובקו', 'תומר גבעתי', 'צח ברק',  'אין פרטים'];
+  detailedClothingItems: string[] = ['עומר לובקו', 'תומר גבעתי', 'צח ברק',  'אין פרטים'];
+
   // End Of Variables Declarations
 
   // Constructor
@@ -37,37 +38,36 @@ export class NeedsComponent implements OnInit {
     this.id = this.route.snapshot.queryParams.id;
     this.actionComplete = this.showSpinner = this.isEdit = false;
 
+   
     this.initForms();
     this.initObject();
 
     this.needService.getNeed(this.id).subscribe(
       (data: Need) => {
-        this.needForm.controls.isRequiredNotebookGuide.setValue(data.isRequiredNotebookGuide.toString());
+        if (data !== undefined) {
+          this.needForm.controls.isRequiredNotebookGuide.setValue(data.isRequiredNotebookGuide.toString());
+          this.needForm.controls.isRequiredGuideItems.setValue(data.isRequiredGuideItems.toString());
+          this.needForm.controls.isRequiredClothing.setValue(data.isRequiredClothing.toString());
+          this.needForm.controls.isRequiredVehicles.setValue(data.isRequiredVehicles.toString());
+          this.needForm.controls.isRequiredOfficeEquipment.setValue(data.isRequiredOfficeEquipment.toString());
+          this.needForm.controls.isRequiredDepotEquipment.setValue(data.isRequiredDepotEquipment.toString());
+          this.needForm.controls.isRequiredFood.setValue(data.isRequiredFood.toString());
+          this.needForm.controls.isRequiredTransportation.setValue(data.isRequiredTransportation.toString());
+          this.needForm.controls.foodOrderingForm.setValue(data.foodOrderingForm.toString());
+          this.needForm.controls.isRequiredBidingPrice.setValue(data.isRequiredBidingPrice.toString());
+          this.needForm.controls.isRequiredExtraEquipment.setValue(data.isRequiredExtraEquipment.toString());
+          this.needForm.controls.isSleepingArrangements.setValue(data.isSleepingArrangements.toString());
+          this.needForm.controls.foodType.setValue(data.foodType.toString());
 
-        this.needForm.controls.isRequiredGuideItems.setValue(data.isRequiredGuideItems.toString());
-        this.needForm.controls.isRequiredClothing.setValue(data.isRequiredClothing.toString());
-        this.needForm.controls.isRequiredVehicles.setValue(data.isRequiredVehicles.toString());
+          this.needForm.controls.detailedIGuideItems
+          .setValue(this.detailedGuidingItems.findIndex((val) => val === data.detailedIGuideItems));
 
-        this.needForm.controls.isRequiredOfficeEquipment.setValue(data.isRequiredOfficeEquipment.toString());
-        this.needForm.controls.isRequiredDepotEquipment.setValue(data.isRequiredDepotEquipment.toString());
-        this.needForm.controls.isRequiredFood.setValue(data.isRequiredFood.toString());
-
-        this.needForm.controls.isRequiredTransportation.setValue(data.isRequiredTransportation.toString());
-        this.needForm.controls.foodOrderingForm.setValue(data.foodOrderingForm.toString());
-        this.needForm.controls.isRequiredBidingPrice.setValue(data.isRequiredBidingPrice.toString());
-
-        this.needForm.controls.isRequiredExtraEquipment.setValue(data.isRequiredExtraEquipment.toString());
-        this.needForm.controls.isSleepingArrangements.setValue(data.isSleepingArrangements.toString());
-        this.needForm.controls.foodType.setValue(data.foodType.toString());
-
-        this.needForm.controls.detailedIGuideItems.setValue(this.detailedGuidingItems.findIndex((val) => val === data.detailedIGuideItems));
-
-        this.needForm.controls.foodDescription.setValue(this.foodDescription.findIndex((val) => val === data.foodDescription));
-        this.needForm.controls.detailedClothing.setValue(this.detailedClothingItems.findIndex((val) => val === data.detailedClothing));
-
-        this.needForm.controls.isSitesAvailable.setValue(data.isSitesAvailable.toString());
-        this.needForm.controls.sleepingLocation.setValue(data.sleepingLocation);
-        this.isEdit = true;
+          this.needForm.controls.foodDescription.setValue(this.foodDescription.findIndex((val) => val === data.foodDescription));
+          this.needForm.controls.detailedClothing.setValue(this.detailedClothingItems.findIndex((val) => val === data.detailedClothing));
+          this.needForm.controls.isSitesAvailable.setValue(data.isSitesAvailable.toString());
+          this.needForm.controls.sleepingLocation.setValue(data.sleepingLocation);
+          this.isEdit = true;
+        }
       },
       (error) => {
         // console.log(error);
@@ -87,9 +87,9 @@ export class NeedsComponent implements OnInit {
       isRequiredOfficeEquipment: [false],
       isRequiredDepotEquipment: [false],
       isRequiredFood: [false],
-      foodOrderingForm: [''],
+      foodOrderingForm: [false],
       foodType: [false],
-      foodDescription: '',
+      foodDescription: [''],
       isRequiredTransportation: [false],
       isSitesAvailable: [false],
       isSleepingArrangements: [false],
@@ -134,9 +134,10 @@ export class NeedsComponent implements OnInit {
 
       this.need.isRequiredNotebookGuide = value.isRequiredNotebookGuide;
       this.need.isRequiredGuideItems = value.isRequiredGuideItems;
-      this.need.detailedIGuideItems = this.detailedGuidingItems[value.detailedIGuideItems];
+      this.need.detailedIGuideItems = this.utilityFunction(this.detailedGuidingItems[value.detailedIGuideItems]);
       this.need.isRequiredClothing = value.isRequiredClothing;
-      this.need.detailedClothing = this.detailedClothingItems[value.detailedClothing];
+
+      this.need.detailedClothing = this.utilityFunction(this.detailedClothingItems[value.detailedClothing]);
       this.need.isRequiredVehicles = value.isRequiredVehicles;
 
       this.need.isRequiredOfficeEquipment = value.isRequiredOfficeEquipment;
@@ -144,7 +145,8 @@ export class NeedsComponent implements OnInit {
       this.need.isRequiredFood = value.isRequiredFood;
       this.need.foodOrderingForm = value.foodOrderingForm;
       this.need.foodType = value.foodType;
-      this.need.foodDescription = this.foodDescription[value.foodDescription];
+
+      this.need.foodDescription = this.utilityFunction(this.foodDescription[value.foodDescription]);
 
       this.need.isRequiredTransportation = value.isRequiredTransportation;
       this.need.isSitesAvailable = value.isSitesAvailable;
@@ -154,7 +156,11 @@ export class NeedsComponent implements OnInit {
       this.need.isRequiredExtraEquipment = value.isRequiredExtraEquipment;
       this.need.sleepingLocation = value.sleepingLocation;
 
+      console.log('check');
+      console.log(this.isEdit);
+
       if (!this.isEdit) {
+        console.log(this.need);
         this.needService.createNeed(this.need).subscribe(
           (data: Need) => {
             console.log(data);
@@ -186,5 +192,11 @@ export class NeedsComponent implements OnInit {
     this.responseType = resType;
     this.message = msg;
     this.showServerMessage = !this.showServerMessage;
+
+  }
+
+  utilityFunction(value: any) {
+    return value === undefined ? 'אין פרטים' : value;
   }
 }
+
