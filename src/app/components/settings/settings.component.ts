@@ -24,11 +24,11 @@ export class SettingsComponent implements OnInit {
   constructor(private userService: UsersService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isAdmin = this.isUpdateUsers = false;
+    this.isAdmin = this.isUpdateUsers = this.isUpdateActivities = false;
 
     this.userService.getUser().subscribe(
       (data: User) => {
-        // console.log(data)
+        // console.log(data);
         this.user = data;
         this.connectedUser = this.user.email;
 
@@ -44,14 +44,14 @@ export class SettingsComponent implements OnInit {
 
   showUsers() {
     if (this.isUpdateActivities) {
-      this.isUpdateActivities = false;
+      this.isUpdateActivities = !this.isUpdateActivities;
     }
     this.isUpdateUsers = !this.isUpdateUsers;
   }
 
   showActivities() {
     if (this.isUpdateUsers) {
-      this.isUpdateUsers = false;
+      this.isUpdateUsers = !this.isUpdateUsers;
     }
     this.isUpdateActivities = !this.isUpdateActivities;
   }

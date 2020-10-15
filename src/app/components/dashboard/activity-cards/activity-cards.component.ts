@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { Activity } from '../../../models/Activity';
 
 import { ActivitiesService } from '../../../services/activities/activities.service';
@@ -98,6 +98,8 @@ export class ActivityCardsComponent implements OnInit {
       this.isShow = !this.isShow;
       this.hasNext = !this.hasNext;
     }
+    console.log('show: ' + this.isShow);
+    console.log('next: ' + this.hasNext);
   }
 
   prevPage() {
@@ -111,6 +113,8 @@ export class ActivityCardsComponent implements OnInit {
       this.isShow = !this.isShow;
       this.hasPrev = !this.hasPrev;
     }
+    console.log('show: ' + this.isShow);
+    console.log('prev: ' + this.hasPrev);
   }
 
   utilityFunction(key: string) {

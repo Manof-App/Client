@@ -3,7 +3,7 @@ import { AuthService } from '../../services/authorization/authService/auth.servi
 
 import { User } from '../../models/User';
 import { UsersService } from '../../services/users/users.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -24,9 +24,9 @@ export class NavbarComponent implements OnInit {
   responseType: string;
   showServerMessage: boolean;
 
-  content: string = 'האם ברצונך להתנתק?';
+  content = 'האם ברצונך להתנתק?';
 
-  constructor(private authService: AuthService, private userService: UsersService, private router: Router) {}
+  constructor(private authService: AuthService, private userService: UsersService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.isMenuCollapsed = true;
@@ -40,28 +40,8 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  onLogoutClick() {
+  logout() {
     this.showConfirmBox = !this.showConfirmBox;
-  }
-
-  isAdmin() {
-    this.showServerMessage = false;
-
-    this.userService.getUser().subscribe(
-      (data: User) => {
-        console.log(data);
-        this.user = data;
-        if (this.user.role === 'מנהל מפעל') {
-          this.displayServerMessage('error', 'למנהל מפעל אין גישה לדף זה');
-        } else {
-          this.router.navigate(['/settings']);
-        }
-      },
-      (error) => {
-        //console.log(error)
-        this.displayServerMessage('error', 'משהו השתבש..');
-      }
-    );
   }
 
   handleUserAnswer(answer) {
@@ -93,18 +73,4 @@ export class NavbarComponent implements OnInit {
     this.message = msg;
     this.showServerMessage = !this.showServerMessage;
   }
-
-  // handleUserAnswer(answer) {
-  //   if (answer) {
-  //     this.showConfirmBox = !this.showConfirmBox;
-  //     this.showSpinner = !this.showSpinner;
-  //     setTimeout(() => {
-  //       this.authService.logout();
-  //       this.router.navigate(['/']);
-  //       this.showSpinner = !this.showSpinner;
-  //     }, 3000);
-  //   } else {
-  //     this.showConfirmBox = !this.showConfirmBox;
-  //   }
-  // }
 }

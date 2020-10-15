@@ -71,8 +71,6 @@ export class UsersComponent implements OnInit {
     this.user.address = value.address;
     this.user.phone = value.phone;
 
-    console.log(this.user.address);
-
     this.userService
       .updateUser({
         firstName: this.user.firstName,

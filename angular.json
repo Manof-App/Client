@@ -15,21 +15,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "lodash",
-              "firebase",
               "@angular/common/locales/fr",
               "lodash/dropRight",
-              "@firebase/app",
-              "firebase/app",
-              "@firebase/database",
-              "@firebase/firestore",
-              "@firebase/functions",
-              "@firebase/performance",
-              "@firebase/remote-config",
-              "angularfire2",
-              "angularfire2/firestore",
-              "angularfire2/auth",
-              "angular-calendar/date-adapters/date-fns",
-              "angular2-flash-messages",
               "@mattlewis92/dom-autoscroller"
             ],
             "outputPath": "dist/manof-app",

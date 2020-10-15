@@ -3,6 +3,12 @@
   [message]="message"
   [responseType]="responseType"
 ></app-pop-up-message>
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+<app-confirm-box
+  [data]="content"
+  *ngIf="showConfirmBox"
+  (userAnswer)="handleUserAnswer($event)"
+></app-confirm-box>
 
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
@@ -32,7 +38,7 @@
           ></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" >
           <a
             routerLink="/users"
             class="nav-link"
@@ -44,7 +50,7 @@
 
         <li class="nav-item">
           <a
-            (click)="isAdmin()"
+            routerLink="/settings"
             class="nav-link"
             [routerLinkActive]="['active']"
           >
@@ -53,7 +59,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn" (click)="onLogoutClick()"
+          <a class="nav-link" *ngIf="isLoggedIn" (click)="logout()"
             >התנתק <i class="fas fa-bolt"></i>
           </a>
         </li>
@@ -61,9 +67,4 @@
     </div>
   </div>
 </nav>
-<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
-<app-confirm-box
-  [data]="content"
-  *ngIf="showConfirmBox"
-  (userAnswer)="handleUserAnswer($event)"
-></app-confirm-box>
+

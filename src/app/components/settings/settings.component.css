@@ -101,3 +101,8 @@ div.inner-wrap.profile h3 {
   top: -50px;
   transition: none;
 }
+
+button.btn.btn-primary {
+  color: #06cb77;
+  background-color: #fff !important;
+}
