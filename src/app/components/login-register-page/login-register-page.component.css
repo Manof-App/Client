@@ -203,37 +203,6 @@ input {
   color: #f4f4f4;
 }
 
-.slide {
-  position: fixed;
-  top: -100px;
-  z-index: 1000;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  transition: top 2s;
-}
-
-.slide p {
-  margin: 0;
-  text-align: center;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  transition: top 1s;
-}
-
-.fade-out {
-  -webkit-transition: opacity 3s ease-in-out;
-  -moz-transition: opacity 3s ease-in-out;
-  -ms-transition: opacity 3s ease-in-out;
-  -o-transition: opacity 3s ease-in-out;
-  opacity: 1;
-}
-
-.slide.toggle-slide {
-  top: 20px;
-}
-
 .section-active {
   display: block;
 }
@@ -280,6 +249,10 @@ input {
 
 @media screen and (max-width: 599px) {
   .forms-wrapper {
-    width: 75%;
+    width: 80%;
+  }
+
+  .input-group-append {
+    left: 5%;
   }
 }

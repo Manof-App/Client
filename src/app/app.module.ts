@@ -12,7 +12,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { SharedModule } from './shared/shared.module';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -25,7 +24,6 @@ import { TokenInterceptorService } from './services/authorization/token-intercep
 import { HttpInterceptorService } from './services/authorization/http-interceptor/http-interceptor.service';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AppComponent } from './app.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -77,11 +75,7 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
     ReactiveFormsModule,
     LazyLoadImageModule,
     BrowserAnimationsModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    FlashMessagesModule.forRoot(),
+
   ],
   exports: [],
   bootstrap: [AppComponent],
