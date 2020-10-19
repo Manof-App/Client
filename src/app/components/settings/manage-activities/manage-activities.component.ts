@@ -21,7 +21,7 @@ export class ManageActivitiesComponent implements OnInit {
   showServerMessage: boolean;
   showConfirmBox: boolean;
 
-  constructor(private activitiesService: ActivitiesService) {}
+  constructor(private activitiesService: ActivitiesService) { }
 
   ngOnInit(): void {
     this.initClassVariables();
@@ -42,7 +42,7 @@ export class ManageActivitiesComponent implements OnInit {
         if (this.activities.length === 0) {
           this.displayServerMessage('error', 'לא קיימות פעילויות');
         }
-        //console.log(data);
+        // console.log(data);
       },
       (error) => {
         console.log(error);

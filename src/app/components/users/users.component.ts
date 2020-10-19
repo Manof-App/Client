@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   responseType: string;
   showServerMessage: boolean;
 
-  constructor(private formBuilder: FormBuilder, private userService: UsersService) {}
+  constructor(private formBuilder: FormBuilder, private userService: UsersService) { }
 
   ngOnInit(): void {
     this.showForm = false;
@@ -62,6 +62,7 @@ export class UsersComponent implements OnInit {
   }
 
   submitUserForm({ value }) {
+    this.showForm = false;
     this.showServerMessage = false;
 
     this.user.firstName = value.firstName;

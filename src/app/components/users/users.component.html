@@ -2,7 +2,8 @@
 
 <div class="wrapper">
   <div class="inner">
-    <div class="left">
+
+    <div class="left" [ngClass]="{ 'form-slide-down': showForm === true }" >
       <div *ngIf="!showForm" class="user">
         <img src="https://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="boy" width="100" />
         <h4>{{ user?.firstName }} {{ user?.lastName }}</h4>
@@ -14,61 +15,32 @@
       <form *ngIf="showForm" [formGroup]="userForm" (submit)="submitUserForm(userForm)">
         <div class="form-group">
           <label for="firstName">שם פרטי</label>
-          <input
-            id="firstName"
-            class="form-control"
-            type="text"
-            ngbTooltip="לפחות 2 תווים"
-            [openDelay]="300"
-            [closeDelay]="300"
-            name="firstName"
-            placeholder="שם פרטי"
-            formControlName="firstName"
-            pattern=".[\u0590-\u05FF]{1}.*"
-            [ngClass]="{
+          <input id="firstName" class="form-control" type="text" ngbTooltip="לפחות 2 תווים" [openDelay]="300"
+            [closeDelay]="300" name="firstName" placeholder="שם פרטי" formControlName="firstName"
+            pattern=".[\u0590-\u05FF]{1}.*" [ngClass]="{
               'is-invalid': userForm.controls.firstName.dirty && userForm.controls.firstName.errors
-            }"
-          />
+            }" />
           <i class="fas fa-user-friends"></i>
           <span [hidden]="!userForm.controls.firstName.errors?.pattern" class="info"> שם לא תקין </span>
         </div>
 
         <div class="form-group">
           <label for="lastName">שם משפחה</label>
-          <input
-            id="lastName"
-            class="form-control"
-            type="text"
-            ngbTooltip="לפחות 2 תווים וללא מספרים"
-            [openDelay]="300"
-            [closeDelay]="300"
-            name="lastName"
-            placeholder="שם פרטי"
-            formControlName="lastName"
-            pattern=".[\u0590-\u05FF]{1}.*"
-            [ngClass]="{
+          <input id="lastName" class="form-control" type="text" ngbTooltip="לפחות 2 תווים וללא מספרים" [openDelay]="300"
+            [closeDelay]="300" name="lastName" placeholder="שם פרטי" formControlName="lastName"
+            pattern=".[\u0590-\u05FF]{1}.*" [ngClass]="{
               'is-invalid': userForm.controls.lastName.dirty && userForm.controls.lastName.errors
-            }"
-          />
+            }" />
           <i class="fas fa-user-friends"></i>
           <span [hidden]="!userForm.controls.lastName.errors?.pattern" class="info"> שם לא תקין </span>
         </div>
 
         <div class="form-group">
           <label for="email">אימייל</label>
-          <input
-            class="form-control"
-            type="email"
-            name="email"
-            ngbTooltip="name@domain.com"
-            [openDelay]="300"
-            [closeDelay]="300"
-            placeholder="אימייל"
-            formControlName="email"
-            [ngClass]="{
+          <input class="form-control" type="email" name="email" ngbTooltip="name@domain.com" [openDelay]="300"
+            [closeDelay]="300" placeholder="אימייל" formControlName="email" [ngClass]="{
               'is-invalid': userForm.controls.email.dirty && userForm.controls.email.errors
-            }"
-          />
+            }" />
 
           <i class="fas fa-at"></i>
           <span [hidden]="!userForm.controls.email.errors?.email" class="info"> אימייל לא חוקי </span>
@@ -76,51 +48,26 @@
 
         <div class="form-group">
           <label for="dateOfBirth">תאריך לידה</label>
-          <input
-            id="dateOfBirth"
-            class="form-control"
-            placeholder="dd-mm-yyyy"
-            ngbDatepicker
-            #dateOfBirth="ngbDatepicker"
-            formControlName="dateOfBirth"
-            readonly
-          />
+          <input id="dateOfBirth" class="form-control" placeholder="dd-mm-yyyy" ngbDatepicker
+            #dateOfBirth="ngbDatepicker" formControlName="dateOfBirth" readonly />
           <i class="fa fa-calendar fa-lg icon" (click)="dateOfBirth.toggle()"></i>
         </div>
 
         <div class="form-group">
           <label for="address">כתובת מגורים</label>
-          <input
-            id="address"
-            class="form-control"
-            type="address"
-            name="address"
-            ngbTooltip="רשום כתובת מגורים  - ישוב, רחוב ומספר בית"
-            [openDelay]="300"
-            [closeDelay]="300"
-            placeholder="כתובת מגורים"
-            formControlName="address"
-          />
+          <input id="address" class="form-control" type="address" name="address"
+            ngbTooltip="רשום כתובת מגורים  - ישוב, רחוב ומספר בית" [openDelay]="300" [closeDelay]="300"
+            placeholder="כתובת מגורים" formControlName="address" />
           <i class="fas fa-map-marker-alt"></i>
         </div>
 
         <div class="form-group">
           <label for="phone">טלפון</label>
-          <input
-            id="address"
-            class="form-control"
-            type="phone"
-            name="phone"
-            pattern="^[0][5][0|2|3|4|5|9]{1}[-]{0,1}[0-9]{3}[-]{0,1}[0-9]{4}"
-            ngbTooltip="05X-XXX-XXXX"
-            [openDelay]="300"
-            [closeDelay]="300"
-            placeholder="טלפון"
-            formControlName="phone"
-            [ngClass]="{
+          <input id="address" class="form-control" type="phone" name="phone"
+            pattern="^[0][5][0|2|3|4|5|9]{1}[-]{0,1}[0-9]{3}[-]{0,1}[0-9]{4}" ngbTooltip="05X-XXX-XXXX"
+            [openDelay]="300" [closeDelay]="300" placeholder="טלפון" formControlName="phone" [ngClass]="{
               'is-invalid': userForm.controls.phone.dirty && userForm.controls.phone.errors
-            }"
-          />
+            }" />
           <i class="fas fa-phone"></i>
           <span [hidden]="!userForm.controls.phone.errors?.pattern" class="info">מספר טלפון לא תקין </span>
         </div>
@@ -177,5 +124,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>

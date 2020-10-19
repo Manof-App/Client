@@ -1,8 +1,8 @@
 <app-confirm-box [data]="content" *ngIf="showConfirmBox" (userAnswer)="handleUserAnswer($event)"></app-confirm-box>
 <app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
-<table class="table">
-  <thead class="thead-dark">
+<table class="table-striped table-condensed">
+  <!-- <thead class="thead-dark">
     <tr>
       <th scope="col">מספר משימה</th>
       <th scope="col">שם עובד</th>
@@ -10,14 +10,22 @@
       <th scope="col">תפקיד</th>
       <th scope="col">מחק משתמש</th>
     </tr>
-  </thead>
+  </thead> -->
   <tbody *ngFor="let user of users; index as i">
     <tr>
-      <td scope="row">{{ i + 1 }}.</td>
-      <td>{{ user?.lastName }} {{ user?.firstName }}</td>
+      <div class="form-group">
+        <td scope="row">{{ i + 1 }}.</td>
+      </div>
+      <div class="form-group">
+        <td>{{ user?.lastName }} {{ user?.firstName }}</td>
+      </div>
+    
       <td style="vertical-align: center !important">
-        {{ user?.email }}
+       <div class="form-group">
+         {{ user?.email }}
+       </div>
       </td>
+
       <td>
         <div class="form-group">
           <select value="{{ user.role }}" class="custom-select" (change)="myChange($event, i)">
@@ -27,11 +35,13 @@
           </select>
         </div>
       </td>
+
       <td>
         <div class="form-group">
           <i class="far fa-trash-alt fa-2x" (click)="deleteUser($event, i)"></i>
         </div>
       </td>
+
     </tr>
   </tbody>
 </table>

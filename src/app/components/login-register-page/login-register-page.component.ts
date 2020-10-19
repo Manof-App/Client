@@ -29,7 +29,7 @@ export class LoginRegisterPageComponent implements OnInit {
   // End Of Variables Declarations
 
   // Constructor
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) { }
 
   // Component Life Cycle On Initialization
   ngOnInit(): void {
@@ -70,18 +70,19 @@ export class LoginRegisterPageComponent implements OnInit {
       this.user.email = value.email;
       this.user.password = value.password;
 
-      this.authService.login(this.user).subscribe(
-        (data) => {
-          // console.log(data)
-          this.authService.addToken(data);
-          this.showSpinner = !this.showSpinner;
-          this.router.navigate(['/dashboard']);
-        },
-        (error) => {
-          // console.log(error)
-          this.displayServerMessage('error', 'משהו השתבש, נסה שוב בבקשה');
-        }
-      );
+      this.authService.login(this.user).subscribe
+        (
+          (data) => {
+            // console.log(data)
+            this.authService.addToken(data);
+            this.showSpinner = !this.showSpinner;
+            this.router.navigate(['/dashboard']);
+          },
+          (error) => {
+            // console.log(error)
+            this.displayServerMessage('error', 'משהו השתבש, נסה שוב בבקשה');
+          }
+        );
     }, 3000);
   }
 

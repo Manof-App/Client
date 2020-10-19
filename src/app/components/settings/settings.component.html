@@ -4,7 +4,8 @@
 <div class="wrapper">
   <div class="inner">
     <div class="row">
-      <div class="wrap a col-4">
+
+      <div class="wrap a col-xl-4 col-xs-12">
         <div class="inner-wrap profile">
           <i class="fas fa-user-circle fa-5x"></i>
           <h3 class="mt-5">{{ user?.firstName }} {{ user?.lastName }}</h3>
@@ -12,7 +13,7 @@
         </div>
       </div>
 
-      <div class="wrap b col-4">
+      <div class="wrap b col-xl-4 col-xs-12">
         <div class="inner-wrap security-info">
           <h3>ניהול משתמשים</h3>
           <i class="fas fa-user-edit fa-3x"></i>
@@ -21,12 +22,12 @@
         </div>
       </div>
 
-      <div class="wrap c col-4">
+      <div class="wrap c col-xl-4 col-xs-12">
         <div class="inner-wrap devices">
           <h3>ניהול פעילויות</h3>
           <i class="fas fa-tasks fa-3x"></i>
           <p>נהל או אשר פעילויות</p>
-          <button class="btn btn-primary mb-2" (click)="showActivities()" [disabled]="!isAdmin" >נהל פעילויות</button>
+          <button class="btn btn-primary mb-2" (click)="showActivities()" [disabled]="!isAdmin">נהל פעילויות</button>
         </div>
       </div>
     </div>

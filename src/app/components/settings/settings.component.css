@@ -41,7 +41,7 @@ div.wrapper {
   position: fixed;
   background-color: #f8f7f7f7;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 div.inner {
@@ -105,4 +105,13 @@ div.inner-wrap.profile h3 {
 button.btn.btn-primary {
   color: #06cb77;
   background-color: #fff !important;
+}
+
+@media only screen and (max-width: 599px) {
+  div.wrapper {
+    position: relative;
+  }
+  .col-xs-12 {
+    height: 250px;
+  }
 }

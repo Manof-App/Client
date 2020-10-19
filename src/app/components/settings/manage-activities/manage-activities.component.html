@@ -1,46 +1,39 @@
 <app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
 <div class="activity row mb-4 mt-2" *ngFor="let activity of activities">
-  <div class="name col-2">
-    <label>שם פעילות</label>
+  <div class="name col-xl-2 col-xs-12 mt-3">
+    <label> שם פעילות </label>
     <p>{{ activity.activityName }}</p>
   </div>
 
-  <div class="id col-2">
-    <label>מספר פעילות</label>
+  <div class="id col-xl-2 col-xs-12 mt-3">
+    <label> מספר פעילות </label>
     <p>{{ activity._id }}</p>
   </div>
 
-  <div class="status col-2">
+  <div class="status col-xl-2 col-xs-12 mt-3">
     <label> סטטוס פעילות </label>
-    <button
-      class="btn"
-      [ngClass]="{
+    <button class="btn" [ngClass]="{
         'btn-danger': activity.status === 'not_active',
         'btn-success': activity.status === 'active'
-      }"
-      (click)="changeStatusState(activity)"
-    >
+      }" (click)="changeStatusState(activity)">
       {{ activity.status === 'active' ? 'פעילה' : 'לא פעילה' }}
     </button>
   </div>
 
-  <div class="approved col-2">
+  <div class="approved col-xl-2 col-xs-12 mt-3">
     <label> אישור פעילות </label>
-    <button
-      class="btn"
-      [ngClass]="{
+    <button class="btn" [ngClass]="{
         'btn-success': activity.isApproved === true,
         'btn-danger': activity.isApproved === false
-      }"
-      (click)="changeApprovalState(activity)"
-    >
+      }" (click)="changeApprovalState(activity)">
       {{ activity.isApproved === true ? 'מאושרת' : 'לא מאושרת' }}
     </button>
   </div>
 
-  <div class="activity-details col-2">
+  <div class="activity-details col-xl-2 col-xs-12 mt-3">
     <label> פרטי פעילות </label>
-    <button class="btn btn-success" [routerLink]="['/activity-details']" [queryParams]="{ id: activity._id }">מעבר לפעילות</button>
+    <button class="btn btn-success mb-3" [routerLink]="['/activity-details']" [queryParams]="{ id: activity._id }">מעבר
+      לפעילות</button>
   </div>
 </div>

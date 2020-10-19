@@ -59,3 +59,51 @@ table .form-group .far.fa-trash-alt {
 table .form-group .far.fa-trash-alt:hover {
     color: #fff;
 }
+
+
+
+@media only screen and (max-width: 599px) {
+    :host {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    table {
+        width: 100% !important;
+    }
+
+    table tbody tr {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 1px;
+        margin-bottom: 16px;
+        border-top: 2px solid #ccc;
+    }
+
+   table tbody tr td:nth-child(n) {
+      flex: 0 0 100% !important;
+      width: 100% !important;
+      text-align: right;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    table tbody tr div.form-group {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+    }
+
+    table td:nth-child(5) {
+        background: #333;
+    }
+
+    table tbody tr td:nth-child(5) i.fa-trash-alt {
+        color: #fff;
+    }
+
+  }
