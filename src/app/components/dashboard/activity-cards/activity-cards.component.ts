@@ -1,7 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit,  } from '@angular/core';
-import { Activity } from '../../../models/Activity';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
+import { Activity } from '../../../models/Activity';
 import { ActivitiesService } from '../../../services/activities/activities.service';
 
 @Component({
@@ -16,6 +17,8 @@ export class ActivityCardsComponent implements OnInit {
   hasNext: boolean;
   hasPrev: boolean;
   isShow: boolean;
+
+  isMobile: boolean;
 
   keyFinder: any = {
     startDate: 'תאריך התחלה',
@@ -43,13 +46,17 @@ export class ActivityCardsComponent implements OnInit {
     limit: 2,
   };
 
-  constructor(private activitiesService: ActivitiesService) {}
+  constructor(private activitiesService: ActivitiesService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.isShow = false;
     this.hasNext = this.hasPrev = true;
     this.activities = [];
     this.showResults();
+
+    this.breakpointObserver.observe(['(max-width: 599px)']).subscribe((result) => {
+      this.isMobile = result.matches;
+    });
   }
 
   showResults() {

@@ -140,3 +140,26 @@ button.btn.btn-primary {
     text-decoration-color: #333;
     color: #06cb77;
 }
+
+@media only screen and (max-width: 599px) {
+
+    div.card-header {
+      display: flex;
+      flex-direction: column-reverse;
+      font-size: 16px;
+    }
+
+    div.card-header p.card-text, div.card-header span {
+        font-size: 16px;
+    }
+
+   div.row strong,
+   div.row p.card-text {
+     font-size: 15px;
+   }
+
+   button.btn.btn-primary {
+       width: 100%;
+       font-size: 16px;
+   }
+  }

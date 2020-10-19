@@ -28,6 +28,7 @@
         *ngFor="let activity of activities; let activitiesCount = count; index as i"
         [style.z-index]="activitiesCount - i"
         [style.right.px]="250 * i + 200"
+        [style.top.px]="isMobile === true ? 10 * i + 50 : 0 * i + 0"
       >
         <header class="card-header">
           <h2>{{ activity.activityName }}</h2>

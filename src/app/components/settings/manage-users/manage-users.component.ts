@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { User } from '../../../models/User';
 import { UsersService } from '../../../services/users/users.service';
+
 
 @Component({
   selector: 'app-manage-users',
@@ -17,11 +19,13 @@ export class ManageUsersComponent implements OnInit {
   content = 'האם אתה בטוח שאתה רוצה למחוק?';
   showConfirmBox = false;
 
+  isMobile: boolean;
+
   message: string;
   responseType: string;
   showServerMessage: boolean;
 
-  constructor(private userService: UsersService) {}
+  constructor(private userService: UsersService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.initUser();
@@ -29,9 +33,14 @@ export class ManageUsersComponent implements OnInit {
   }
 
   initUser() {
+
     this.user = {
       role: '',
     };
+
+    this.breakpointObserver.observe(['(max-width: 599px)']).subscribe((result) => {
+      this.isMobile = result.matches;
+    });
   }
 
   getUsers() {
@@ -107,10 +116,10 @@ export class ManageUsersComponent implements OnInit {
     }
   }
 
-    // Handle Server Message In Case Of Error Or Success
-    displayServerMessage(resType: string, msg: string) {
-      this.responseType = resType;
-      this.message = msg;
-      this.showServerMessage = !this.showServerMessage;
-    }
+  // Handle Server Message In Case Of Error Or Success
+  displayServerMessage(resType: string, msg: string) {
+    this.responseType = resType;
+    this.message = msg;
+    this.showServerMessage = !this.showServerMessage;
+  }
 }

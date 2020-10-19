@@ -110,3 +110,10 @@
     font-size: 16px;
   }
 }
+
+@media screen and (max-width: 599px) {
+  .showcase .showcase-content .options button {
+    width: 48% !important;
+    height: 50%;
+  } 
+}

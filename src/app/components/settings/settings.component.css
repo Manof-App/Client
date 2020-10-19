@@ -39,7 +39,7 @@ a:hover {
 
 div.wrapper {
   position: fixed;
-  background-color: #f8f7f7f7;
+  background-color: #fff;
   width: 100%;
   min-height: 100vh;
 }

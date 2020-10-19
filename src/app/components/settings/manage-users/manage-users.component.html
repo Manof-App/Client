@@ -2,7 +2,7 @@
 <app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
 <table class="table-striped table-condensed">
-  <!-- <thead class="thead-dark">
+  <thead class="thead-dark" [ngClass]="{'show': isMobile === true}">
     <tr>
       <th scope="col">מספר משימה</th>
       <th scope="col">שם עובד</th>
@@ -10,15 +10,21 @@
       <th scope="col">תפקיד</th>
       <th scope="col">מחק משתמש</th>
     </tr>
-  </thead> -->
+  </thead>
   <tbody *ngFor="let user of users; index as i">
     <tr>
-      <div class="form-group">
-        <td scope="row">{{ i + 1 }}.</td>
-      </div>
-      <div class="form-group">
-        <td>{{ user?.lastName }} {{ user?.firstName }}</td>
-      </div>
+
+      <td scope="row">
+        <div class="form-group">
+          {{ i + 1 }}.
+        </div>
+      </td>
+   
+      <td>
+        <div class="form-group">
+          {{ user?.lastName }} {{ user?.firstName }}
+        </div>
+      </td>
     
       <td style="vertical-align: center !important">
        <div class="form-group">

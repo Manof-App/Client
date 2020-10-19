@@ -20,51 +20,51 @@
               </h4>
 
               <div class="row">
-                <p class="card-text col-4"><strong>מנהל הפעילות: </strong> {{ activity?.manager }}</p>
-                <p class="card-text col-5">
+                <p class="card-text col-xl-4 col-xs-12"><strong>מנהל הפעילות: </strong> {{ activity?.manager }}</p>
+                <p class="card-text col-xl-5 col-xs-12">
                   <strong>תאריך התחלה : </strong>
                   {{ activity?.startDate | date: 'dd/MM/yyyy' }}
                 </p>
-                <p class="card-text col-3">
+                <p class="card-text col-xl-3 col-xs-12">
                   <strong>תאריך סיום : </strong>
                   {{ activity?.endDate | date: 'dd/MM/yyyy' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4 col-xs-12">
                   <strong>קהל יעד חניכים : </strong> כיתות
                   {{ activity?.targetedStudents }}
                 </p>
-                <p class="card-text col-5">
+                <p class="card-text col-xl-5 col-xs-12">
                   <strong>קהל יעד מדריכים : </strong> כיתות
                   {{ activity?.targetedGuides }}
                 </p>
-                <p class="card-text col-3">
+                <p class="card-text col-xl-3 col-xs-12">
                   <strong>תאריך הכנת צוות : </strong>
                   {{ activity?.crewPreparationDate | date: 'dd/MM/yyyy' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4 col-xs-12">
                   <strong>אופי המפעל : </strong>
                   {{ activity?.type }}
                 </p>
-                <p class="card-text col-5">
+                <p class="card-text col-xl-5 col-xs-12">
                   <strong>תאריכי הכנה (בני נוער ו/או בוגרים) : </strong>
                   {{ activity?.preparationsDate | date: 'dd/MM/yyyy' }}
                 </p>
-                <p class="card-text col-3">
+                <p class="card-text col-xl-3 col-xs-12">
                   <strong>פירוט קהל היעד בהכנות : </strong>
                   {{ activity?.targetAudienceDetails }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4 col-xs-12">
                   <strong>תאריך סיכום המפעל : </strong>
                   {{ activity?.summarizeDate | date: 'dd/MM/yyyy' }}
                 </p>
-                <p class="card-text col-5">
+                <p class="card-text col-xl-5 col-xs-12">
                   <strong>נקבע ביומן המחלקתי : </strong>
                   {{ activity?.isScheduled === true ? 'כן' : 'לא' }}
                 </p>
-                <p class="card-text col-3">
+                <p class="card-text col-xl-3 col-xs-12">
                   <strong>מיקום הפעילות : </strong>
                   {{ activity?.mapLocation.city }}
                 </p>
@@ -86,25 +86,25 @@
             <div class="card-body" *ngFor="let official of officials; index as i">
               <h5 class="card-title"></h5>
               <div class="row">
-                <p class="card-text col-4"><strong>תפקיד : </strong> {{ official.job }}</p>
-                <p class="card-text col-5"><strong>הגדרת תפקיד : </strong> {{ official.jobTitle }}</p>
+                <p class="card-text col-xl-4 col-xs-12"><strong>תפקיד : </strong> {{ official.job }}</p>
+                <p class="card-text col-xl-4 col-xs-12"><strong>הגדרת תפקיד : </strong> {{ official.jobTitle }}</p>
 
-                <p class="card-text col-3">
+                <p class="card-text col-xl-3 col-xs-12">
                   <strong>מועדים נדרשים : </strong>
                   {{ official.requiredDate | date: 'dd/MM/yyyy' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4 col-xs-12">
                   <strong>שעות נוספות : </strong>
                   {{ official.extraHoursNeeded }}
                 </p>
 
-                <p class="card-text col-5">
+                <p class="card-text col-xl-5 col-xs-12">
                   <strong>אישור מנהל משרד : </strong>
                   {{ official.managerApproval === true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-3">
+                <p class="card-text col-xl-5 col-xs-12">
                   <strong>אישור מנהל מחלקת הנוער : </strong>
                   {{ official.managerDepartmentApproval === true ? 'כן' : 'לא' }}
                 </p>
@@ -139,92 +139,92 @@
             <div class="card-body" *ngIf="!showNeeds">
               <h5 class="card-title"></h5>
               <div class="row">
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>חוברת הדרכה : </strong>
                   {{ needs?.isRequiredNotebookGuide == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>אביזרי הדרכה : </strong>
                   {{ needs?.isRequiredGuideItems == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>ביגוד : </strong>
                   {{ needs?.isRequiredClothing == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> צורך ברכבים : </strong>
                   {{ needs?.isRequiredVehicles == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>ציוד משרדי : </strong>
                   {{ needs?.isRequiredOfficeEquipment == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> ציוד מחסן : </strong>
                   {{ needs?.isRequiredDepotEquipment == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>מזון : </strong>
                   {{ needs?.isRequiredFood == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>סוג מזון : </strong>
                   {{ needs?.foodType == true ? 'נייד' : 'נייח' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>צורך בטופס הזמנת כיבוד (פעילות יומית) :</strong>
                   {{ needs?.foodOrderingForm == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> צורך בהסעות :</strong>
                   {{ needs?.isRequiredTransportation == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong>אתרים / סדנאות :</strong>
                   {{ needs?.isSitesAvailable == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> צורך בלינה : </strong>
                   {{ needs?.isSleepingArrangements == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> צורך בהצעת מחיר : </strong>
                   {{ needs?.isRequiredBidingPrice == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> ציוד נוסף : </strong>
                   {{ needs?.isRequiredExtraEquipment == true ? 'כן' : 'לא' }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> פירוט אביזרי הדרכה : </strong>
                   {{ needs?.detailedIGuideItems }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> פירוט אביזרי ביגוד : </strong>
                   {{ needs?.detailedClothing }}
                 </p>
 
-                <p class="card-text col-4">
+                <p class="card-text col-xl-4">
                   <strong> פירוט אביזרי ביגוד : </strong>
                   {{ needs?.foodDescription }}
                 </p>
 
-                <p class="card-text col-3">
+                <p class="card-text col-xl-3">
                   <strong> מקום לינה : </strong>
                   {{ needs?.sleepingLocation }}
                 </p>

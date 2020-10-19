@@ -8,28 +8,31 @@
     direction: rtl;
 }
 
-table thead tr th:first-child, table tbody tr td:first-child {
+table {
+    width: 100%;
+}
+
+table tbody tr td:nth-child(n) {
     flex: 0 0 100% !important;
-    width: 10% !important;
-    text-align: right;
+    width: 25% !important;
+    height: 75px;
     font-weight: bold;
 }
 
-table tbody tr td:nth-child(2), table thead tr th:nth-child(2) {
+table thead tr th:first-child, table tbody tr td:first-child {
+    text-align: right;
     flex: 0 0 100% !important;
-    width: 25% !important;
+    width: 10% !important;
 }
 
 table thead tr {
-    text-align: center;
+    height: 75px;
+    background-color: #333;
 }
 
-table tr:nth-child(even) {
-    background: #ccc;
-}
-
-table tr:nth-child(odd) {
-    background: #f8f8f8;
+table thead tr th {
+    color: #fff;
+    text-align: center !important;
 }
 
 table tr:hover {
@@ -60,7 +63,9 @@ table .form-group .far.fa-trash-alt:hover {
     color: #fff;
 }
 
-
+.show {
+    display: none;
+}
 
 @media only screen and (max-width: 599px) {
     :host {
@@ -76,8 +81,9 @@ table .form-group .far.fa-trash-alt:hover {
     table tbody tr {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 75%;
         border-radius: 1px;
+        margin: 0 auto;
         margin-bottom: 16px;
         border-top: 2px solid #ccc;
     }
@@ -104,6 +110,10 @@ table .form-group .far.fa-trash-alt:hover {
 
     table tbody tr td:nth-child(5) i.fa-trash-alt {
         color: #fff;
+    }
+
+    ::ng-deep select.custom-select {
+        width: 75%;
     }
 
   }

@@ -269,3 +269,62 @@ button {
   border: none;
   background: transparent;
 }
+
+@media screen and (max-width: 599px) {
+
+  .cards-wrapper .activities {
+    padding: 0; 
+    min-height: 120vh;
+  }
+
+  .cards-wrapper .activities .activities-list {
+    flex-direction: column;   
+  }
+
+  .cards-wrapper .activities .activities-list .card {
+    width: 85%;
+    left: 50%;
+    right: 0 !important;
+    transform: translate(-50%, 0%);
+  }
+
+  .cards-wrapper .activities .arrow.prev {
+    left: 3px;
+    top: -93px;
+  }
+
+  .cards-wrapper .activity-sort {
+    width: 90%;
+  }
+  
+  .cards-wrapper .activities .arrow.next {
+    right: 3px;
+    top: -93px;
+  }
+
+  .cards-wrapper .activities .arrow i {
+    font-size: 32px;
+  }
+  .cards-wrapper .activities .activities-list .card h2 {
+    font-size: 30px;
+  }
+
+ .message h2{
+    font-size: 40px;
+  }
+
+  @keyframes card-animation {
+    0% {
+      top: 5px;
+    }
+  }
+  
+  div.card:not(:last-child) {
+    margin-left: 0 !important;
+    margin-top: 350px;
+  }
+  
+  div.card:first-child:hover {
+    transform: none;
+  }
+}
