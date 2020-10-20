@@ -204,7 +204,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
     this.activity.status = 'active';
 
     this.activity.mapLocation = this.location;
-
+    console.log(this.editable.isEditAndCreate);
     if (this.editable.isEditAndCreate) {
       const SHARED_DATA = {
         activityId: this.activity._id,

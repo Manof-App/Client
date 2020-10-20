@@ -14,7 +14,7 @@
 
           <div class="options">
             <button
-              [routerLink]="['/activities/manage-activity']"
+              (click)="createNewActivity()"
               class="btn btn-primary btn-block"
               [ngClass]="{ showButtons: showActivityOptions }"
             >
