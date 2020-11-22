@@ -2,7 +2,7 @@
 <app-pop-up-message *ngIf="showServerMessage" [message]="message" [responseType]="responseType"></app-pop-up-message>
 
 <table class="table-striped table-condensed">
-  <thead class="thead-dark" [ngClass]="{'show': isMobile === true}">
+  <thead class="thead-dark" [ngClass]="{ show: isMobile === true }">
     <tr>
       <th scope="col">מספר משימה</th>
       <th scope="col">שם עובד</th>
@@ -13,23 +13,18 @@
   </thead>
   <tbody *ngFor="let user of users; index as i">
     <tr>
-
       <td scope="row">
-        <div class="form-group">
-          {{ i + 1 }}.
-        </div>
+        <div class="form-group">{{ i + 1 }}.</div>
       </td>
-   
+
       <td>
-        <div class="form-group">
-          {{ user?.lastName }} {{ user?.firstName }}
-        </div>
+        <div class="form-group">{{ user?.lastName }} {{ user?.firstName }}</div>
       </td>
-    
+
       <td style="vertical-align: center !important">
-       <div class="form-group">
-         {{ user?.email }}
-       </div>
+        <div class="form-group">
+          {{ user?.email }}
+        </div>
       </td>
 
       <td>
@@ -47,7 +42,6 @@
           <i class="far fa-trash-alt fa-2x" (click)="deleteUser($event, i)"></i>
         </div>
       </td>
-
     </tr>
   </tbody>
 </table>

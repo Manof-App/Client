@@ -23,14 +23,11 @@ import { AuthService } from './services/authorization/authService/auth.service';
 import { TokenInterceptorService } from './services/authorization/token-interceptor/token-interceptor.service';
 import { HttpInterceptorService } from './services/authorization/http-interceptor/http-interceptor.service';
 
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-
 import { AppComponent } from './app.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -42,6 +39,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { ManageUsersComponent } from './components/settings/manage-users/manage-users.component';
 import { UsersComponent } from './components/users/users.component';
 import { ManageActivitiesComponent } from './components/settings/manage-activities/manage-activities.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +47,6 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
     NavbarComponent,
     FooterComponent,
     LayoutComponent,
-    SidebarComponent,
     SettingsComponent,
     NotFoundComponent,
     DashboardComponent,
@@ -60,6 +57,7 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
     ManageUsersComponent,
     UsersComponent,
     ManageActivitiesComponent,
+    StatisticsComponent,
   ],
   entryComponents: [MatDialogModule],
   imports: [
@@ -75,7 +73,6 @@ import { ManageActivitiesComponent } from './components/settings/manage-activiti
     ReactiveFormsModule,
     LazyLoadImageModule,
     BrowserAnimationsModule,
-
   ],
   exports: [],
   bootstrap: [AppComponent],

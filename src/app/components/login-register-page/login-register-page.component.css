@@ -3,14 +3,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: url("../../../assets/images/bgImage.jpg") no-repeat center center/cover;
+  background: url('../../../assets/images/bgImage.jpg') no-repeat center center/cover;
   box-sizing: border-box;
   width: 100%;
   margin: 0;
   min-height: 100vh;
 }
 
-::-webkit-input-placeholder, ::-webkit-input {
+::-webkit-input-placeholder,
+::-webkit-input {
   text-align: center;
 }
 
@@ -54,7 +55,8 @@ input {
   font-size: 20px;
 }
 
-.forms-wrapper .forms, .forms-wrapper .description {
+.forms-wrapper .forms,
+.forms-wrapper .description {
   flex: 0 0 50%;
   min-height: 480px;
   padding: 20px;
@@ -110,15 +112,18 @@ input {
   transform: translateX(100%);
 }
 
-.forms-wrapper.register-active .forms .login, .forms-wrapper.register-active .description .login {
+.forms-wrapper.register-active .forms .login,
+.forms-wrapper.register-active .description .login {
   display: none;
 }
 
-.forms-wrapper .forms .register, .forms-wrapper .description .register {
+.forms-wrapper .forms .register,
+.forms-wrapper .description .register {
   display: none;
 }
 
-.forms-wrapper.register-active .forms .register, .forms-wrapper.register-active .description .register {
+.forms-wrapper.register-active .forms .register,
+.forms-wrapper.register-active .description .register {
   display: block;
 }
 
@@ -142,7 +147,8 @@ input {
   pointer-events: none;
 }
 
-.forms-wrapper .forms .form-links .form-link.active, .forms-wrapper .forms .form-links .form-link:hover {
+.forms-wrapper .forms .form-links .form-link.active,
+.forms-wrapper .forms .form-links .form-link:hover {
   border-bottom: 2px solid #06cb77;
 }
 
@@ -199,7 +205,10 @@ input {
   align-items: center;
 }
 
-.description .login h1, .description .login p, .description .register h1, .description .register p {
+.description .login h1,
+.description .login p,
+.description .register h1,
+.description .register p {
   color: #f4f4f4;
 }
 
@@ -215,7 +224,7 @@ input {
 
 @media screen and (max-width: 1199px) {
   .forms-wrapper {
-    width: 75%
+    width: 75%;
   }
   .forms-wrapper .forms form input {
     width: 90%;
@@ -224,15 +233,16 @@ input {
 
 @media screen and (max-width: 899px) {
   .forms-wrapper {
-    width: 85%
+    width: 85%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .forms-wrapper {
-    width: 60%
+    width: 60%;
   }
-  .forms-wrapper .forms, .forms-wrapper .description {
+  .forms-wrapper .forms,
+  .forms-wrapper .description {
     min-height: initial;
   }
   .forms-wrapper .description {

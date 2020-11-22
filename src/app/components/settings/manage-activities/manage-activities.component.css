@@ -1,46 +1,47 @@
 :host {
-    width: 75%;
-    margin: 0 auto;
-    margin-top: 2rem;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 2rem;
 }
 
 * {
-    direction: rtl;
+  direction: rtl;
 }
 
 .activity {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .activity button.btn {
-    width: 175px;
-    font-weight: bold;
+  width: 175px;
+  font-weight: bold;
 }
 
 .activity div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .activity div label {
-    display: inline-block;
-    width: 100%;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
+  display: inline-block;
+  width: 100%;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
 }
 
 .activity div p {
-    margin: 0;
-    vertical-align: middle;
+  margin: 0;
+  vertical-align: middle;
 }
 
 @media only screen and (max-width: 599px) {
-  .name label, .id label {
+  .name label,
+  .id label {
     margin: 0;
   }
 

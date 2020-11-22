@@ -47,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
           this.displayServerMessage('success', 'בדוק את חשבון המייל שלך');
         },
         (error) => {
-          // console.log(error)
+          console.log(error);
           this.displayServerMessage('error', 'חשבון האימייל אשר הוזן אינו קיים');
         }
       );

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ActivityEditing } from 'src/app/models/ActivityEditing';
 import { ActivitiesService } from '../../services/activities/activities.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

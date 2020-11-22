@@ -21,20 +21,23 @@ a:hover {
   color: #06cb77;
 }
 
-.fas.fa-tasks, .fas.fa-user-edit, .fas.fa-user-circle {
+.fas.fa-tasks,
+.fas.fa-user-edit,
+.fas.fa-user-circle {
   display: inline-block;
   margin-bottom: 1rem;
   color: #06cb77;
 }
 
-.fas.fa-tasks:hover, .fas.fa-user-edit:hover {
+.fas.fa-tasks:hover,
+.fas.fa-user-edit:hover {
   transform: scale(1.3);
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .fas.fa-user-circle:hover {
   transform: scale(1.1);
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 div.wrapper {
@@ -84,7 +87,9 @@ div.inner-wrap.profile {
   justify-content: center;
 }
 
-div.inner-wrap.profile h3, div.inner-wrap.profile p, div.inner-wrap.profile a {
+div.inner-wrap.profile h3,
+div.inner-wrap.profile p,
+div.inner-wrap.profile a {
   margin: 0;
 }
 

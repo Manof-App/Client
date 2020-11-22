@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   responseType: string;
   showServerMessage: boolean;
 
-  constructor(private formBuilder: FormBuilder, private userService: UsersService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UsersService) {}
 
   ngOnInit(): void {
     this.showForm = false;

@@ -25,8 +25,7 @@ export class UsersService {
   }
 
   deleteUser(user: User): Observable<void> {
-    const userId = user.userId;
-    return this.httpClient.delete<void>(`${this.baseUrl}/users/${userId}`);
+    return this.httpClient.delete<void>(`${this.baseUrl}/users/${user.userId}`);
   }
 
   updateUser(updates: any): Observable<User> {
@@ -34,7 +33,6 @@ export class UsersService {
   }
 
   updateUserRole(user: User): Observable<User> {
-    console.log(user.role);
     return this.httpClient.patch<User>(`${this.baseUrl}/users/role`, user);
   }
 

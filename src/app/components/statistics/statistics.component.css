@@ -1,0 +1,25 @@
+.container {
+  max-width: 100%;
+  min-height: 800px;
+  background: #fff;
+  margin: 0;
+  padding: 2rem;
+}
+
+div.group-a,
+div.group-b {
+  display: flex;
+  justify-content: center;
+}
+
+div#divChart {
+  background-color: #f8f7f7f7;
+  border: 10px solid #fff;
+  max-width: 700px;
+}
+
+canvas#myChartA,
+canvas#myChartB,
+canvas#myChartC,
+canvas#myChartD {
+}

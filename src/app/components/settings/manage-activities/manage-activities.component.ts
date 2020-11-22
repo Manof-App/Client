@@ -21,7 +21,7 @@ export class ManageActivitiesComponent implements OnInit {
   showServerMessage: boolean;
   showConfirmBox: boolean;
 
-  constructor(private activitiesService: ActivitiesService) { }
+  constructor(private activitiesService: ActivitiesService) {}
 
   ngOnInit(): void {
     this.initClassVariables();

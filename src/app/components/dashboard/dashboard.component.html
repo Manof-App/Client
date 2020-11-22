@@ -2,30 +2,16 @@
   <section class="showcase">
     <div class="container">
       <div class="row">
-        <div
-          class="col-lg-7 col-10 showcase-content"
-          [ngClass]="{ expandWrapper: showActivityOptions }"
-        >
+        <div class="col-lg-7 col-10 showcase-content" [ngClass]="{ expandWrapper: showActivityOptions }">
           <h1 dir="rtl">ברוך הבא - מערכת מנוף</h1>
-          <button
-            class="btn btn-primary btn-block mb-5"
-            (click)="toggleActivity()">יצירת פעילות
-          </button>
+          <button class="btn btn-primary btn-block mb-5" (click)="toggleActivity()">יצירת פעילות</button>
 
           <div class="options">
-            <button
-              (click)="createNewActivity()"
-              class="btn btn-primary btn-block"
-              [ngClass]="{ showButtons: showActivityOptions }"
-            >
+            <button (click)="createNewActivity()" class="btn btn-primary btn-block" [ngClass]="{ showButtons: showActivityOptions }">
               צור פעילות חדשה
             </button>
 
-            <button
-              routerLink="/activities"
-              class="btn btn-primary btn-block"
-              [ngClass]="{ showButtons: showActivityOptions }"
-            >
+            <button routerLink="/activities" class="btn btn-primary btn-block" [ngClass]="{ showButtons: showActivityOptions }">
               צור על בסיס פעילות קודמת
             </button>
           </div>

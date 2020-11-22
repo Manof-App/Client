@@ -4,7 +4,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { User } from '../../../models/User';
 import { UsersService } from '../../../services/users/users.service';
 
-
 @Component({
   selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
@@ -33,7 +32,6 @@ export class ManageUsersComponent implements OnInit {
   }
 
   initUser() {
-
     this.user = {
       role: '',
     };
@@ -63,12 +61,15 @@ export class ManageUsersComponent implements OnInit {
             // display user message
             this.user.role = e.target.value;
             user.role = this.user.role;
-            this.userService.updateUserRole(user).subscribe((data: User) => {
-              this.user = data;
-            }, (error) => {
-              console.log(error);
-              this.displayServerMessage('error', 'משהו השתבש, הפעולה לא התאפשרה');
-            });
+            this.userService.updateUserRole(user).subscribe(
+              (data: User) => {
+                this.user = data;
+              },
+              (error) => {
+                console.log(error);
+                this.displayServerMessage('error', 'משהו השתבש, הפעולה לא התאפשרה');
+              }
+            );
           } else {
             this.displayServerMessage('error', 'לא ניתן לשנות גישה לעצמך');
           }
@@ -93,16 +94,19 @@ export class ManageUsersComponent implements OnInit {
         if (this.index === i) {
           if (this.connectedUser !== user.email) {
             if (user.role !== 'מנהל מחלקה') {
-              this.userService.deleteUser(user).subscribe((data: void) => {
-                console.log(data);
-                this.showConfirmBox = !this.showConfirmBox;
-                this.displayServerMessage('success', 'משתמש נמחק בהצלחה');
-                this.getUsers();
-              }, (error) => {
-                console.log(error);
-                this.showConfirmBox = !this.showConfirmBox;
-                this.displayServerMessage('error', 'משהו השתבש, הפעולה לא התאפשרה');
-              });
+              this.userService.deleteUser(user).subscribe(
+                (data: void) => {
+                  // console.log(data);
+                  this.showConfirmBox = !this.showConfirmBox;
+                  this.displayServerMessage('success', 'משתמש נמחק בהצלחה');
+                  this.getUsers();
+                },
+                (error) => {
+                  console.log(error);
+                  this.showConfirmBox = !this.showConfirmBox;
+                  this.displayServerMessage('error', 'משהו השתבש, הפעולה לא התאפשרה');
+                }
+              );
             } else {
               this.showConfirmBox = !this.showConfirmBox;
               this.displayServerMessage('error', 'לא ניתן למחוק משתמש בעל הרשאת מנהל מחלקה');

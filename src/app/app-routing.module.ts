@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './components/users/users.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -44,11 +45,14 @@ const routes: Routes = [
       },
 
       {
+        path: 'statistics',
+        component: StatisticsComponent,
+        canActivate: [AuthGuard],
+      },
+
+      {
         path: 'activities',
-        loadChildren: () =>
-          import('./activities-components/activities.module').then(
-            (m) => m.ActivitiesModule
-          ),
+        loadChildren: () => import('./activities-components/activities.module').then((m) => m.ActivitiesModule),
         canActivate: [AuthGuard],
       },
     ],
